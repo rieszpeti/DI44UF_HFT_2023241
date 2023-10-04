@@ -10,7 +10,7 @@ namespace DI44UF_HFT_2023241.Models
     /// When it happend etc
     /// What items got it
     /// </summary>
-    public class ApiCalledWebsite
+    public class ApiCalledWebsite : IApiCalledWebsite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,7 +21,7 @@ namespace DI44UF_HFT_2023241.Models
         [NotMapped]
         public TimeSpan CrawleProcessTime
         {
-            get 
+            get
             {
                 return ApiCallStartTime - ApiCallEndTime;
             }

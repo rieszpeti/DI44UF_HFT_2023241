@@ -6,7 +6,7 @@ namespace DI44UF_HFT_2023241.Models
     /// <summary>
     /// The pages that will be crawled
     /// </summary>
-    public class WebSiteDto
+    public class WebSiteDto : IWebSite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

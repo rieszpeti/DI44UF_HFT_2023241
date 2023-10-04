@@ -6,7 +6,7 @@ namespace DI44UF_HFT_2023241.Models
     /// <summary>
     /// The pages that will be called
     /// </summary>
-    public class WebSite
+    public class WebSite : IWebSite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

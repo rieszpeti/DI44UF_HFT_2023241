@@ -10,7 +10,7 @@ namespace DI44UF_HFT_2023241.Models
     /// When it happend etc
     /// What items got it
     /// </summary>
-    public class ApiCalledWebsiteDto
+    public class ApiCalledWebsiteDto : IApiCalledWebsite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

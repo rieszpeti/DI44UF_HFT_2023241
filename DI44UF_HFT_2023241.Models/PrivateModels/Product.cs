@@ -5,7 +5,7 @@ namespace DI44UF_HFT_2023241.Models
     /// <summary>
     /// products
     /// </summary>
-    public class Product
+    public class Product : IProduct
     {
         public int Id { get; init; }
         public string Name { get; init; }
