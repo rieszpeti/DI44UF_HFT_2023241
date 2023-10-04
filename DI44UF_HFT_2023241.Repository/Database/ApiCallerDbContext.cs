@@ -4,13 +4,13 @@ using System.Data;
 
 namespace DI44UF_HFT_2023241.Repository
 {
-    public class CrawlerDbContext : DbContext
+    public class ApiCallerDbContext : DbContext
     {
-        public DbSet<WebPage> WebPages { get; set; }
-        public DbSet<CrawledWebPage> CrawledWebPages { get; set; }
+        public DbSet<WebSite> WebPages { get; set; }
+        public DbSet<ApiCalledWebsite> ApiCalledWebsites { get; set; }
         public DbSet<Product> Products { get; set; }
 
-        public CrawlerDbContext()
+        public ApiCallerDbContext()
         {
             this.Database.EnsureCreated();
         }
@@ -55,9 +55,9 @@ namespace DI44UF_HFT_2023241.Repository
             //    .HasForeignKey(r => r.MovieId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<WebPage>().HasData(new WebPage[] { });
+            modelBuilder.Entity<WebSite>().HasData(new WebSite[] { });
 
-            modelBuilder.Entity<CrawledWebPage>().HasData(new CrawledWebPage[] { });
+            modelBuilder.Entity<ApiCalledWebsite>().HasData(new ApiCalledWebsite[] { });
 
             modelBuilder.Entity<Product>().HasData(new Product[] { });
         }

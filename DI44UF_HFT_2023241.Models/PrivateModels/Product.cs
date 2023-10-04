@@ -3,7 +3,7 @@
 namespace DI44UF_HFT_2023241.Models
 {
     /// <summary>
-    /// Crawled products
+    /// products
     /// </summary>
     public class Product
     {

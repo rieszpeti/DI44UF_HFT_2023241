@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace DI44UF_HFT_2023241.Models
 {
     /// <summary>
-    /// The pages that will be crawled
+    /// The pages that will be called
     /// </summary>
-    public class WebPage
+    public class WebSite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

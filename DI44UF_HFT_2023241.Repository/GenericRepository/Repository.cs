@@ -9,8 +9,8 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected CrawlerDbContext ctx;
-        public Repository(CrawlerDbContext ctx)
+        protected ApiCallerDbContext ctx;
+        public Repository(ApiCallerDbContext ctx)
         {
             this.ctx = ctx;
         }

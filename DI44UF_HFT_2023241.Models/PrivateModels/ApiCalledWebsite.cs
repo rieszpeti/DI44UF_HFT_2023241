@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations;
 namespace DI44UF_HFT_2023241.Models
 {
     /// <summary>
-    /// Get information from Crawled Webpages
-    /// You have to crawl a webpage multiple times
+    /// Get information from websites
+    /// You have to call api from a webpage multiple times
     /// When it happend etc
     /// What items got it
     /// </summary>
-    public class CrawledWebPage
+    public class ApiCalledWebsite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
