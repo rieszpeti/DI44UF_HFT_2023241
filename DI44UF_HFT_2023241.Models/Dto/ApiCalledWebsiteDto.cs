@@ -10,20 +10,20 @@ namespace DI44UF_HFT_2023241.Models
     /// When it happend etc
     /// What items got it
     /// </summary>
-    public class CrawledWebPageDto
+    public class ApiCalledWebsiteDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; init; }
-        public DateTime CrawlStartTime { get; init; }
-        public DateTime CrawlStartEnd { get; init; }
+        public DateTime ApiCallStartTime { get; init; }
+        public DateTime ApiCallEndTime { get; init; }
 
         [NotMapped]
         public TimeSpan CrawleProcessTime
         {
             get 
             {
-                return CrawlStartEnd - CrawlStartTime;
+                return ApiCallStartTime - ApiCallEndTime;
             }
         }
     }
