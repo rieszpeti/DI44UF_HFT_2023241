@@ -6,7 +6,7 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public class ApiCallerDbContext : DbContext
     {
-        public DbSet<WebSite> WebPages { get; set; }
+        public DbSet<WebSite> Websites { get; set; }
         public DbSet<ApiCalledWebsite> ApiCalledWebsites { get; set; }
         public DbSet<Product> Products { get; set; }
 
