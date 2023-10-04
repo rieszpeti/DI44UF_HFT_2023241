@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieDbApp.Repository
+namespace DI44UF_HFT_2023241.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
