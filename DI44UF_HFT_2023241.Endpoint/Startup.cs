@@ -47,7 +47,13 @@ namespace DI44UF_HFT_2023241.Endpoint
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DI44UF_HFT_2023241.Endpoint", Version = "v1" });
+                c.SwaggerDoc(
+                    "v1", 
+                    new OpenApiInfo 
+                    { 
+                        Title = "DI44UF_HFT_2023241.Endpoint", 
+                        Version = "v1" 
+                    });
             });
         }
 
