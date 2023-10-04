@@ -1,10 +1,10 @@
 ﻿using ConsoleTools;
-using DI44UF_HFT_2023241.Client;
 using DI44UF_HFT_2023241.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace DI44UF_HFT_2023241C.Client
+namespace DI44UF_HFT_2023241.Client
 {
     internal class Program
     {

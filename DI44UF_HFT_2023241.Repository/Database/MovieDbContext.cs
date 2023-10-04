@@ -1,5 +1,6 @@
-﻿using DI44UF_HFT_2023241.Models;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
+using DI44UF_HFT_2023241.Models;
 
 namespace DI44UF_HFT_2023241.Repository
 {

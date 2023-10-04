@@ -1,8 +1,8 @@
-﻿using DI44UF_HFT_2023241.Models;
-using DI44UF_HFT_2023241.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DI44UF_HFT_2023241.Models;
+using DI44UF_HFT_2023241.Repository;
 
 namespace DI44UF_HFT_2023241.Logic
 {
@@ -78,6 +78,28 @@ namespace DI44UF_HFT_2023241.Logic
             public int Year { get; set; }
             public double? AvgRating { get; set; }
             public int MovieNumber { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                YearInfo b = obj as YearInfo;
+                if (b == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.Year == b.Year
+                        && this.AvgRating == b.AvgRating
+                        && this.MovieNumber == b.MovieNumber;
+                }
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(this.Year, this.AvgRating, this.MovieNumber);
+            }
         }
+
+
     }
 }
