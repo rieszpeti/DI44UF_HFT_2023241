@@ -13,7 +13,7 @@ namespace DI44UF_HFT_2023241.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; init; }
         public string Url { get; init; } = null!;
-        public string SafeToCallApi { get; set; } = null!;
+        public bool SafeToCallApi { get; set; }
 
         public virtual ICollection<ApiCalledWebsite> ApiCalledWebsites { get; set; }
         public virtual ICollection<Product> Products { get; set; }
@@ -23,7 +23,7 @@ namespace DI44UF_HFT_2023241.Models
             
         }
 
-        public WebSite(string url, string safeToCrawl)
+        public WebSite(string url, bool safeToCrawl)
         {
             Url = url;
             SafeToCallApi = safeToCrawl;

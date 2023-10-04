@@ -1,5 +1,6 @@
 ﻿using DI44UF_HFT_2023241.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Data;
 
 namespace DI44UF_HFT_2023241.Repository
@@ -55,12 +56,37 @@ namespace DI44UF_HFT_2023241.Repository
             modelBuilder.Entity<WebSite>().HasData(
                 new WebSite[] 
                 { 
-                    new WebSite { }
+                    new WebSite 
+                    { 
+                        Id = 1,
+                        Url = "etsy", 
+                        SafeToCallApi = true 
+                    }
                 });
 
-            modelBuilder.Entity<ApiCalledWebsite>().HasData(new ApiCalledWebsite[] { });
+            modelBuilder.Entity<ApiCalledWebsite>().HasData(
+                new ApiCalledWebsite[] 
+                { 
+                    new ApiCalledWebsite 
+                    { 
+                        Id = 1,
+                        ApiCallStartTime = DateTime.Now,
+                        ApiCallEndTime = DateTime.Now + TimeSpan.FromSeconds(5)
+                    }
+                });
 
-            modelBuilder.Entity<Product>().HasData(new Product[] { });
+            modelBuilder.Entity<Product>().HasData(
+                new Product[]
+                {
+                    new Product
+                    {
+                        Id = 1,
+                        Description = "nice",
+                        WebsiteId = 1,
+                        Name = "nice Name",
+                        Size = "xl",
+                    }
+                });
         }
     }
 }

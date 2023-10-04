@@ -12,6 +12,6 @@ namespace DI44UF_HFT_2023241.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; init; }
         public string Url { get; init; } = null!;
-        public string SafeToCallApi { get; set; } = null!;
+        public bool SafeToCallApi { get; set; }
     }
 }
