@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI44UF_HFT_2023241.Logic", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI44UF_HFT_2023241.Repository", "DI44UF_HFT_2023241.Repository\DI44UF_HFT_2023241.Repository.csproj", "{103DAA7D-9537-496B-A843-2E399CC587D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI44UF_HFT_2023241.Test", "DI44UF_HFT_2023241.Test\DI44UF_HFT_2023241.Test.csproj", "{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{103DAA7D-9537-496B-A843-2E399CC587D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{103DAA7D-9537-496B-A843-2E399CC587D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{103DAA7D-9537-496B-A843-2E399CC587D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
