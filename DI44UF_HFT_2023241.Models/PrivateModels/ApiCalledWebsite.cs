@@ -19,9 +19,8 @@ namespace DI44UF_HFT_2023241.Models
         public DateTime ApiCallStartTime { get; init; }
         public DateTime ApiCallEndTime { get; init; }
 
-        public virtual WebSite WebSite { get; set; }
         public int WebsiteId { get; set; }
-
+        public virtual WebSite WebSite { get; set; }
 
         [NotMapped]
         public TimeSpan CrawleProcessTime
@@ -35,6 +34,19 @@ namespace DI44UF_HFT_2023241.Models
         public ApiCalledWebsite()
         {
             
+        }
+
+        public ApiCalledWebsite(DateTime apiCallStartTime, DateTime apiCallEndTime)
+        {
+            ApiCallStartTime = apiCallStartTime;
+            ApiCallEndTime = apiCallEndTime;
+        }
+
+        public ApiCalledWebsite(DateTime apiCallStartTime, DateTime apiCallEndTime, int websiteId)
+        {
+            ApiCallStartTime = apiCallStartTime;
+            ApiCallEndTime = apiCallEndTime;
+            WebsiteId = websiteId;
         }
     }
 }

@@ -3,7 +3,7 @@
     public interface IWebSite
     {
         int Id { get; init; }
-        string SafeToCrawl { get; set; }
+        string SafeToCallApi { get; set; }
         string Url { get; init; }
     }
 }

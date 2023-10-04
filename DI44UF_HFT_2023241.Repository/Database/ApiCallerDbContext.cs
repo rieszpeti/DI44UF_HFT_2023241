@@ -28,34 +28,35 @@ namespace DI44UF_HFT_2023241.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            //modelBuilder.Entity<Movie>(movie => movie
-            //    .HasOne(movie => movie.Director)
-            //    .WithMany(director => director.Movies)
-            //    .HasForeignKey(movie => movie.DirectorId)
-            //    .OnDelete(DeleteBehavior.Cascade));
+            modelBuilder.Entity<WebSite>(w => w
+                .HasMany(w => w.Products)
+                .WithOne(p => p.Website)
+                .HasForeignKey(p => p.WebsiteId));
 
-            //modelBuilder.Entity<Actor>()
-            //    .HasMany(x => x.Movies)
-            //    .WithMany(x => x.Actors)
+            //modelBuilder.Entity<WebSite>()
+            //    .HasMany(x => x.Products)
+            //    .WithMany(x => x.Websites)
             //    .UsingEntity<Role>(
             //        x => x.HasOne(x => x.Movie)
             //            .WithMany().HasForeignKey(x => x.MovieId).OnDelete(DeleteBehavior.Cascade),
             //        x => x.HasOne(x => x.Actor)
             //            .WithMany().HasForeignKey(x => x.ActorId).OnDelete(DeleteBehavior.Cascade));
 
-            //modelBuilder.Entity<Role>()
-            //    .HasOne(r => r.Actor)
-            //    .WithMany(actor => actor.Roles)
-            //    .HasForeignKey(r => r.ActorId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<WebSite>(w => w
+                .HasMany(w => w.ApiCalledWebsites)
+                .WithOne(p => p.WebSite)
+                .HasForeignKey(p => p.WebsiteId));
 
-            //modelBuilder.Entity<Role>()
-            //    .HasOne(r => r.Movie)
-            //    .WithMany(movie => movie.Roles)
-            //    .HasForeignKey(r => r.MovieId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Product>(p => p
+                .HasOne(w => w.Website)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.WebsiteId));
 
-            modelBuilder.Entity<WebSite>().HasData(new WebSite[] { });
+            modelBuilder.Entity<WebSite>().HasData(
+                new WebSite[] 
+                { 
+                    new WebSite { }
+                });
 
             modelBuilder.Entity<ApiCalledWebsite>().HasData(new ApiCalledWebsite[] { });
 

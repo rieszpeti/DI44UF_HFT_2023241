@@ -15,11 +15,28 @@ namespace DI44UF_HFT_2023241.Models
         public string Size { get; set; }
 
         public int WebsiteId { get; init; }
-        public virtual ICollection<WebSite> Website { get; set; }
+        public virtual WebSite Website { get; set; }
 
         public Product()
         {
             
+        }
+
+        public Product(int id, string name, string description, string size)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Size = size;
+        }
+
+        public Product(int id, string name, string description, string size, int websiteId)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Size = size;
+            WebsiteId = websiteId;
         }
     }
 }
