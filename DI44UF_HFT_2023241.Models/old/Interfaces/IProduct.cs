@@ -1,4 +1,4 @@
-﻿namespace DI44UF_HFT_2023241.Models
+﻿namespace DI44UF_HFT_2023241.Models.Old
 {
     public interface IProduct
     {

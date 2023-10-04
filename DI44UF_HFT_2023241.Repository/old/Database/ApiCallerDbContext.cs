@@ -1,9 +1,9 @@
-﻿using DI44UF_HFT_2023241.Models;
+﻿using DI44UF_HFT_2023241.Models.Old;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 
-namespace DI44UF_HFT_2023241.Repository
+namespace DI44UF_HFT_2023241.Repository.Old
 {
     public class ApiCallerDbContext : DbContext
     {

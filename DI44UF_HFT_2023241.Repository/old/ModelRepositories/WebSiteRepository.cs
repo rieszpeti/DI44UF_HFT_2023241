@@ -1,21 +1,20 @@
-﻿using DI44UF_HFT_2023241.Models;
-using System.Linq;
+﻿using DI44UF_HFT_2023241.Models.Old;
 
-namespace DI44UF_HFT_2023241.Repository
+namespace DI44UF_HFT_2023241.Repository.Old
 {
-    public class ApiCalledWebsiteRepository : Repository<IApiCalledWebsite>, IRepository<IApiCalledWebsite>
+    public class WebSiteRepository : Repository<IWebSite>, IRepository<IWebSite>
     {
-        public ApiCalledWebsiteRepository(ApiCallerDbContext ctx) : base(ctx)
+        public WebSiteRepository(ApiCallerDbContext ctx) : base(ctx)
         {
         }
 
-        public override IApiCalledWebsite Read(int id)
+        public override IWebSite Read(int id)
         {
             return null;
             //return ctx.WebSite.FirstOrDefault(t => t.Id == id);
         }
 
-        public override void Update(IApiCalledWebsite item)
+        public override void Update(IWebSite item)
         {
             //var old = Read(item.ActorId);
             //foreach (var prop in old.GetType().GetProperties())

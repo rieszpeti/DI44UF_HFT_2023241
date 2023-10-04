@@ -1,7 +1,7 @@
 ﻿using RestSharp;
 using System.Threading.Tasks;
 
-namespace DI44UF_HFT_2023241.Logic
+namespace DI44UF_HFT_2023241.Logic.Old
 {
     internal class ApiCaller
     {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Old
 {
     /// <summary>
     /// Get information from websites

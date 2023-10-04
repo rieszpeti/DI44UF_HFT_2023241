@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Old
 {
     /// <summary>
     /// The pages that will be called via API

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Old
 {
     /// <summary>
     /// Crawled products

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
-namespace DI44UF_HFT_2023241.Repository
+namespace DI44UF_HFT_2023241.Repository.Old
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected MovieDbContext ctx;
-        public Repository(MovieDbContext ctx)
+        protected ApiCallerDbContext ctx;
+        public Repository(ApiCallerDbContext ctx)
         {
             this.ctx = ctx;
         }
