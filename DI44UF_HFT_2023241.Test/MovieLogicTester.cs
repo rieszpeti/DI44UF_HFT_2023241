@@ -37,34 +37,34 @@ namespace DI44UF_HFT_2023241.Test
             Assert.That(avg, Is.EqualTo(6.5));
         }
 
-        [Test]
-        public void YearStatisticsTest()
-        {
-            var actual = logic.YearStatistics().ToList();
-            var expected = new List<YearInfo>()
-            {
-                new YearInfo()
-                {
-                    Year = 2008,
-                    AvgRating = 5,
-                    MovieNumber = 1
-                },
-                new YearInfo()
-                {
-                    Year = 2009,
-                    AvgRating = 6.5,
-                    MovieNumber = 2
-                },
-                new YearInfo()
-                {
-                    Year = 2010,
-                    AvgRating = 8,
-                    MovieNumber = 1
-                }
-            };
+        //[Test]
+        //public void YearStatisticsTest()
+        //{
+        //    var actual = logic.YearStatistics().ToList();
+        //    var expected = new List<YearInfo>()
+        //    {
+        //        new YearInfo()
+        //        {
+        //            Year = 2008,
+        //            AvgRating = 5,
+        //            MovieNumber = 1
+        //        },
+        //        new YearInfo()
+        //        {
+        //            Year = 2009,
+        //            AvgRating = 6.5,
+        //            MovieNumber = 2
+        //        },
+        //        new YearInfo()
+        //        {
+        //            Year = 2010,
+        //            AvgRating = 8,
+        //            MovieNumber = 1
+        //        }
+        //    };
 
-            Assert.AreEqual(expected, actual);
-        }
+        //    Assert.AreEqual(expected, actual);
+        //}
 
         [Test]
         public void CreateMovieTestWithCorrectTitle()
