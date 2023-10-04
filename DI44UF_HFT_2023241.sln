@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI44UF_HFT_2023241.Reposito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI44UF_HFT_2023241.Test", "DI44UF_HFT_2023241.Test\DI44UF_HFT_2023241.Test.csproj", "{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI44UF_HFT_2023241.Endpoint", "DI44UF_HFT_2023241.Endpoint\DI44UF_HFT_2023241.Endpoint.csproj", "{E83AB39A-F256-44DF-9058-91FCF6BE740C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C95DF9E-6CB4-4B84-8998-F0362036CC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E83AB39A-F256-44DF-9058-91FCF6BE740C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83AB39A-F256-44DF-9058-91FCF6BE740C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83AB39A-F256-44DF-9058-91FCF6BE740C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83AB39A-F256-44DF-9058-91FCF6BE740C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
