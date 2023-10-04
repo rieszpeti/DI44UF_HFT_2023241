@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace DI44UF_HFT_2023241.Client;
-
-internal class Program
+namespace DI44UF_HFT_2023241.Client
 {
-    static void Main(string[] args)
+    internal class Program
     {
-        Console.WriteLine("Hello World!");
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
     }
 }
