@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Models
 {
@@ -13,5 +14,13 @@ namespace DI44UF_HFT_2023241.Models
         public int Id { get; init; }
         public string Url { get; init; } = null!;
         public string SafeToCrawl { get; set; } = null!;
+
+        public virtual ICollection<ApiCalledWebsite> ApiCalledWebsites { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+
+        public WebSite()
+        {
+            
+        }
     }
 }
