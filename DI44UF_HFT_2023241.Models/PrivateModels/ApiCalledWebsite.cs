@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace DI44UF_HFT_2023241.Models
 {
@@ -18,6 +19,10 @@ namespace DI44UF_HFT_2023241.Models
         public DateTime ApiCallStartTime { get; init; }
         public DateTime ApiCallEndTime { get; init; }
 
+        public virtual WebSite WebSite { get; set; }
+        public int WebsiteId { get; set; }
+
+
         [NotMapped]
         public TimeSpan CrawleProcessTime
         {
@@ -25,6 +30,11 @@ namespace DI44UF_HFT_2023241.Models
             {
                 return ApiCallStartTime - ApiCallEndTime;
             }
+        }
+
+        public ApiCalledWebsite()
+        {
+            
         }
     }
 }

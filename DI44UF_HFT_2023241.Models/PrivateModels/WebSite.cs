@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DI44UF_HFT_2023241.Models
 {
     /// <summary>
-    /// The pages that will be called
+    /// The pages that will be called via API
     /// </summary>
     public class WebSite : IWebSite
     {
