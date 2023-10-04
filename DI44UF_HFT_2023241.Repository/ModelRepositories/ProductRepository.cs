@@ -2,19 +2,19 @@
 
 namespace DI44UF_HFT_2023241.Repository
 {
-    public class ProductRepository : Repository<Product>, IRepository<Product>
+    public class ProductRepository : Repository<IProduct>, IRepository<IProduct>
     {
         public ProductRepository(ApiCallerDbContext ctx) : base(ctx)
         {
         }
 
-        public override Product Read(int id)
+        public override IProduct Read(int id)
         {
             return null;
             //return ctx.WebSite.FirstOrDefault(t => t.Id == id);
         }
 
-        public override void Update(Product item)
+        public override void Update(IProduct item)
         {
             //var old = Read(item.ActorId);
             //foreach (var prop in old.GetType().GetProperties())
