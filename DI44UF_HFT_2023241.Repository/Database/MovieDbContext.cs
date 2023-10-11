@@ -11,6 +11,12 @@ namespace DI44UF_HFT_2023241.Repository
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Director> Directors { get; set; }
 
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+
         public MovieDbContext()
         {
             this.Database.EnsureCreated();
@@ -22,12 +28,29 @@ namespace DI44UF_HFT_2023241.Repository
             {
                 builder
                     .UseLazyLoadingProxies()
-                    .UseInMemoryDatabase("movie");
+                    .UseInMemoryDatabase("db");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Define the one-to-many relationship between Customer and Order
+            modelBuilder.Entity<Customer>()
+                .HasMany(c => c.Orders)
+                .WithOne(o => o.Customer)
+                .HasForeignKey(o => o.CustomerId);
+
+            // Define foreign key relationships for OrderItem
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderItemId);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Product)
+                .WithMany()
+                .HasForeignKey(oi => oi.Product_ID);
+
 
             modelBuilder.Entity<Movie>(movie => movie
                 .HasOne(movie => movie.Director)
