@@ -61,7 +61,7 @@ namespace DI44UF_HFT_2023241.Repository
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Products)
                 .WithMany(x => x.Orders)
-                .UsingEntity<OrderDetails>(
+                .UsingEntity<OrderDetail>(
                     x => x.HasOne(x => x.Product)
                         .WithMany().HasForeignKey(x => x.ProductId),
                     x => x.HasOne(x => x.Order)
@@ -113,9 +113,9 @@ namespace DI44UF_HFT_2023241.Repository
                 }
             });
 
-            modelBuilder.Entity<OrderDetails>().HasData(new OrderDetails[]
+            modelBuilder.Entity<OrderDetail>().HasData(new OrderDetail[]
             {
-                new OrderDetails
+                new OrderDetail
                 {
                     OrderItemId = 1,
                     OrderId = 1,

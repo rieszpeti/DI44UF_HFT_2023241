@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,9 +31,20 @@ namespace DI44UF_HFT_2023241.Repository
             ctx.SaveChanges();
         }
 
-        public abstract T Read(int id);
-        public abstract void Update(T item);
+        public T Read(int id)
+        {
+            return ctx.Set<T>().Find(id);
+        }
 
+        public void Update(T entity)
+        {
+            ctx.Update(entity);
+            ctx.SaveChanges();
+        }
+
+        public void Save()
+        { 
+            ctx.SaveChanges();
+        }
     }
-
 }
