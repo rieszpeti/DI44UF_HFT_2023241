@@ -9,7 +9,7 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public class RoleRepository : Repository<Role>, IRepository<Role>
     {
-        public RoleRepository(MovieDbContext ctx) : base(ctx)
+        public RoleRepository(OrderDbContext ctx) : base(ctx)
         {
         }
 

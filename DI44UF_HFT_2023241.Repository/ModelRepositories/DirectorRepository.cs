@@ -9,7 +9,7 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public class DirectorRepository : Repository<Director>, IRepository<Director>
     {
-        public DirectorRepository(MovieDbContext ctx) : base(ctx)
+        public DirectorRepository(OrderDbContext ctx) : base(ctx)
         {
         }
 

@@ -13,16 +13,17 @@ namespace DI44UF_HFT_2023241.Models
         public int OrderId { get; set; }
 
         [Required]
-        public DateTime OrderTime { get; set; }
+        public DateTime OrderDate { get; set; }
+
+        public DateTime ShippingDate { get; set; }
 
         [Required]
         public int Quantity { get; set; }
 
         [Required]
         public int CustomerId { get; set; }
-
         public virtual Customer Customer { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

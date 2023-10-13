@@ -9,7 +9,7 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public class ActorRepository : Repository<Actor>, IRepository<Actor>
     {
-        public ActorRepository(MovieDbContext ctx) : base(ctx)
+        public ActorRepository(OrderDbContext ctx) : base(ctx)
         {
         }
 

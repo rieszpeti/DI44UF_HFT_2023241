@@ -4,7 +4,7 @@ using DI44UF_HFT_2023241.Models;
 
 namespace DI44UF_HFT_2023241.Repository
 {
-    public class MovieDbContext : DbContext
+    public class OrderDbContext : DbContext
     {
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -14,10 +14,9 @@ namespace DI44UF_HFT_2023241.Repository
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
-
-        public MovieDbContext()
+        public OrderDbContext()
         {
             this.Database.EnsureCreated();
         }
@@ -34,23 +33,70 @@ namespace DI44UF_HFT_2023241.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define the one-to-many relationship between Customer and Order
+            modelBuilder.Entity<Customer>()
+                 .HasOne(c => c.Address)
+                 .WithMany(a => a.Customers)
+                 .HasForeignKey(c => c.AddressId);
+
             modelBuilder.Entity<Customer>()
                 .HasMany(c => c.Orders)
                 .WithOne(o => o.Customer)
                 .HasForeignKey(o => o.CustomerId);
 
-            // Define foreign key relationships for OrderItem
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Order)
-                .WithMany(o => o.OrderItems)
-                .HasForeignKey(oi => oi.OrderItemId);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Customer)
+                .WithMany(c => c.Orders)
+                .HasForeignKey(o => o.CustomerId);
 
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Product)
-                .WithMany()
-                .HasForeignKey(oi => oi.Product_ID);
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Products)
+                .WithMany(p => p.Orders);
 
+            modelBuilder.Entity<Customer>().HasData(new Customer[]
+            { 
+                new Customer 
+                { 
+                    CustomerId = 1,
+                    AddressId = 1,
+                    Name = "Foo",
+                }
+            });
+
+            modelBuilder.Entity<Address>().HasData(new Address[]
+            {
+                new Address
+                {
+                    AddressId = 1,
+                    PostalCode = "2023",
+                    Country = "HU",
+                    City = "Bp",
+                    Region = "Bp"
+                }
+            });
+
+            modelBuilder.Entity<Order>().HasData(new Order[]
+            {
+                new Order
+                {
+                    CustomerId = 1,
+                    OrderId = 1,
+                    OrderTime = DateTime.Now,
+                    Quantity = 1,
+                }
+            });
+
+
+            modelBuilder.Entity<Product>().HasData(new Product[]
+            {
+                new Product
+                {
+                    OrderId = 1,
+                    Description = "Test",
+                    Id = 1,
+                    Name = "Test",
+                    Size = "Test"
+                }
+            });
 
             modelBuilder.Entity<Movie>(movie => movie
                 .HasOne(movie => movie.Director)

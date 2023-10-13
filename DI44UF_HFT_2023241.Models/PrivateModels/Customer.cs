@@ -14,9 +14,15 @@ namespace DI44UF_HFT_2023241.Models
         [StringLength(240)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// assume customer has only one address
+        /// </summary>
         [Required]
-        public int Address { get; set; }
-        public ICollection<Order> Orders { get; } = new List<Order>();
+        public int AddressId { get; set; }
+        [Required]
+        public virtual Address Address { get; set; }
+
+        public virtual ICollection<Order> Orders { get; } = new List<Order>();
 
         public Customer()
         {
