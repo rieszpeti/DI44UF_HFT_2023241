@@ -23,6 +23,9 @@ namespace DI44UF_HFT_2023241.Models
         [Required]
         public string Country { get; set; }
 
+        [Required]
+        public string Street { get; set; }
+
         public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
     }
 }

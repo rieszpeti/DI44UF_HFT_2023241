@@ -9,42 +9,43 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected OrderDbContext ctx;
+        protected OrderDbContext _ctx;
         public Repository(OrderDbContext ctx)
         {
-            this.ctx = ctx;
+            _ctx = ctx;
         }
+
         public void Create(T item)
         {
-            ctx.Set<T>().Add(item);
-            ctx.SaveChanges();
+            _ctx.Set<T>().Add(item);
+            _ctx.SaveChanges();
         }
 
         public IQueryable<T> ReadAll()
         {
-            return ctx.Set<T>();
+            return _ctx.Set<T>();
         }
 
-        public void Delete(int id)
+        public void DeleteById(int id)
         {
-            ctx.Set<T>().Remove(Read(id));
-            ctx.SaveChanges();
+            _ctx.Set<T>().Remove(ReadById(id));
+            _ctx.SaveChanges();
         }
 
-        public T Read(int id)
+        public T ReadById(int id)
         {
-            return ctx.Set<T>().Find(id);
+            return _ctx.Set<T>().Find(id);
         }
 
         public void Update(T entity)
         {
-            ctx.Update(entity);
-            ctx.SaveChanges();
+            _ctx.Update(entity);
+            _ctx.SaveChanges();
         }
 
         public void Save()
         { 
-            ctx.SaveChanges();
+            _ctx.SaveChanges();
         }
     }
 }

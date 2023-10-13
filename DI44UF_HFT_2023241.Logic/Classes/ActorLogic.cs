@@ -24,12 +24,12 @@ namespace DI44UF_HFT_2023241.Logic
 
         public void Delete(int id)
         {
-            this.repo.Delete(id);
+            this.repo.DeleteById(id);
         }
 
         public Actor Read(int id)
         {
-            return this.repo.Read(id);
+            return this.repo.ReadById(id);
         }
 
         public IQueryable<Actor> ReadAll()

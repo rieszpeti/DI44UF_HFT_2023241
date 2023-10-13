@@ -26,12 +26,12 @@ namespace DI44UF_HFT_2023241.Logic
 
         public void Delete(int id)
         {
-            this.repo.Delete(id);
+            this.repo.DeleteById(id);
         }
 
         public Movie Read(int id)
         {
-            var movie = this.repo.Read(id);
+            var movie = this.repo.ReadById(id);
             if (movie == null)
             {
                 throw new ArgumentException("Movie not exists");
