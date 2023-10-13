@@ -23,10 +23,5 @@ namespace DI44UF_HFT_2023241.Models
         public virtual Address Address { get; set; }
 
         public virtual ICollection<Order> Orders { get; } = new List<Order>();
-
-        public Customer()
-        {
-            
-        }
     }
 }

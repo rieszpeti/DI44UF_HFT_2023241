@@ -5,7 +5,7 @@ using System;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class OrderItem
+    public class OrderDetails
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,5 +18,8 @@ namespace DI44UF_HFT_2023241.Models
         [Required]
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
     }
 }

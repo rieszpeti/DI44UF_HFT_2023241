@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using DI44UF_HFT_2023241.Models;
+using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Repository
 {
@@ -43,14 +44,28 @@ namespace DI44UF_HFT_2023241.Repository
                 .WithOne(o => o.Customer)
                 .HasForeignKey(o => o.CustomerId);
 
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Customer)
-                .WithMany(c => c.Orders)
-                .HasForeignKey(o => o.CustomerId);
+            //modelBuilder.Entity<Order>()
+            //    .HasOne(o => o.Customer)
+            //    .WithMany(c => c.Orders)
+            //    .HasForeignKey(o => o.CustomerId);
+
+            //modelBuilder.Entity<Product>()
+            //    .HasMany(x => x.Orders)
+            //    .WithMany(x => x.Products)
+            //    .UsingEntity<OrderItem>(
+            //        x => x.HasOne(x => x.Order)
+            //            .WithMany().HasForeignKey(x => x.OrderId),
+            //        x => x.HasOne(x => x.Product)
+            //            .WithMany().HasForeignKey(x => x.ProductId));
 
             modelBuilder.Entity<Order>()
-                .HasMany(o => o.Products)
-                .WithMany(p => p.Orders);
+                .HasMany(x => x.Products)
+                .WithMany(x => x.Orders)
+                .UsingEntity<OrderDetails>(
+                    x => x.HasOne(x => x.Product)
+                        .WithMany().HasForeignKey(x => x.ProductId),
+                    x => x.HasOne(x => x.Order)
+                    .WithMany().HasForeignKey(x => x.OrderId));
 
             modelBuilder.Entity<Customer>().HasData(new Customer[]
             { 
@@ -74,29 +89,41 @@ namespace DI44UF_HFT_2023241.Repository
                 }
             });
 
+            List<Product> products = new List<Product>()
+            {
+                 new Product
+                {
+                    OrderItemId = 1,
+                    Description = "Test",
+                    Id = 1,
+                    Name = "Test",
+                    Size = "Test"
+                }
+            };
+
+            modelBuilder.Entity<Product>().HasData(products);
+
             modelBuilder.Entity<Order>().HasData(new Order[]
             {
                 new Order
                 {
                     CustomerId = 1,
                     OrderId = 1,
-                    OrderTime = DateTime.Now,
-                    Quantity = 1,
+                    OrderDate = DateTime.Now,
                 }
             });
 
-
-            modelBuilder.Entity<Product>().HasData(new Product[]
+            modelBuilder.Entity<OrderDetails>().HasData(new OrderDetails[]
             {
-                new Product
+                new OrderDetails
                 {
+                    OrderItemId = 1,
                     OrderId = 1,
-                    Description = "Test",
-                    Id = 1,
-                    Name = "Test",
-                    Size = "Test"
+                    ProductId = 1,
+                    Quantity = 1
                 }
             });
+
 
             modelBuilder.Entity<Movie>(movie => movie
                 .HasOne(movie => movie.Director)

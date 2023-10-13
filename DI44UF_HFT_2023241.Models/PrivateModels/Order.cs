@@ -18,12 +18,9 @@ namespace DI44UF_HFT_2023241.Models
         public DateTime ShippingDate { get; set; }
 
         [Required]
-        public int Quantity { get; set; }
-
-        [Required]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }
