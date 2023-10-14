@@ -13,7 +13,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         protected readonly ILogic<T> _logic;
         public GenericController(ILogic<T> logic)
         {
-            this._logic = logic;
+            _logic = logic;
         }
 
         [HttpGet]

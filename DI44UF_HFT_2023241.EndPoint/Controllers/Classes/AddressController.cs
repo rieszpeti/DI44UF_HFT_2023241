@@ -3,6 +3,7 @@ using DI44UF_HFT_2023241.Logic;
 using DI44UF_HFT_2023241.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
@@ -13,9 +14,11 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
         }
 
-        public IQueryable<IAddress> ReadByName(string name)
+        [HttpGet]
+        [Route("ReadByName")]
+        public IEnumerable<IAddress> ReadByName(string name)
         {
-            throw new System.NotImplementedException();
+            return ((ILogicSpecial<IAddress>)_logic).ReadByName(name);
         }
     }
 }

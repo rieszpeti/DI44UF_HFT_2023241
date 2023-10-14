@@ -57,7 +57,11 @@ namespace DI44UF_HFT_2023241.Endpoint
             services.AddTransient<ILogic<IOrderDetail>, OrderDetailLogic>();
             services.AddTransient<ILogicSpecial<IProduct>, ProductLogic>();
 
-            services.AddControllers();
+            //services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DI44UF_HFT_2023241.Endpoint", Version = "v1" });
