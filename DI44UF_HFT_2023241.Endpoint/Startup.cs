@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DI44UF_HFT_2023241.Repository.ModelRepositories;
 
 namespace DI44UF_HFT_2023241.Endpoint
 {
@@ -41,6 +42,18 @@ namespace DI44UF_HFT_2023241.Endpoint
             services.AddTransient<IRoleLogic, RoleLogic>();
             services.AddTransient<IActorLogic, ActorLogic>();
             services.AddTransient<IDirectorLogic, DirectorLogic>();
+
+            services.AddTransient<IRepositorySpecial<IAddress>, AddressRepository>();
+            services.AddTransient<IRepositorySpecial<ICustomer>, CustomerRepository>();
+            services.AddTransient<IRepository<IOrder>, OrderRepository>();
+            services.AddTransient<IRepository<IOrderDetail>, OrderDetailRepository>();
+            services.AddTransient<IRepositorySpecial<IProduct>, ProductRepository>();
+
+            services.AddTransient<ILogicSpecial<IAddress>, AddressLogic>();
+            services.AddTransient<ILogicSpecial<ICustomer>, CustomerLogic>();
+            services.AddTransient<ILogic<IOrder>, OrderLogic>();
+            services.AddTransient<ILogic<IOrderDetail>, OrderDetailLogic>();
+            services.AddTransient<ILogicSpecial<IProduct>, ProductLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

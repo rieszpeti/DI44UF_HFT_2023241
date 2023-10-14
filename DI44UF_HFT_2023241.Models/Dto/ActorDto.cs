@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Dto
 {
     public class ActorDto : IActor
     {

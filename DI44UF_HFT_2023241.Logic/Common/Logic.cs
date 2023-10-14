@@ -5,7 +5,7 @@ namespace DI44UF_HFT_2023241.Logic
 {
     public class Logic<T> : ILogic<T> where T : class
     {
-        protected IRepository<T> _repo;
+        protected readonly IRepository<T> _repo;
 
         public Logic(IRepository<T> repo)
         {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Dto
 {
     public class OrderDetailDto : IOrderDetail
     {

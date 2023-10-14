@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Dto
 {
     public class CustomerDto : ICustomer
     {

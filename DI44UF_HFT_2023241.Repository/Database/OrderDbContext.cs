@@ -85,7 +85,8 @@ namespace DI44UF_HFT_2023241.Repository
                     PostalCode = "2023",
                     Country = "HU",
                     City = "Bp",
-                    Region = "Bp"
+                    Region = "Bp",
+                    Street = "A Körút"
                 }
             });
 

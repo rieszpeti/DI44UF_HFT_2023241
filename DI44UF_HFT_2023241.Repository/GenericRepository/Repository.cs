@@ -9,7 +9,7 @@ namespace DI44UF_HFT_2023241.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected OrderDbContext _ctx;
+        protected readonly OrderDbContext _ctx;
         public Repository(OrderDbContext ctx)
         {
             _ctx = ctx;
