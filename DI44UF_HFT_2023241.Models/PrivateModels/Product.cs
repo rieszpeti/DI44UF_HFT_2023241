@@ -25,5 +25,20 @@ namespace DI44UF_HFT_2023241.Models
         public int OrderItemId { get; set; }
         [Required]
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
+        public Product()
+        {
+            
+        }
+
+        public Product(int id, string name, string description, string size, int orderItemId)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Size = size;
+            OrderItemId = orderItemId;
+        }
+
     }
 }

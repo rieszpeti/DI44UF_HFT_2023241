@@ -22,5 +22,18 @@ namespace DI44UF_HFT_2023241.Models
         public virtual Customer Customer { get; set; }
 
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+
+        public Order()
+        {
+            
+        }
+
+        public Order(int orderId, DateTime orderDate, DateTime shippingDate, int customerId)
+        {
+            OrderId = orderId;
+            OrderDate = orderDate;
+            ShippingDate = shippingDate;
+            CustomerId = customerId;
+        }
     }
 }

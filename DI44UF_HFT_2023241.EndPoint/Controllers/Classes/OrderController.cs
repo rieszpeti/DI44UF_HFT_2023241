@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    public class OrderController : GenericController<IOrder>, IGenericController<IOrder>
+    public class OrderController : GenericController<Order>, IGenericController<Order>
     {
-        public OrderController(ILogic<IOrder> logic) : base(logic)
+        public OrderController(ILogic<Order> logic) : base(logic)
         {
         }
 

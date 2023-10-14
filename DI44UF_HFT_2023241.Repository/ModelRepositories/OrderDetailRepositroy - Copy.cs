@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Repository.ModelRepositories
 {
-    public class OrderRepository : Repository<IOrder>, IRepository<IOrder>
+    public class OrderRepository : Repository<Order>, IRepository<Order>
     {
         public OrderRepository(OrderDbContext ctx) : base(ctx)
         {

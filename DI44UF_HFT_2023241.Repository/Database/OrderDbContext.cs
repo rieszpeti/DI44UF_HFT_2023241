@@ -73,7 +73,7 @@ namespace DI44UF_HFT_2023241.Repository
                 { 
                     CustomerId = 1,
                     AddressId = 1,
-                    Name = "Foo",
+                    Name = "Peter",
                 }
             });
 

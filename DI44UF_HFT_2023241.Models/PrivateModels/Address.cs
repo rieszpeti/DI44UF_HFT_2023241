@@ -27,5 +27,20 @@ namespace DI44UF_HFT_2023241.Models
         public string Street { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
+
+        public Address()
+        {
+            
+        }
+
+        public Address(int addressId, string postalCode, string city, string region, string country, string street)
+        {
+            AddressId = addressId;
+            PostalCode = postalCode;
+            City = city;
+            Region = region;
+            Country = country;
+            Street = street;
+        }
     }
 }

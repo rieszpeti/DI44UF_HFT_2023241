@@ -21,5 +21,17 @@ namespace DI44UF_HFT_2023241.Models
 
         [Required]
         public int Quantity { get; set; }
+
+        public OrderDetail()
+        {
+            
+        }
+
+        public OrderDetail(int orderItemId, int productId, int orderId)
+        {
+            OrderItemId = orderItemId;
+            ProductId = productId;
+            OrderId = orderId;
+        }
     }
 }

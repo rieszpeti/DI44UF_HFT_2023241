@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Logic
 {
-    public class ProductLogic : Logic<IProduct>, ILogicSpecial<IProduct>
+    public class ProductLogic : Logic<Product>, ILogicSpecial<Product>
     {
-        public ProductLogic(IRepositorySpecial<IProduct> repo) : base(repo)
+        public ProductLogic(IRepositorySpecial<Product> repo) : base(repo)
         {
         }
 
-        public IQueryable<IProduct> ReadByName(string name)
+        public IQueryable<Product> ReadByName(string name)
         {
-            return ((IRepositorySpecial<IProduct>)_repo).ReadByName(name);
+            return ((IRepositorySpecial<Product>)_repo).ReadByName(name);
         }
     }
 }

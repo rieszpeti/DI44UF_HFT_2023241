@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Logic
 {
-    public class OrderDetailLogic : Logic<IOrderDetail>, ILogic<IOrderDetail>
+    public class OrderDetailLogic : Logic<OrderDetail>, ILogic<OrderDetail>
     {
-        public OrderDetailLogic(IRepository<IOrderDetail> repo) : base(repo)
+        public OrderDetailLogic(IRepository<OrderDetail> repo) : base(repo)
         {
         }
     }

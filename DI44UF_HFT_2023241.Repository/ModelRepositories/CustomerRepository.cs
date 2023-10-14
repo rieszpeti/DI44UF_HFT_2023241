@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Repository.ModelRepositories
 {
-    public class CustomerRepository : Repository<ICustomer>, IRepositorySpecial<ICustomer>
+    public class CustomerRepository : Repository<Customer>, IRepositorySpecial<Customer>
     {
         public CustomerRepository(OrderDbContext ctx) : base(ctx)
         {
         }
 
-        public IQueryable<ICustomer> ReadByName(string name)
+        public IQueryable<Customer> ReadByName(string name)
         {
             return from c in _ctx.Customers
                    where c.Name == name

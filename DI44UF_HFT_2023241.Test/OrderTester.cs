@@ -11,7 +11,7 @@ using static DI44UF_HFT_2023241.Logic.MovieLogic;
 namespace DI44UF_HFT_2023241.Test
 {
     [TestFixture]
-    public class MovieLogicTester
+    public class OrderTester
     {
         MovieLogic logic;
         Mock<IRepository<Movie>> mockMovieRepo;

@@ -8,17 +8,17 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    public class ProductController : GenericController<IProduct>, IGenericSpecialController<IProduct>
+    public class ProductController : GenericController<Product>, IGenericSpecialController<Product>
     {
-        public ProductController(ILogicSpecial<IProduct> logic) : base(logic)
+        public ProductController(ILogicSpecial<Product> logic) : base(logic)
         {
         }
 
         [HttpGet]
         [Route("ReadByName")]
-        public IEnumerable<IProduct> ReadByName(string name)
+        public IEnumerable<Product> ReadByName(string name)
         {
-            return ((ILogicSpecial<IProduct>)_logic).ReadByName(name);
+            return ((ILogicSpecial<Product>)_logic).ReadByName(name);
         }
     }
 }
