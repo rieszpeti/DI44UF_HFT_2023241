@@ -43,12 +43,14 @@ namespace DI44UF_HFT_2023241.Endpoint
             services.AddTransient<IActorLogic, ActorLogic>();
             services.AddTransient<IDirectorLogic, DirectorLogic>();
 
+            //Repositories
             services.AddTransient<IRepositorySpecial<IAddress>, AddressRepository>();
             services.AddTransient<IRepositorySpecial<ICustomer>, CustomerRepository>();
             services.AddTransient<IRepository<IOrder>, OrderRepository>();
             services.AddTransient<IRepository<IOrderDetail>, OrderDetailRepository>();
             services.AddTransient<IRepositorySpecial<IProduct>, ProductRepository>();
 
+            //Business Logic
             services.AddTransient<ILogicSpecial<IAddress>, AddressLogic>();
             services.AddTransient<ILogicSpecial<ICustomer>, CustomerLogic>();
             services.AddTransient<ILogic<IOrder>, OrderLogic>();
