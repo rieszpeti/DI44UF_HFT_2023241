@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Repository.ModelRepositories
 {
-    public class AddressRepository : Repository<Address>, IRepositorySpecial<Address>
+    public class AddressRepository : Repository<IAddress>, IRepositorySpecial<IAddress>
     {
         public AddressRepository(OrderDbContext ctx) : base(ctx)
         {
         }
 
-        public IQueryable<Address> ReadByName(string street)
+        public IQueryable<IAddress> ReadByName(string street)
         {
             return from ad in _ctx.Addresses
                    where ad.Street == street

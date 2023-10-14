@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Product : IProduct
+    public class ProductDto : IProduct
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,12 +18,9 @@ namespace DI44UF_HFT_2023241.Models
         public string Description { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Size { get; set; }
 
         [Required]
         public int OrderItemId { get; set; }
-        [Required]
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

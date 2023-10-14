@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Address : IAddress
+    public class AddressDto : IAddress
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,7 +25,5 @@ namespace DI44UF_HFT_2023241.Models
 
         [Required]
         public string Street { get; set; }
-
-        public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
     }
 }

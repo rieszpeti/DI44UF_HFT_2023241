@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Customer : ICustomer
+    public class CustomerDto : ICustomer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,9 +19,5 @@ namespace DI44UF_HFT_2023241.Models
         /// </summary>
         [Required]
         public int AddressId { get; set; }
-        [Required]
-        public virtual Address Address { get; set; }
-
-        public virtual ICollection<Order> Orders { get; } = new List<Order>();
     }
 }

@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Repository.ModelRepositories
 {
-    public class CustomerRepository : Repository<Customer>, IRepositorySpecial<Customer>
+    public class CustomerRepository : Repository<ICustomer>, IRepositorySpecial<ICustomer>
     {
         public CustomerRepository(OrderDbContext ctx) : base(ctx)
         {
         }
 
-        public IQueryable<Customer> ReadByName(string name)
+        public IQueryable<ICustomer> ReadByName(string name)
         {
-            return from ad in _ctx.Customers
-                   where ad.Name == name
-                   select ad;
+            return from c in _ctx.Customers
+                   where c.Name == name
+                   select c;
         }
     }
 }
