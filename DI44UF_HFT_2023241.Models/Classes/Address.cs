@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DI44UF_HFT_2023241.Models
 {
@@ -41,6 +42,16 @@ namespace DI44UF_HFT_2023241.Models
             Region = region;
             Country = country;
             Street = street;
+        }
+
+        public override string ToString()
+        {
+            return "Address: " + AddressId + " " +
+                    "PostalCode: " + PostalCode + " " +
+                    "City: " + City + " " +
+                    "Region: " + Region + " " +
+                    "Country: " + Country + " " +
+                    "Street: " + Street;
         }
     }
 }

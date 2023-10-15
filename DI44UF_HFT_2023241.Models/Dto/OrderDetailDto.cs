@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 
 namespace DI44UF_HFT_2023241.Models.Dto
 {
@@ -19,5 +20,21 @@ namespace DI44UF_HFT_2023241.Models.Dto
 
         [Required]
         public int Quantity { get; set; }
+
+        public OrderDetailDto(int orderItemId, int productId, int orderId, int quantity)
+        {
+            OrderItemId = orderItemId;
+            ProductId = productId;
+            OrderId = orderId;
+            Quantity = quantity;
+        }
+
+        public override string ToString()
+        {
+            return  "OrderItemId: " + OrderItemId + " " +
+                    "ProductId: " + ProductId + " " +
+                    "OrderId: " + OrderId + " " +
+                    "Quantity: " + Quantity;
+        }
     }
 }

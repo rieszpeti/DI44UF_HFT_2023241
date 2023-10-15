@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace DI44UF_HFT_2023241.Models.Dto
 {
@@ -19,5 +20,19 @@ namespace DI44UF_HFT_2023241.Models.Dto
         /// </summary>
         [Required]
         public int AddressId { get; set; }
+
+        public CustomerDto(int customerId, string name, int addressId)
+        {
+            CustomerId = customerId;
+            Name = name;
+            AddressId = addressId;
+        }
+
+        public override string ToString()
+        {
+            return  "CustomerId: " + CustomerId + " " +
+                    "Name: " + Name + " " +
+                    "AddressId: " + AddressId;
+        }
     }
 }

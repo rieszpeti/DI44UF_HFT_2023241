@@ -1,6 +1,7 @@
 ﻿using DI44UF_HFT_2023241.EndPoint.Controllers;
 using DI44UF_HFT_2023241.Logic;
 using DI44UF_HFT_2023241.Models;
+using DI44UF_HFT_2023241.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,17 +9,42 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    public class ProductController : GenericController<Product>, IGenericSpecialController<Product>
+    public class ProductController : GenericController<Product, ProductDto>, IGenericSpecialController<Product, ProductDto>
     {
         public ProductController(ILogicSpecial<Product> logic) : base(logic)
         {
         }
 
-        [HttpGet]
-        [Route("ReadByName")]
-        public IEnumerable<Product> ReadByName(string name)
+        public override Product ConvertDtoToModel(ProductDto inp)
         {
-            return ((ILogicSpecial<Product>)_logic).ReadByName(name);
+            return new Product
+                (
+                    inp.Id,
+                    inp.Name,
+                    inp.Description,
+                    inp.Size,
+                    inp.OrderItemId
+                );
+        }
+
+        public override ProductDto ConvertModelToDto(Product inp)
+        {
+            return new ProductDto
+                (
+                    inp.Id,
+                    inp.Name,
+                    inp.Description,
+                    inp.Size,
+                    inp.OrderItemId
+                );
+        }
+
+        [HttpGet("name/{name}")]
+        //[Route("{name}")]
+        public IEnumerable<ProductDto> ReadByName(string name)
+        {
+            var names = ((ILogicSpecial<Product>)_logic).ReadByName(name).ToList();
+            return names.Select(x => ConvertModelToDto(x));
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Xml.Linq;
 
-namespace DI44UF_HFT_2023241.Models
+namespace DI44UF_HFT_2023241.Models.Dto
 {
-    public class Product : IProduct
+    public class ProductDto : IProduct
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,20 +20,12 @@ namespace DI44UF_HFT_2023241.Models
         public string Description { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Size { get; set; }
 
         [Required]
         public int OrderItemId { get; set; }
-        [Required]
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-        public Product()
-        {
-            
-        }
-
-        public Product(int id, string name, string description, string size, int orderItemId)
+        public ProductDto(int id, string name, string description, string size, int orderItemId)
         {
             Id = id;
             Name = name;
@@ -40,5 +34,13 @@ namespace DI44UF_HFT_2023241.Models
             OrderItemId = orderItemId;
         }
 
+        public override string ToString()
+        {
+            return  "ProductId: " + Id + " " +
+                    "Name: " + Name + " " +
+                    "Description: " + Description + " " +
+                    "Size: " + Size + " " +
+                    "OrderItemId: " + OrderItemId;
+        }
     }
 }

@@ -19,5 +19,21 @@ namespace DI44UF_HFT_2023241.Models.Dto
 
         [Required]
         public int CustomerId { get; set; }
+
+        public OrderDto(int orderId, DateTime orderDate, DateTime shippingDate, int customerId)
+        {
+            OrderId = orderId;
+            OrderDate = orderDate;
+            ShippingDate = shippingDate;
+            CustomerId = customerId;
+        }
+
+        public override string ToString()
+        {
+            return  "OrderId: " + OrderId + " " +
+                    "OrderDate: " + OrderDate + " " +
+                    "ShippingDate: " + ShippingDate + " " +
+                    "CustomerId: " + CustomerId;
+        }
     }
 }

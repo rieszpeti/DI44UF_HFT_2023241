@@ -35,5 +35,13 @@ namespace DI44UF_HFT_2023241.Models
             ShippingDate = shippingDate;
             CustomerId = customerId;
         }
+
+        public override string ToString()
+        {
+            return "OrderId: " + OrderId + " " +
+                    "OrderDate: " + OrderDate + " " +
+                    "ShippingDate: " + ShippingDate + " " +
+                    "CustomerId: " + CustomerId;
+        }
     }
 }

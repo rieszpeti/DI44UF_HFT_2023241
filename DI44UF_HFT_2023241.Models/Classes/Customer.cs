@@ -35,5 +35,11 @@ namespace DI44UF_HFT_2023241.Models
             Name = name;
             AddressId = addressId;
         }
+        public override string ToString()
+        {
+            return "CustomerId: " + CustomerId + " " +
+                    "Name: " + Name + " " +
+                    "AddressId: " + AddressId;
+        }
     }
 }

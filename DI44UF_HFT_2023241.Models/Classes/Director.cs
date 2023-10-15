@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Director : IDirector
+    public class Director
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

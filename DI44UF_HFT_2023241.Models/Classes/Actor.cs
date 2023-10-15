@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Actor : IActor
+    public class Actor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

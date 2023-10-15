@@ -4,8 +4,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -130,6 +132,7 @@ namespace DI44UF_HFT_2023241.Client
 
             _rest.Post(Convert.ChangeType(obj, type), _entity);
         }
+
         static void List<T>(string entity)
         {
             var _entity = Check(entity);
@@ -138,43 +141,227 @@ namespace DI44UF_HFT_2023241.Client
 
             foreach (var item in items)
             {
-                Type myType = item.GetType();
-                IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-
-                foreach (PropertyInfo prop in props)
-                {
-                    if ()
-                    {
-                        string name = prop.Name;
-                        object propValue = prop.GetValue(item);//, null);
-
-                        Console.WriteLine($"{name}: {propValue}");
-                    }
-                }
+                Console.WriteLine(item.ToString());
             }
+
+            //foreach (var item in items)
+            //{
+            //    Type myType = item.GetType();
+            //    IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+
+            //    foreach (PropertyInfo prop in props)
+            //    {
+            //        //if (prop.PropertyType.)
+            //        //{
+            //        //    string name = prop.Name;
+            //        //    object propValue = prop.GetValue(item);//, null);
+
+            //        //    Console.WriteLine($"{name}: {propValue}");
+            //        //}
+            //    }
+            //}
 
             Console.ReadLine();
         }
-        static void Update(string entity)
+
+        static void ReadById<T>(string entity)
         {
-            if (entity == _product)
-            {
-                Console.Write($"Enter {_product}'s id to update: ");
-                int id = int.Parse(Console.ReadLine());
-                Product one = _rest.Get<Product>(id, _product.ToLower());
-                Console.Write($"New name [old: {one.Name}]: ");
-                string name = Console.ReadLine();
-                one.Name = name;
-                _rest.Put(one, _product.ToLower());
-            }
+            var t = ReadIdHelper<T>(entity);
+
+            Console.WriteLine(t.ToString());
+            Console.ReadLine();
         }
-        static void Delete(string entity)
+
+        static List<T> ReadByName<T>(string entity)
         {
-            if (entity == _product)
+            var _entity = Check(entity);
+
+            Console.WriteLine($"Enter the {entity}'s Name: ");
+            var name = Console.ReadLine();
+
+            var items = _rest.Get<List<T>>(name, _entity.ToLower());
+
+            if (items.Count == 0)
             {
-                Console.Write($"Enter {_product}'s id to delete: ");
+                Console.WriteLine("Not found any items");
+            }
+
+            foreach (var item in items)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
+            Console.WriteLine("Please hit enter to move on");
+            Console.ReadLine();
+
+            return items;
+        }
+
+        static T ReadIdHelper<T>(string entity)
+        {
+            var _entity = Check(entity);
+
+            Console.WriteLine($"Enter the {entity}'s id: ");
+            var id = int.Parse(Console.ReadLine());
+
+            return _rest.Get<T>(id, _entity.ToLower());
+        }
+
+        //static void Update<T>(string entity)
+        //{
+        //    var old = ReadIdHelper<T>(entity);
+
+        //    if (old is not null)
+        //    {
+        //        Console.WriteLine("The old parameters: " + old.ToString());
+        //        Console.WriteLine();
+
+        //        var props = old.GetType().GetProperties();
+
+        //        foreach (var prop in props)
+        //        {
+        //            Console.Write($"Property Type and name: {prop} Old value: {prop.GetValue(old)} \n new value: ");
+
+        //            object value = Console.ReadLine();
+
+        //            var t = prop.PropertyType.FullName;
+
+        //            prop.SetValue(t, value);
+        //        }
+
+        //        _rest.Put(old, entity.ToLower());
+
+        //        //Product one = _rest.Get<Product>(id, _entity.ToLower());
+        //        //Console.Write($"New name [old: {one.Name}]: ");
+        //        //string name = Console.ReadLine();
+        //        //one.Name = name;
+        //        //_rest.Put(one, _entity.ToLower());
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine($"You cannot update {entity}, because it does not exists");
+        //        Console.ReadLine();
+        //    }
+        //}
+
+        static void UpdateAddress(string entity)
+        {
+            var _entity = Check(entity);
+            Console.Write($"Enter {_entity}'s id to update: ");
+            int id = int.Parse(Console.ReadLine());
+            var one = _rest.Get<Address>(id, _entity.ToLower());
+
+            Console.WriteLine($"Old Values {one}");
+
+            Console.WriteLine("Street:");
+            one.Street = Console.ReadLine();
+            Console.WriteLine("PostalCode:");
+            one.PostalCode = Console.ReadLine();
+            Console.WriteLine("Country:");
+            one.Country = Console.ReadLine();
+            Console.WriteLine("City:");
+            one.City = Console.ReadLine();
+            Console.WriteLine("Region:");
+            one.Region = Console.ReadLine();
+
+            _rest.Put(one, _entity.ToLower());
+        }
+
+        static void UpdateCustomer(string entity)
+        {
+            var _entity = Check(entity);
+            Console.Write($"Enter {_entity}'s id to update: ");
+            int id = int.Parse(Console.ReadLine());
+            var one = _rest.Get<Customer>(id, _entity.ToLower());
+
+            Console.WriteLine($"Old Values {one}");
+
+            Console.WriteLine("Name:");
+            one.Name = Console.ReadLine();
+            Console.WriteLine("AddressId:");
+            one.AddressId = int.Parse(Console.ReadLine());
+
+            _rest.Put(one, _entity.ToLower());
+        }
+
+        static void UpdateOrder(string entity)
+        {
+            var _entity = Check(entity);
+            Console.Write($"Enter {_entity}'s id to update: ");
+            int id = int.Parse(Console.ReadLine());
+            var one = _rest.Get<Order>(id, _entity.ToLower());
+
+            Console.WriteLine($"Old Values {one}");
+
+            Console.WriteLine("ShippingDate:");
+            one.ShippingDate = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("OrderDate:");
+            one.OrderDate = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("CustomerId:");
+            one.CustomerId = int.Parse(Console.ReadLine());
+            Console.WriteLine("AddressId:");
+            one.CustomerId = int.Parse(Console.ReadLine());
+
+            _rest.Put(one, _entity.ToLower());
+        }
+
+        static void UpdateOrderDetail(string entity)
+        {
+            var _entity = Check(entity);
+            Console.Write($"Enter {_entity}'s id to update: ");
+            int id = int.Parse(Console.ReadLine());
+            var one = _rest.Get<OrderDetail>(id, _entity.ToLower());
+
+            Console.WriteLine($"Old Values {one}");
+
+            Console.WriteLine("Name:");
+            one.OrderItemId = int.Parse(Console.ReadLine());
+            Console.WriteLine("AddressId:");
+            one.OrderId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Quantity:");
+            one.Quantity = int.Parse(Console.ReadLine());
+
+            _rest.Put(one, _entity.ToLower());
+        }
+
+        static void UpdateProduct(string entity) 
+        {
+            var _entity = Check(entity);
+            Console.Write($"Enter {_entity}'s id to update: ");
+            int id = int.Parse(Console.ReadLine());
+            var one = _rest.Get<Product>(id, _entity.ToLower());
+
+            Console.WriteLine($"Old Values {one}");
+
+            Console.WriteLine("Name:");
+            one.OrderItemId = int.Parse(Console.ReadLine());
+            Console.WriteLine("AddressId:");
+            one.Size = Console.ReadLine();
+            Console.WriteLine("Quantity:");
+            one.Description = Console.ReadLine();
+            Console.WriteLine("Name");
+            one.Name = Console.ReadLine();
+            Console.WriteLine("Description");
+            one.Description = Console.ReadLine();
+
+            _rest.Put(one, _entity.ToLower());
+        }
+
+        static void Delete<T>(string entity)
+        {
+            Console.WriteLine("Check if entity exists");
+            var del = ReadIdHelper<T>(entity);
+
+            if (del is not null)
+            {
+                Console.WriteLine("Now, you can delete.");
+                Console.Write($"Enter {entity}'s id to delete: ");
                 int id = int.Parse(Console.ReadLine());
-                _rest.Delete(id, _product.ToLower());
+                _rest.Delete(id, entity.ToLower());
+            }
+            else
+            {
+                Console.WriteLine($"You cannot delete {entity}, because it does not exists");
             }
         }
 
@@ -193,36 +380,44 @@ namespace DI44UF_HFT_2023241.Client
             var addressSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<Address>(_address))
                 .Add("Create", () => Create(_address))
-                .Add("Delete", () => Delete(_address))
-                .Add("Update", () => Update(_address))
+                .Add("ReadById", () => ReadById<Address>(_address))
+                .Add("ReadByName", () => ReadByName<Address>(_address))
+                .Add("Delete", () => Delete<Address>(_address))
+                .Add("Update", () => UpdateAddress(_address))
                 .Add("Exit", ConsoleMenu.Close);
 
             var customerSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<Customer>(_customer))
                 .Add("Create", () => Create(_customer))
-                .Add("Delete", () => Delete(_customer))
-                .Add("Update", () => Update(_customer))
+                .Add("ReadById", () => ReadById<Customer>(_customer))
+                .Add("ReadByName", () => ReadByName<Customer>(_customer))
+                .Add("Delete", () => Delete<Customer>(_customer))
+                .Add("Update", () => UpdateCustomer(_customer))
                 .Add("Exit", ConsoleMenu.Close);
 
             var orderSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<Order>(_order))
                 .Add("Create", () => Create(_order))
-                .Add("Delete", () => Delete(_order))
-                .Add("Update", () => Update(_order))
+                .Add("ReadById", () => ReadById<Order>(_order))
+                .Add("Delete", () => Delete<Order>(_order))
+                .Add("Update", () => UpdateOrder(_order))
                 .Add("Exit", ConsoleMenu.Close);
 
             var orderDetailSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<OrderDetail>(_orderDetail))
                 .Add("Create", () => Create(_orderDetail))
-                .Add("Delete", () => Delete(_orderDetail))
-                .Add("Update", () => Update(_orderDetail))
+                .Add("ReadById", () => ReadById<OrderDetail>(_orderDetail))
+                .Add("Delete", () => Delete<OrderDetail>(_orderDetail))
+                .Add("Update", () => UpdateOrderDetail(_orderDetail))
                 .Add("Exit", ConsoleMenu.Close);
 
             var productSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<Product>(_product))
                 .Add("Create", () => Create(_product))
-                .Add("Delete", () => Delete(_product))
-                .Add("Update", () => Update(_product))
+                .Add("ReadById", () => ReadById<Product>(_product))
+                .Add("ReadByName", () => ReadByName<Product>(_product))
+                .Add("Delete", () => Delete<Product>(_product))
+                .Add("Update", () => UpdateProduct(_product))
                 .Add("Exit", ConsoleMenu.Close);
 
             var menu = new ConsoleMenu(args, level: 0)
@@ -234,9 +429,6 @@ namespace DI44UF_HFT_2023241.Client
                 .Add($"Exit", ConsoleMenu.Close);
 
             menu.Show();
-
-
-
 
             //New------------
             //var rest = new RestService("http://localhost:53910/","movie");

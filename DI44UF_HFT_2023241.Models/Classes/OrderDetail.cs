@@ -27,11 +27,20 @@ namespace DI44UF_HFT_2023241.Models
             
         }
 
-        public OrderDetail(int orderItemId, int productId, int orderId)
+        public OrderDetail(int orderItemId, int productId, int orderId, int quantity)
         {
             OrderItemId = orderItemId;
             ProductId = productId;
             OrderId = orderId;
+            Quantity = quantity;
+        }
+
+        public override string ToString()
+        {
+            return "OrderItemId: " + OrderItemId + " " +
+                    "ProductId: " + ProductId + " " +
+                    "OrderId: " + OrderId + " " +
+                    "Quantity: " + Quantity;
         }
     }
 }

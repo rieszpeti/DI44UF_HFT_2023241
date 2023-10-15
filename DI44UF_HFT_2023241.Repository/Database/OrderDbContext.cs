@@ -73,8 +73,15 @@ namespace DI44UF_HFT_2023241.Repository
                 { 
                     CustomerId = 1,
                     AddressId = 1,
-                    Name = "Peter",
-                }
+                    Name = "Jozsi",
+                },
+
+                //new Customer
+                //{
+                //    CustomerId = 2,
+                //    AddressId = 1,
+                //    Name = "Bela",
+                //}
             });
 
             modelBuilder.Entity<Address>().HasData(new Address[]
@@ -86,7 +93,7 @@ namespace DI44UF_HFT_2023241.Repository
                     Country = "HU",
                     City = "Bp",
                     Region = "Bp",
-                    Street = "A Körút"
+                    Street = "Nap"
                 }
             });
 
