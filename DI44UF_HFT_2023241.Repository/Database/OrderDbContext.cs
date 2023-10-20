@@ -74,14 +74,16 @@ namespace DI44UF_HFT_2023241.Repository
                     CustomerId = 1,
                     AddressId = 1,
                     Name = "Jozsi",
+                    Password = "test"
                 },
 
-                //new Customer
-                //{
-                //    CustomerId = 2,
-                //    AddressId = 1,
-                //    Name = "Bela",
-                //}
+                new Customer
+                {
+                    CustomerId = 2,
+                    AddressId = 1,
+                    Name = "Bela",
+                    Password = "test"
+                }
             });
 
             modelBuilder.Entity<Address>().HasData(new Address[]

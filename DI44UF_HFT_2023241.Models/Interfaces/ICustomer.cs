@@ -7,5 +7,6 @@ namespace DI44UF_HFT_2023241.Models
         int AddressId { get; set; }
         int CustomerId { get; set; }
         string Name { get; set; }
+        string Password { get; set; }
     }
 }

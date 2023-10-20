@@ -1,5 +1,6 @@
 ﻿using ConsoleTools;
 using DI44UF_HFT_2023241.Models;
+using DI44UF_HFT_2023241.Models.Dto;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -365,6 +366,23 @@ namespace DI44UF_HFT_2023241.Client
             }
         }
 
+        //"Main Program"
+        //Login
+        static bool Login()
+        {
+            var customer = ReadIdHelper<CustomerDto>(_customer);
+
+            return true;
+        }
+
+        static void OrderSimulation()
+        {
+            if (Login())
+            {
+
+            }
+        }
+
         private static RestService _rest;
 
         public const string _address = "Address";
@@ -420,12 +438,16 @@ namespace DI44UF_HFT_2023241.Client
                 .Add("Update", () => UpdateProduct(_product))
                 .Add("Exit", ConsoleMenu.Close);
 
+            var orderSimulationMenu = new ConsoleMenu(args, level: 1)
+                .Add("Order", () => OrderSimulation());
+
             var menu = new ConsoleMenu(args, level: 0)
                 .Add($"{_address}es", () => addressSubMenu.Show())
                 .Add($"{_customer}s", () => customerSubMenu.Show())
                 .Add($"{_order}s", () => orderSubMenu.Show())
                 .Add($"{_orderDetail}s", () => orderDetailSubMenu.Show())
                 .Add($"{_product}s", () => productSubMenu.Show())
+                .Add($"Order Simulation", () => orderSimulationMenu.Show())
                 .Add($"Exit", ConsoleMenu.Close);
 
             menu.Show();
