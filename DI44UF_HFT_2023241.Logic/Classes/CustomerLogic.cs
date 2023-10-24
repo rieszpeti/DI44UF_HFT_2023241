@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Logic
 {
-    public class CustomerLogic : Logic<Customer>, ILogicSpecial<Customer>
+    public class CustomerLogic : Logic<Customer>, ILogicLogin<Customer>
     {
-        public CustomerLogic(IRepositorySpecial<Customer> repo) : base(repo)
+        public CustomerLogic(IRepositoryLogin<Customer> repo) : base(repo)
         {
+        }
+
+        public bool CheckLogin(string name, string password)
+        {
+            return ((IRepositoryLogin<Customer>)_repo).CheckLogin(name, password);
         }
 
         public IQueryable<Customer> ReadByName(string name)

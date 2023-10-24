@@ -11,7 +11,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers.Classes
         readonly ILogicSpecial<Customer> _customerLogic;
         readonly ILogic<Order> _orderLogic;
         readonly ILogic<OrderDetail> _orderDetailLogic;
-        readonly ILogic<Product> _productLogic;
+        readonly ILogicSpecial<Product> _productLogic;
 
 
         public LoginController(ILogicSpecial<Customer> customerLogic,
