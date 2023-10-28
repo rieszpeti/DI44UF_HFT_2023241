@@ -45,7 +45,7 @@ namespace DI44UF_HFT_2023241.Endpoint
 
             //Repositories
             services.AddTransient<IRepositorySpecial<Address>, AddressRepository>();
-            services.AddTransient<IRepositorySpecial<Customer>, CustomerRepository>();
+            services.AddTransient<IRepositoryLogin<Customer>, CustomerRepository>();
             services.AddTransient<IRepository<Order>, OrderRepository>();
             services.AddTransient<IRepository<OrderDetail>, OrderDetailRepository>();
             services.AddTransient<IRepositorySpecial<Product>, ProductRepository>();
