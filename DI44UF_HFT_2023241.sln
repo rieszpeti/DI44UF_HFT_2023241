@@ -24,6 +24,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesterConsoleApp", "TesterConsoleApp\TesterConsoleApp.csproj", "{E1E9FD28-0340-4B87-9442-9CFE2C864046}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{1178F2BB-34A3-49CE-A290-DF6355E9E6C6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
