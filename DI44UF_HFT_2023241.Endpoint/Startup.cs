@@ -45,7 +45,7 @@ namespace DI44UF_HFT_2023241.Endpoint
 
             //Repositories
             services.AddTransient<IRepositorySpecial<Address>, AddressRepository>();
-            services.AddTransient<IRepositorySpecial<Customer>, CustomerRepository>();
+            services.AddTransient<IRepositoryLogin<Customer>, CustomerRepository>();
             services.AddTransient<IRepository<Order>, OrderRepository>();
             services.AddTransient<IRepository<OrderDetail>, OrderDetailRepository>();
             services.AddTransient<IRepositorySpecial<Product>, ProductRepository>();
@@ -86,7 +86,6 @@ namespace DI44UF_HFT_2023241.Endpoint
                 var response = new { Msg = exception.Message };
                 await context.Response.WriteAsJsonAsync(response);
             }));
-
 
             app.UseRouting();
 

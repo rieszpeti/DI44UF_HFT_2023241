@@ -1,5 +1,6 @@
 ﻿using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Repository;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DI44UF_HFT_2023241.Logic
 {
     public class CustomerLogic : Logic<Customer>, ILogicLogin<Customer>
     {
-        public CustomerLogic(IRepositoryLogin<Customer> repo) : base(repo)
+        public CustomerLogic(ILogger logger, IRepositoryLogin<Customer> repo) : base(logger, repo)
         {
         }
 
