@@ -2,6 +2,7 @@
 using DI44UF_HFT_2023241.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,9 +12,12 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
     [ApiController]
     public abstract class GenericController<T, X> : Controller, IGenericController<T, X> where T : class
     {
+        protected readonly ILogger _logger;
         protected readonly ILogic<T> _logic;
-        public GenericController(ILogic<T> logic)
+
+        public GenericController(ILogger logger, ILogic<T> logic)
         {
+            _logger = logger;
             _logic = logic;
         }
 
@@ -21,6 +25,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         public IEnumerable<X> ReadAll()
         {
             var models = _logic.ReadAll().ToList();
+
+            _logger.Information("{models} successfully read", models.GetType());
+
             return models.Select(x => ConvertModelToDto(x));
         }
 

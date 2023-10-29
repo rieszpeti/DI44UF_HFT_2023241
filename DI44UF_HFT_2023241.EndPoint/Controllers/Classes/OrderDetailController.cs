@@ -4,15 +4,17 @@ using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
     public class OrderDetailController : GenericController<OrderDetail, OrderDetailDto>, IGenericController<OrderDetail, OrderDetailDto>
     {
-        public OrderDetailController(ILogic<OrderDetail> logic) : base(logic)
+        public OrderDetailController(ILogger logger, ILogic<OrderDetail> logic) : base(logger, logic)
         {
         }
 
+        [NonAction]
         public override OrderDetail ConvertDtoToModel(OrderDetailDto inp)
         {
             return new OrderDetail
@@ -24,6 +26,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                 );
         }
 
+        [NonAction]
         public override OrderDetailDto ConvertModelToDto(OrderDetail inp)
         {
             return new OrderDetailDto

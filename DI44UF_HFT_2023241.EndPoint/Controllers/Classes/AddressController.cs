@@ -4,6 +4,7 @@ using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,10 +12,11 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
     public class AddressController : GenericController<Address, AddressDto>, IGenericSpecialController<Address, AddressDto>
     {
-        public AddressController(ILogicSpecial<Address> logic) : base(logic)
+        public AddressController(ILogger logger, ILogicSpecial<Address> logic) : base(logger, logic)
         {
         }
 
+        [NonAction]
         public override Address ConvertDtoToModel(AddressDto inp)
         {
            return new Address
@@ -28,6 +30,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                 );
         }
 
+        [NonAction]
         public override AddressDto ConvertModelToDto(Address inp)
         {
             return new AddressDto
