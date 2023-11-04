@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Order : IOrder
+    public class Order
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

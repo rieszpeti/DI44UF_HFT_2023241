@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace DI44UF_HFT_2023241.Models.Dto
 {
-    public class ProductDto : IProduct
+    public class ProductDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

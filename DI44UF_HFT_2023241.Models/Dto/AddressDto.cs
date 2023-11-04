@@ -6,7 +6,7 @@ using System.IO;
 
 namespace DI44UF_HFT_2023241.Models.Dto
 {
-    public class AddressDto : IAddress
+    public class AddressDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

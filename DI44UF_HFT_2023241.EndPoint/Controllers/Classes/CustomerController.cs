@@ -18,10 +18,10 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         [NonAction]
         public override Customer ConvertDtoToModel(CustomerDto inp)
         {
-            //if (inp is null)
-            //{
-            //    return null;
-            //}
+            if (inp is null)
+            {
+                return null;
+            }
             return new Customer
                 (
                     inp.CustomerId,
@@ -33,10 +33,10 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         [NonAction]
         public override CustomerDto ConvertModelToDto(Customer inp)
         {
-            //if (inp is null)
-            //{
-            //    return null;
-            //}
+            if (inp is null)
+            {
+                return null;
+            }
             return new CustomerDto
                 (
                     inp.CustomerId,

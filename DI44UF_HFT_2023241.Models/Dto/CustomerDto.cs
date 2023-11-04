@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace DI44UF_HFT_2023241.Models.Dto
 {
-    public class CustomerDto : ICustomer
+    public class CustomerDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,11 +22,7 @@ namespace DI44UF_HFT_2023241.Models.Dto
         public int AddressId { get; set; }
         public AddressDto Address { get; set; }
 
-        public List<OrderDetail> OrderDetails { get; set; }
-
-
-
-        public string Password { get; set; }
+        public List<OrderDto> Orders { get; set; }
 
         public CustomerDto(int customerId, string name, int addressId)
         {

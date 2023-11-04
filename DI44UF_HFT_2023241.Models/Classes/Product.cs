@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Product : IProduct
+    public class Product
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

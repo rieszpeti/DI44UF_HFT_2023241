@@ -78,7 +78,6 @@ namespace DI44UF_HFT_2023241.Repository
                     CustomerId = 1,
                     AddressId = 1,
                     UserName = "Jozsi",
-                    Password = "test"
                 },
 
                 new Customer
@@ -86,7 +85,6 @@ namespace DI44UF_HFT_2023241.Repository
                     CustomerId = 2,
                     AddressId = 1,
                     UserName = "Bela",
-                    Password = "test"
                 }
             });
 

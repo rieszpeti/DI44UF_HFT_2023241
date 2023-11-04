@@ -5,7 +5,7 @@ using System;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class OrderDetail : IOrderDetail
+    public class OrderDetail
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

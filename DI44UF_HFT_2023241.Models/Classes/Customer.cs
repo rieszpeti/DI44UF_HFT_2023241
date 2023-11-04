@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DI44UF_HFT_2023241.Models
 {
-    public class Customer : ICustomer
+    public class Customer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,10 +13,6 @@ namespace DI44UF_HFT_2023241.Models
         [Required]
         [StringLength(240)]
         public string UserName { get; set; }
-
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
 
         /// <summary>
         /// assume customer has only one address
