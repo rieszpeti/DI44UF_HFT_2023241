@@ -50,7 +50,7 @@ namespace DI44UF_HFT_2023241.EndPoint
             return _addressMapper.ConvertModelToDto(model);
         }
 
-        [HttpGet("statistics/ordersBetweenDate/{customerId}")]
+        [HttpGet("statistics/ordersBetweenDate/{customerId}/{dateStart}/{dateEnd}")]
         public IEnumerable<OrderDto> GetOrdersBetweenDates(int customerId, DateTime dateStart, DateTime dateEnd)
         {
             var models = _logic.GetOrdersBetweenDates(customerId, dateStart, dateEnd);
