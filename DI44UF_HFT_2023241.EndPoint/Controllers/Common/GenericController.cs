@@ -1,8 +1,7 @@
 ﻿using DI44UF_HFT_2023241.Logic;
 using DI44UF_HFT_2023241.Logic.Mapper;
-using DI44UF_HFT_2023241.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,11 +11,14 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
     [ApiController]
     public abstract class GenericController<T, X> : Controller, IGenericController<T, X> where T : class
     {
+        protected readonly ILogger _logger;
+
         protected readonly ILogic<T> _logic;
         protected readonly IMapper<T, X> _mapper;
 
-        public GenericController(ILogic<T> logic, IMapper<T, X> mapper)
+        public GenericController(ILogger logger, ILogic<T> logic, IMapper<T, X> mapper)
         {
+            _logger = logger;
             _logic = logic;
             _mapper = mapper;
         }
