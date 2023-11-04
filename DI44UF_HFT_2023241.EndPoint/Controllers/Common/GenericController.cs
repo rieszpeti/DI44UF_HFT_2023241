@@ -28,7 +28,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
             var models = _logic.ReadAll().ToList();
 
-            _logger.Information("{type} successfully read all of the entities", typeof(T).GetGenericArguments().First());
+            _logger.Information("{type} successfully read all of the entities", typeof(T).GetGenericArguments().FirstOrDefault());
 
             return models.Select(x => _mapper.ConvertModelToDto(x));
         }
@@ -38,7 +38,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
             var model = _logic.Read(id);
 
-            _logger.Information("{type} with {id} successfully read entity", typeof(T).GetGenericArguments().First(), id);
+            _logger.Information("{type} with {id} successfully read entity", typeof(T).GetGenericArguments().FirstOrDefault(), id);
 
             return _mapper.ConvertModelToDto(model);
         }
@@ -48,7 +48,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
             var model = _mapper.ConvertDtoToModel(value);
 
-            _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().First());
+            _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
 
             _logic.Create(model);
         }
@@ -58,7 +58,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
             var model = _mapper.ConvertDtoToModel(value);
 
-            _logger.Information("{type} successfully updated", typeof(T).GetGenericArguments().First());
+            _logger.Information("{type} successfully updated", typeof(T).GetGenericArguments().FirstOrDefault());
 
             _logic.Update(model);
         }
@@ -68,7 +68,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
             _logic.Delete(id);
 
-            _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().First(), id);
+            _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
         }
     }
 }

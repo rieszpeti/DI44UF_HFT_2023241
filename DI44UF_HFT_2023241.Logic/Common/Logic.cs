@@ -24,7 +24,7 @@ namespace DI44UF_HFT_2023241.Logic
             {
                 _repo.Create(item);
 
-                _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().First());
+                _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
             }
             catch (Exception ex)
             {
@@ -39,11 +39,11 @@ namespace DI44UF_HFT_2023241.Logic
             {
                 _repo.DeleteById(id);
 
-                _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().First(), id);
+                _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't delete {type} with {id}", ex.Message, typeof(T).GetGenericArguments().First(), id);
+                _logger.Error("{message} Couldn't delete {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
                 throw new Exception("Couldn't delete");
             }
         }
@@ -52,13 +52,13 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _logger.Debug("{type} with {id} start read", typeof(T).GetGenericArguments().First(), id);
+                _logger.Debug("{type} with {id} start read", typeof(T).GetGenericArguments().FirstOrDefault(), id);
 
                 return _repo.ReadById(id);
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't read {type} with {id}", ex.Message, typeof(T).GetGenericArguments().First(), id);
+                _logger.Error("{message} Couldn't read {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
                 throw new Exception("Couldn't Read");
             }
         }
@@ -67,13 +67,13 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _logger.Information("{type} start read all", typeof(T).GetGenericArguments().First());
+                _logger.Information("{type} start read all", typeof(T).GetGenericArguments().FirstOrDefault());
 
                 return _repo.ReadAll();
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't read all {type}", ex.Message, typeof(T).GetGenericArguments().First());
+                _logger.Error("{message} Couldn't read all {type}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault());
                 throw new Exception("Couldn't Read");
             }
         }
@@ -84,11 +84,11 @@ namespace DI44UF_HFT_2023241.Logic
             {
                 _repo.Update(item);
 
-                _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().First());
+                _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't update {type} with {id}", ex.Message, typeof(T).GetGenericArguments().First());
+                _logger.Error("{message} Couldn't update {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault());
                 throw new Exception("Couldn't Read");
             }
         }

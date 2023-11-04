@@ -14,18 +14,18 @@ namespace DI44UF_HFT_2023241.Test
     [TestFixture]
     public class OrderTester
     {
+        ILogger _logger;
         Mock<ILogger> _mockLogger;
 
         CustomerLogic _customerLogic;
         Mock<IRepository<Customer>> _mockCustomerRepo;
 
-
-        MovieLogic logic;
-        Mock<IRepository<Movie>> mockMovieRepo;
         [SetUp]
         public void Init()
         {
+            _mockLogger = new Mock<ILogger>();
             _mockCustomerRepo = new Mock<IRepository<Customer>>();
+
             _mockCustomerRepo.Setup(m => m.ReadAll()).Returns(new List<Customer>()
             {
                     new Customer
@@ -145,10 +145,58 @@ namespace DI44UF_HFT_2023241.Test
                         }
                     }
             }.AsQueryable());
+
             _customerLogic = new CustomerLogic(_mockLogger.Object, _mockCustomerRepo.Object);
         }
 
 
+        #region Basic Tests
+
+        [Test]
+        public void CreateCustomerTest()
+        {
+            var customer = new Customer() 
+            {
+                CustomerId = 9999999,
+                AddressId = 999999,
+                UserName = "UltimateJozsi",
+                Address = new Address(999999, "404 Walnut St", "City7", "State7", "78901", "Country7"),
+                Orders = new List<Order>
+                        {
+                            new Order(1, new DateTime(1992, 12, 1), new DateTime(1992, 12, 2), 11)
+                        }
+            };
+
+            //ACT
+            _customerLogic.Create(customer);
+
+            //ASSERT
+            _mockCustomerRepo.Verify(r => r.Create(customer), Times.Once);
+        }
+
+        //[Test]
+        //public void CreateMovieTestWithInCorrectTitle()
+        //{
+        //    var movie = new Movie() { Title = "24" };
+        //    try
+        //    {
+        //        //ACT
+        //        logic.Create(movie);
+        //    }
+        //    catch
+        //    {
+
+        //    }
+
+        //    //ASSERT
+        //    mockMovieRepo.Verify(r => r.Create(movie), Times.Never);
+        //}
+
+        #endregion
+
+
+        //MovieLogic logic;
+        //Mock<IRepository<Movie>> mockMovieRepo;
 
         //[SetUp]
         //public void Init()
@@ -164,70 +212,70 @@ namespace DI44UF_HFT_2023241.Test
         //    logic = new MovieLogic(mockMovieRepo.Object);
         //}
 
-        [Test]
-        public void AvgRatePerYearTest()
-        {
-            double? avg = logic.GetAverageRatePerYear(2009);
-            Assert.That(avg, Is.EqualTo(6.5));
-        }
+        //[Test]
+        //public void AvgRatePerYearTest()
+        //{
+        //    double? avg = logic.GetAverageRatePerYear(2009);
+        //    Assert.That(avg, Is.EqualTo(6.5));
+        //}
 
-        [Test]
-        public void YearStatisticsTest()
-        {
-            var actual = logic.YearStatistics().ToList();
-            var expected = new List<YearInfo>()
-            {
-                new YearInfo()
-                {
-                    Year = 2008,
-                    AvgRating = 5,
-                    MovieNumber = 1
-                },
-                new YearInfo()
-                {
-                    Year = 2009,
-                    AvgRating = 6.5,
-                    MovieNumber = 2
-                },
-                new YearInfo()
-                {
-                    Year = 2010,
-                    AvgRating = 8,
-                    MovieNumber = 1
-                }
-            };
+        //[Test]
+        //public void YearStatisticsTest()
+        //{
+        //    var actual = logic.YearStatistics().ToList();
+        //    var expected = new List<YearInfo>()
+        //    {
+        //        new YearInfo()
+        //        {
+        //            Year = 2008,
+        //            AvgRating = 5,
+        //            MovieNumber = 1
+        //        },
+        //        new YearInfo()
+        //        {
+        //            Year = 2009,
+        //            AvgRating = 6.5,
+        //            MovieNumber = 2
+        //        },
+        //        new YearInfo()
+        //        {
+        //            Year = 2010,
+        //            AvgRating = 8,
+        //            MovieNumber = 1
+        //        }
+        //    };
 
-            Assert.AreEqual(expected, actual);
-        }
+        //    Assert.AreEqual(expected, actual);
+        //}
 
-        [Test]
-        public void CreateMovieTestWithCorrectTitle()
-        {
-            var movie = new Movie() { Title = "Vukk" };
+        //[Test]
+        //public void CreateMovieTestWithCorrectTitle()
+        //{
+        //    var movie = new Movie() { Title = "Vukk" };
 
-            //ACT
-            logic.Create(movie);
+        //    //ACT
+        //    logic.Create(movie);
 
-            //ASSERT
-            mockMovieRepo.Verify(r => r.Create(movie), Times.Once);
-        }
+        //    //ASSERT
+        //    mockMovieRepo.Verify(r => r.Create(movie), Times.Once);
+        //}
 
-        [Test]
-        public void CreateMovieTestWithInCorrectTitle()
-        {
-            var movie = new Movie() { Title = "24" };
-            try
-            {
-                //ACT
-                logic.Create(movie);
-            }
-            catch
-            {
+        //[Test]
+        //public void CreateMovieTestWithInCorrectTitle()
+        //{
+        //    var movie = new Movie() { Title = "24" };
+        //    try
+        //    {
+        //        //ACT
+        //        logic.Create(movie);
+        //    }
+        //    catch
+        //    {
 
-            }
+        //    }
 
-            //ASSERT
-            mockMovieRepo.Verify(r => r.Create(movie), Times.Never);
-        }
+        //    //ASSERT
+        //    mockMovieRepo.Verify(r => r.Create(movie), Times.Never);
+        //}
     }
 }
