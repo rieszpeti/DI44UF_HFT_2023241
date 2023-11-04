@@ -7,17 +7,10 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Repository.ModelRepositories
 {
-    public class ProductRepository : Repository<Product>, IRepositorySpecial<Product>
+    public class ProductRepository : Repository<Product>, IRepository<Product>
     {
         public ProductRepository(OrderDbContext ctx) : base(ctx)
         {
-        }
-
-        public IQueryable<Product> ReadByName(string name)
-        {
-            return from p in _ctx.Products
-                   where p.Name == name
-                   select p;
         }
     }
 }

@@ -44,6 +44,10 @@ namespace DI44UF_HFT_2023241.Repository
                 .WithOne(o => o.Customer)
                 .HasForeignKey(o => o.CustomerId);
 
+            modelBuilder.Entity<Customer>()
+                .HasIndex(o => o.UserName)
+                .IsUnique();
+
             //modelBuilder.Entity<Order>()
             //    .HasOne(o => o.Customer)
             //    .WithMany(c => c.Orders)
@@ -73,7 +77,7 @@ namespace DI44UF_HFT_2023241.Repository
                 { 
                     CustomerId = 1,
                     AddressId = 1,
-                    Name = "Jozsi",
+                    UserName = "Jozsi",
                     Password = "test"
                 },
 
@@ -81,7 +85,7 @@ namespace DI44UF_HFT_2023241.Repository
                 {
                     CustomerId = 2,
                     AddressId = 1,
-                    Name = "Bela",
+                    UserName = "Bela",
                     Password = "test"
                 }
             });

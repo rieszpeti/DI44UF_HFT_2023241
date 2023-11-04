@@ -9,15 +9,10 @@ using System.Threading.Tasks;
 
 namespace DI44UF_HFT_2023241.Logic
 {
-    public class AddressLogic : Logic<Address>, ILogicSpecial<Address>
+    public class AddressLogic : Logic<Address>, ILogic<Address>
     {
-        public AddressLogic(IRepositorySpecial<Address> repo) : base(repo)
+        public AddressLogic(IRepository<Address> repo) : base(repo)
         {
-        }
-
-        public IQueryable<Address> ReadByName(string name)
-        {
-            return ((IRepositorySpecial<Address>)_repo).ReadByName(name);
         }
     }
 }

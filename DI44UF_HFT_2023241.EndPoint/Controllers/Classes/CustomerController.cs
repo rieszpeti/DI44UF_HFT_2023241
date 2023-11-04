@@ -11,7 +11,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
     public class CustomerController : GenericController<Customer, CustomerDto>, IGenericSpecialController<Customer, CustomerDto>
     {
-        public CustomerController(ILogicSpecial<Customer> logic) : base(logic)
+        public CustomerController(ILogicLogin<Customer> logic) : base(logic)
         {
         }
 
@@ -25,7 +25,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
             return new Customer
                 (
                     inp.CustomerId,
-                    inp.Name,
+                    inp.UserName,
                     inp.AddressId
                 );
         }
@@ -40,7 +40,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
             return new CustomerDto
                 (
                     inp.CustomerId,
-                    inp.Name,
+                    inp.UserName,
                     inp.AddressId
                 );
         }
@@ -51,6 +51,12 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
             var names = ((ILogicSpecial<Customer>)_logic).ReadByName(name).ToList();
             return names.Select(x => ConvertModelToDto(x));
+        }
+
+        [HttpGet("IsLogged")]
+        public bool Login(string userName, string password)
+        {
+            return ((ILogicLogin<Customer>)_logic).CheckLogin(userName, password);
         }
     }
 }

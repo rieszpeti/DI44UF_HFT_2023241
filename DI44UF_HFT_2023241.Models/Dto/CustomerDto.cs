@@ -13,7 +13,7 @@ namespace DI44UF_HFT_2023241.Models.Dto
 
         [Required]
         [StringLength(240)]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// assume customer has only one address
@@ -31,14 +31,14 @@ namespace DI44UF_HFT_2023241.Models.Dto
         public CustomerDto(int customerId, string name, int addressId)
         {
             CustomerId = customerId;
-            Name = name;
+            UserName = name;
             AddressId = addressId;
         }
 
         public override string ToString()
         {
             return  "CustomerId: " + CustomerId + " " +
-                    "Name: " + Name + " " +
+                    "Name: " + UserName + " " +
                     "AddressId: " + AddressId;
         }
     }

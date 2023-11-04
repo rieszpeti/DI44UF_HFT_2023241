@@ -278,7 +278,7 @@ namespace DI44UF_HFT_2023241.Client
             Console.WriteLine($"Old Values {one}");
 
             Console.WriteLine("Name:");
-            one.Name = Console.ReadLine();
+            one.UserName = Console.ReadLine();
             Console.WriteLine("AddressId:");
             one.AddressId = int.Parse(Console.ReadLine());
 
