@@ -25,6 +25,9 @@ namespace DI44UF_HFT_2023241.Models.Dto
         [Required]
         public int OrderItemId { get; set; }
 
+        [Required]
+        public int Price { get; set; }
+
         public ProductDto(int id, string name, string description, string size, int orderItemId)
         {
             Id = id;

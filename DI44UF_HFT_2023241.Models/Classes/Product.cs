@@ -14,6 +14,9 @@ namespace DI44UF_HFT_2023241.Models
         [StringLength(240)]
         public string Name { get; set; }
 
+        [Required]
+        public int Price { get; set; }
+
         [StringLength(500)]
         public string Description { get; set; }
 

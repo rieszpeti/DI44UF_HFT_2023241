@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    public class AddressController : GenericController<Address, AddressDto>, IGenericSpecialController<Address, AddressDto>
+    public class AddressController : GenericController<Address, AddressDto>, IGenericController<Address, AddressDto>
     {
-        public AddressController(ILogicSpecial<Address> logic) : base(logic)
+        public AddressController(ILogic<Address> logic) : base(logic)
         {
         }
 
@@ -41,13 +41,6 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                      inp.Country,
                      inp.Street
                  );
-        }
-
-        [HttpGet("name/{name}")]
-        public IEnumerable<AddressDto> ReadByName(string name)
-        {
-            var names = ((ILogicSpecial<Address>)_logic).ReadByName(name).ToList();
-            return names.Select(x => ConvertModelToDto(x));
         }
 
         //[HttpGet("name/{name}")]

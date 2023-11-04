@@ -12,6 +12,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
     public abstract class GenericController<T, X> : Controller, IGenericController<T, X> where T : class
     {
         protected readonly ILogic<T> _logic;
+
         public GenericController(ILogic<T> logic)
         {
             _logic = logic;

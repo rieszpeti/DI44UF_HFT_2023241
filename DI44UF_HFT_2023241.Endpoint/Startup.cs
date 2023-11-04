@@ -52,7 +52,7 @@ namespace DI44UF_HFT_2023241.Endpoint
 
             //Business Logic
             services.AddTransient<ILogic<Address>, AddressLogic>();
-            services.AddTransient<ILogic<Customer>, CustomerLogic>();
+            services.AddTransient<ICustomerLogic, CustomerLogic>();
             services.AddTransient<ILogic<Order>, OrderLogic>();
             services.AddTransient<ILogic<OrderDetail>, OrderDetailLogic>();
             services.AddTransient<ILogic<Product>, ProductLogic>();

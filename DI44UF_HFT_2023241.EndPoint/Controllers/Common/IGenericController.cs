@@ -13,11 +13,5 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         
         T ConvertDtoToModel(X dto);
         X ConvertModelToDto(T model);
-
-        //void Create([FromBody] T value);
-        //void Delete(int id);
-        //void Put([FromBody] T value);
-        //T Read(int id);
-        //IEnumerable<T> ReadAll();
     }
 }

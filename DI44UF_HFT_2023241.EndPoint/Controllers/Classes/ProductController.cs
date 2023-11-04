@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    public class ProductController : GenericController<Product, ProductDto>, IGenericSpecialController<Product, ProductDto>
+    public class ProductController : GenericController<Product, ProductDto>, IGenericController<Product, ProductDto>
     {
-        public ProductController(ILogicSpecial<Product> logic) : base(logic)
+        public ProductController(ILogic<Product> logic) : base(logic)
         {
         }
 
@@ -39,14 +39,6 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                     inp.Size,
                     inp.OrderItemId
                 );
-        }
-
-        [HttpGet("name/{name}")]
-        //[Route("{name}")]
-        public IEnumerable<ProductDto> ReadByName(string name)
-        {
-            var names = ((ILogicSpecial<Product>)_logic).ReadByName(name).ToList();
-            return names.Select(x => ConvertModelToDto(x));
         }
     }
 }

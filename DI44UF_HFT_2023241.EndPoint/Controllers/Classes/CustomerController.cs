@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    public class CustomerController : GenericController<Customer, CustomerDto>, IGenericSpecialController<Customer, CustomerDto>
+    public class CustomerController : GenericController<Customer, CustomerDto>, IGenericController<Customer, CustomerDto>
     {
-        public CustomerController(ILogicLogin<Customer> logic) : base(logic)
+        public CustomerController(ICustomerLogic customerLogic) : base(customerLogic)
         {
         }
 
@@ -43,20 +43,6 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                     inp.UserName,
                     inp.AddressId
                 );
-        }
-
-        [HttpGet("name/{name}")]
-        //[Route("{name}")]
-        public IEnumerable<CustomerDto> ReadByName(string name)
-        {
-            var names = ((ILogicSpecial<Customer>)_logic).ReadByName(name).ToList();
-            return names.Select(x => ConvertModelToDto(x));
-        }
-
-        [HttpGet("IsLogged")]
-        public bool Login(string userName, string password)
-        {
-            return ((ILogicLogin<Customer>)_logic).CheckLogin(userName, password);
         }
     }
 }
