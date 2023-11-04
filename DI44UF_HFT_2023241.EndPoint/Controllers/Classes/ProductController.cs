@@ -1,5 +1,6 @@
 ﻿using DI44UF_HFT_2023241.EndPoint.Controllers;
 using DI44UF_HFT_2023241.Logic;
+using DI44UF_HFT_2023241.Logic.Mapper;
 using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Models.Dto;
 using Microsoft.AspNetCore.Http;
@@ -11,34 +12,8 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
     public class ProductController : GenericController<Product, ProductDto>, IGenericController<Product, ProductDto>
     {
-        public ProductController(ILogic<Product> logic) : base(logic)
+        public ProductController(ILogic<Product> logic, IMapper<Product, ProductDto> productMapper) : base(logic, productMapper)
         {
-        }
-
-        [NonAction]
-        public override Product ConvertDtoToModel(ProductDto inp)
-        {
-            return new Product
-                (
-                    inp.Id,
-                    inp.Name,
-                    inp.Description,
-                    inp.Size,
-                    inp.OrderItemId
-                );
-        }
-
-        [NonAction]
-        public override ProductDto ConvertModelToDto(Product inp)
-        {
-            return new ProductDto
-                (
-                    inp.Id,
-                    inp.Name,
-                    inp.Description,
-                    inp.Size,
-                    inp.OrderItemId
-                );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DI44UF_HFT_2023241.EndPoint.Controllers;
 using DI44UF_HFT_2023241.Logic;
+using DI44UF_HFT_2023241.Logic.Mapper;
 using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Models.Dto;
 using Microsoft.AspNetCore.Http;
@@ -9,32 +10,8 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
     public class OrderDetailController : GenericController<OrderDetail, OrderDetailDto>, IGenericController<OrderDetail, OrderDetailDto>
     {
-        public OrderDetailController(ILogic<OrderDetail> logic) : base(logic)
+        public OrderDetailController(ILogic<OrderDetail> logic, IMapper<OrderDetail, OrderDetailDto> orderDetailMapper) : base(logic, orderDetailMapper)
         {
-        }
-
-        [NonAction]
-        public override OrderDetail ConvertDtoToModel(OrderDetailDto inp)
-        {
-            return new OrderDetail
-                (
-                    inp.OrderItemId,
-                    inp.ProductId,
-                    inp.OrderId,
-                    inp.Quantity
-                );
-        }
-
-        [NonAction]
-        public override OrderDetailDto ConvertModelToDto(OrderDetail inp)
-        {
-            return new OrderDetailDto
-                (
-                    inp.OrderItemId,
-                    inp.ProductId,
-                    inp.OrderId,
-                    inp.Quantity
-                );
         }
     }
 }

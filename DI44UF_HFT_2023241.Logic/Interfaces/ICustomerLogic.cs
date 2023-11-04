@@ -31,6 +31,13 @@ namespace DI44UF_HFT_2023241.Logic
         /// <returns></returns>
         Address GetAddress(int customerId);
 
+        /// <summary>
+        /// gets a customer's orders between a date
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateEnd"></param>
+        /// <returns></returns>
         IEnumerable<Order> GetOrdersBetweenDates(int customerId, DateTime dateStart, DateTime dateEnd);
     }
 }
