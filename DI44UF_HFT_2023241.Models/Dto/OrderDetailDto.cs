@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace DI44UF_HFT_2023241.Models.Dto
 {
-    public class OrderDetailDto : IOrderDetail
+    public class OrderDetailDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
