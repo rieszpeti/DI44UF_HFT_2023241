@@ -19,7 +19,7 @@ namespace DI44UF_HFT_2023241.Endpoint
                         .Enrich.FromLogContext()
                         .Enrich.WithMachineName()
                         .WriteTo.Console()
-                        .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day)
+                        .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
