@@ -27,6 +27,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         public IEnumerable<X> ReadAll()
         {
             var models = _logic.ReadAll().ToList();
+
+            _logger.Information("{type} successfully read all of the entities", typeof(T).GetGenericArguments().First());
+
             return models.Select(x => _mapper.ConvertModelToDto(x));
         }
 
@@ -34,6 +37,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         public X Read(int id)
         {
             var model = _logic.Read(id);
+
+            _logger.Information("{type} with {id} successfully read entity", typeof(T).GetGenericArguments().First(), id);
+
             return _mapper.ConvertModelToDto(model);
         }
 
@@ -41,6 +47,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         public void Create([FromBody] X value)
         {
             var model = _mapper.ConvertDtoToModel(value);
+
+            _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().First());
+
             _logic.Create(model);
         }
 
@@ -48,6 +57,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         public void Put([FromBody] X value)
         {
             var model = _mapper.ConvertDtoToModel(value);
+
+            _logger.Information("{type} successfully updated", typeof(T).GetGenericArguments().First());
+
             _logic.Update(model);
         }
 
@@ -55,6 +67,8 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         public void Delete(int id)
         {
             _logic.Delete(id);
+
+            _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().First(), id);
         }
     }
 }

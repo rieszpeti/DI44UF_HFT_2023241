@@ -2,20 +2,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using DI44UF_HFT_2023241.Logic;
 using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DI44UF_HFT_2023241.Repository.ModelRepositories;
+using DI44UF_HFT_2023241.Logic.Mapper;
+using DI44UF_HFT_2023241.Models.Dto;
 
 namespace DI44UF_HFT_2023241.Endpoint
 {
@@ -43,6 +39,13 @@ namespace DI44UF_HFT_2023241.Endpoint
             services.AddTransient<IActorLogic, ActorLogic>();
             services.AddTransient<IDirectorLogic, DirectorLogic>();
 
+            //Mapper
+            services.AddTransient<IMapper<Address, AddressDto>, AddressMapper>();
+            services.AddTransient<IMapper<Customer, CustomerDto>, CustomerMapper>();
+            services.AddTransient<IMapper<Order, OrderDto>, OrderMapper>();
+            services.AddTransient<IMapper<OrderDetail, OrderDetailDto>, OrderDetailMapper>();
+            services.AddTransient<IMapper<Product, ProductDto>, ProductMapper>();
+
             //Repositories
             services.AddTransient<IRepository<Address>, AddressRepository>();
             services.AddTransient<IRepository<Customer>, CustomerRepository>();
@@ -56,8 +59,6 @@ namespace DI44UF_HFT_2023241.Endpoint
             services.AddTransient<ILogic<Order>, OrderLogic>();
             services.AddTransient<ILogic<OrderDetail>, OrderDetailLogic>();
             services.AddTransient<ILogic<Product>, ProductLogic>();
-
-            //services.AddControllers();
 
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
