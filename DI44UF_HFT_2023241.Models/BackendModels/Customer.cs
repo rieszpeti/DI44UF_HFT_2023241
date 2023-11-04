@@ -22,7 +22,7 @@ namespace DI44UF_HFT_2023241.Models
         [Required]
         public virtual Address Address { get; set; }
 
-        public virtual ICollection<Order> Orders { get; } = new List<Order>();
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
         
         public Customer()
         {
