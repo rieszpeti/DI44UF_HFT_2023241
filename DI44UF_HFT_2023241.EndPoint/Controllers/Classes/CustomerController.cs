@@ -15,6 +15,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
         }
 
+        [NonAction]
         public override Customer ConvertDtoToModel(CustomerDto inp)
         {
             //if (inp is null)
@@ -29,6 +30,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                 );
         }
 
+        [NonAction]
         public override CustomerDto ConvertModelToDto(Customer inp)
         {
             //if (inp is null)

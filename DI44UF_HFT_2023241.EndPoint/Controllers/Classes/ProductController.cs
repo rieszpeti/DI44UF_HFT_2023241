@@ -15,6 +15,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
         }
 
+        [NonAction]
         public override Product ConvertDtoToModel(ProductDto inp)
         {
             return new Product
@@ -27,6 +28,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                 );
         }
 
+        [NonAction]
         public override ProductDto ConvertModelToDto(Product inp)
         {
             return new ProductDto

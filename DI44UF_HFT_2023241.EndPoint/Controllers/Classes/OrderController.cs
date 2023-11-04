@@ -13,6 +13,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
         }
 
+        [NonAction]
         public override Order ConvertDtoToModel(OrderDto inp)
         {
             return new Order
@@ -24,6 +25,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                 );
         }
 
+        [NonAction]
         public override OrderDto ConvertModelToDto(Order inp)
         {
             return new OrderDto

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,29 +23,7 @@ namespace DI44UF_HFT_2023241.Endpoint
                         .Enrich.FromLogContext()
                         .Enrich.WithMachineName()
                         .WriteTo.Console()
-                        .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day)
-                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticConfiguration:Uri"]))
-                        {
-                        //    ModifyConnectionSettings = (x) =>
-                        //    x.ApiKeyAuthentication(new ApiKeyAuthenticationCredentials(context.Configuration["ElasticConfiguration:APIKey"])),
-                            IndexFormat = $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
-                            AutoRegisterTemplate = true,
-                            //TemplateName = "Feleves",
-                            //AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
-                            //TypeName = null,
-                            //BatchAction = ElasticOpType.Create,
-                            NumberOfShards = 2,
-                            NumberOfReplicas = 1
-                        })
-                        //.WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticConfiguration:Uri"]))
-                        //{
-                        //    IndexFormat = $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
-                        //    AutoRegisterTemplate = true,
-                        //    NumberOfShards = 2,
-                        //    NumberOfReplicas = 1
-                        //})
-                        .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
-                        .ReadFrom.Configuration(context.Configuration);
+                        .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

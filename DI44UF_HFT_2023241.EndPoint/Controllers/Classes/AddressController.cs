@@ -15,6 +15,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
         {
         }
 
+        [NonAction]
         public override Address ConvertDtoToModel(AddressDto inp)
         {
            return new Address
@@ -28,6 +29,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
                 );
         }
 
+        [NonAction]
         public override AddressDto ConvertModelToDto(Address inp)
         {
             return new AddressDto
