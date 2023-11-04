@@ -148,7 +148,9 @@ namespace DI44UF_HFT_2023241.Logic
                     }
                 }
 
-                return LinearRegression(productIds, orderTime);
+                var (b0, b1) = LinearRegression(productIds, orderTime);
+
+                return $"X= {b0} Y= {b1}";
             }
             catch (Exception ex)
             {
@@ -165,13 +167,13 @@ namespace DI44UF_HFT_2023241.Logic
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private static string LinearRegression(List<int> x, List<int> y)
+        private static (double, double) LinearRegression(List<int> x, List<int> y)
         { 
             var squarex = x.Sum(e => Math.Pow(e - x.Average(), 2));
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();
             double b1 = xy / squarex;
             double b0 = y.Average() - (x.Average() * b1);
-            return $"X= {b0} Y= {b1}";
+            return (b0, b1);
         }
     }
 }
