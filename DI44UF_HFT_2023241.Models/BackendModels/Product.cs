@@ -34,13 +34,14 @@ namespace DI44UF_HFT_2023241.Models
             
         }
 
-        public Product(int id, string name, string description, string size, int orderItemId)
+        public Product(int id, string name, string description, string size, int orderItemId, int price)
         {
             Id = id;
             Name = name;
             Description = description;
             Size = size;
             OrderItemId = orderItemId;
+            Price = price;
         }
 
         public override string ToString()
@@ -49,7 +50,8 @@ namespace DI44UF_HFT_2023241.Models
                     "Name: " + Name + " " +
                     "Description: " + Description + " " +
                     "Size: " + Size + " " +
-                    "OrderItemId: " + OrderItemId;
+                    "OrderItemId: " + OrderItemId + " " +
+                    "Price:" + Price;
         }
     }
 }

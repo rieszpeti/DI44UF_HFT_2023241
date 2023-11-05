@@ -43,5 +43,14 @@ namespace DI44UF_HFT_2023241.Models
                     "ShippingDate: " + ShippingDate + " " +
                     "CustomerId: " + CustomerId;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Order order &&
+                   OrderId == order.OrderId &&
+                   OrderDate == order.OrderDate &&
+                   ShippingDate == order.ShippingDate &&
+                   CustomerId == order.CustomerId;
+        }
     }
 }

@@ -12,17 +12,8 @@ namespace DI44UF_HFT_2023241.Logic
 {
     public class CustomerLogic : Logic<Customer>, ICustomerLogic
     {
-        private readonly IRepository<Product> _productRepo;
-
         public CustomerLogic(ILogger logger, IRepository<Customer> customerRepo): base(logger, customerRepo)
         {
-        }
-
-        public CustomerLogic(ILogger logger, IRepository<Customer> customerRepo,
-                     IRepository<Product> productRepo)
-                     : base(logger, customerRepo)
-        {
-            _productRepo = productRepo;
         }
 
         public Address GetAddress(int customerId)
@@ -94,7 +85,7 @@ namespace DI44UF_HFT_2023241.Logic
 
             try
             {
-                var orders = _productRepo.ReadById(customerId).Orders;
+                var orders = _repo.ReadById(customerId).Orders;
 
                 if (orders is null && orders.Count == 0)
                 {
@@ -126,7 +117,15 @@ namespace DI44UF_HFT_2023241.Logic
 
             try
             {
-                var orders = _repo.ReadById(customerId).Orders.ToList();
+                var entity = _repo.ReadById(customerId);
+
+                if (entity is null)
+                {
+                    _logger.Information("{type} was null with {id}", typeof(Customer), customerId);
+                    return null;
+                }
+
+                var orders = entity.Orders.ToList();
 
                 if (orders is null && orders.Count == 0)
                 {
@@ -166,13 +165,13 @@ namespace DI44UF_HFT_2023241.Logic
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public static (double, double) LinearRegression(List<int> x, List<int> y)
+        public (double, double) LinearRegression(List<int> x, List<int> y)
         { 
             var squarex = x.Sum(e => Math.Pow(e - x.Average(), 2));
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();
             double b1 = xy / squarex;
             double b0 = y.Average() - (x.Average() * b1);
-            return (b0, b1);
+            return (Math.Round(b0, 5), Math.Round(b1, 5));
         }
     }
 }

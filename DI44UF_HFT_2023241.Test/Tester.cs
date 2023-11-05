@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using static DI44UF_HFT_2023241.Logic.MovieLogic;
 using Serilog;
+using DI44UF_HFT_2023241.Repository.ModelRepositories;
 
 namespace DI44UF_HFT_2023241.Test
 {
     [TestFixture]
-    public class OrderTester
+    public class Tester
     {
         ILogger _logger;
         Mock<ILogger> _mockLogger;
@@ -42,21 +43,42 @@ namespace DI44UF_HFT_2023241.Test
         const int _forReadByIdFunc_OrderId2 = 2;
         static readonly DateTime _forReadByIdFunc_OrderDate2 = new DateTime(9999, 1, 1);
         static readonly DateTime _forReadByIdFunc_ShippingDate2 = new DateTime(9999, 1, 2);
+        //Product Parameters
+        //Product1
+        const int _forReadByIdFunc_ProductPrice1 = 17359;
+        //Product2
+        const int _forReadByIdFunc_ProductPrice2 = 15077;
 
         [SetUp]
         public void Init()
         {
+            Address address = new(_forReadByIdFunc_AddressId, _forReadByIdFunc_PostalCode, _forReadByIdFunc_City, _forReadByIdFunc_Region, _forReadByIdFunc_Country, _forReadByIdFunc_Street);
+
+            Order order1 = new(_forReadByIdFunc_OrderId1, _forReadByIdFunc_OrderDate1, _forReadByIdFunc_ShippingDate1, _forReadByIdFunc_CustomerId);
+            Order order2 = new(_forReadByIdFunc_OrderId2, _forReadByIdFunc_OrderDate2, _forReadByIdFunc_ShippingDate2, _forReadByIdFunc_CustomerId);
+
+            var orderList = new List<Order>()
+            {
+                order1,
+                order2
+            };
+
+            Product product1 = new(1, "pulcsi", "szep", "1", 1, _forReadByIdFunc_ProductPrice1);
+            Product product2 = new(2, "gatya", "nagyon szep", "100", 2, _forReadByIdFunc_ProductPrice2);
+
+            order1.Products = new List<Product>()
+            {
+                product1,
+                product2
+            };
+
             var forReadMockSingleData = new Customer
             {
                 CustomerId = _forReadByIdFunc_CustomerId,
                 AddressId = _forReadByIdFunc_AddressId,
                 UserName = _forReadName,
-                Address = new Address(_forReadByIdFunc_AddressId, _forReadByIdFunc_PostalCode, _forReadByIdFunc_City, _forReadByIdFunc_Region, _forReadByIdFunc_Country, _forReadByIdFunc_Street),
-                Orders = new List<Order>
-                        {
-                            new Order(_forReadByIdFunc_OrderId1, _forReadByIdFunc_OrderDate1, _forReadByIdFunc_ShippingDate1, _forReadByIdFunc_CustomerId),
-                            new Order(_forReadByIdFunc_OrderId2, _forReadByIdFunc_OrderDate2, _forReadByIdFunc_ShippingDate2, _forReadByIdFunc_CustomerId)
-                        }
+                Address = address,
+                Orders = orderList
             };
 
             var forReadAllMockMultipleData = new List<Customer>()
@@ -179,12 +201,15 @@ namespace DI44UF_HFT_2023241.Test
                     }
             }.AsQueryable();
 
+            //CustomerRepo
             _mockLogger = new Mock<ILogger>();
             _mockCustomerRepo = new Mock<IRepository<Customer>>();
 
+            //Setup methods to fake data
             _mockCustomerRepo.Setup(m => m.ReadById(_forReadByIdFunc_CustomerId)).Returns(forReadMockSingleData);
             _mockCustomerRepo.Setup(m => m.ReadAll()).Returns(forReadAllMockMultipleData);
 
+            //Setup Logic that need to be tested
             _customerLogic = new CustomerLogic(_mockLogger.Object, _mockCustomerRepo.Object);
         }
 
@@ -194,7 +219,7 @@ namespace DI44UF_HFT_2023241.Test
         [Test]
         public void CreateCustomerTest()
         {
-            var customer = new Customer() 
+            var customer = new Customer()
             {
                 CustomerId = 9999999,
                 AddressId = 9999999,
@@ -253,7 +278,7 @@ namespace DI44UF_HFT_2023241.Test
         {
             //Arrange
             int id = 1;
-            
+
             var entity = _customerLogic.Read(id);
 
             int changedId = 999999;
@@ -327,37 +352,78 @@ namespace DI44UF_HFT_2023241.Test
             });
         }
 
+        [Test]
+        public void GetAvgPriceOfAllOrdersTest()
+        {
+            //Arrange
+            double expected = (_forReadByIdFunc_ProductPrice1 + _forReadByIdFunc_ProductPrice2) / 2;
 
-        #endregion
+            //Act
+            var actual = _customerLogic.GetAvgPriceOfAllOrders(_forReadByIdFunc_CustomerId);
 
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
 
+        [Test]
+        public void GetOrderHistoryTest()
+        {
+            //Arrange
+            var expected = new List<Order>()
+            {
+                    new(_forReadByIdFunc_OrderId1, _forReadByIdFunc_OrderDate1, _forReadByIdFunc_ShippingDate1, _forReadByIdFunc_CustomerId),
+                    new(_forReadByIdFunc_OrderId2, _forReadByIdFunc_OrderDate2, _forReadByIdFunc_ShippingDate2, _forReadByIdFunc_CustomerId)
+            };
 
+            //Act
+            var actual = _customerLogic.GetOrderHistory(_forReadByIdFunc_CustomerId);
 
-        //MovieLogic logic;
-        //Mock<IRepository<Movie>> mockMovieRepo;
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-        //[SetUp]
-        //public void Init()
-        //{
-        //    mockMovieRepo = new Mock<IRepository<Movie>>();
-        //    mockMovieRepo.Setup(m => m.ReadAll()).Returns(new List<Movie>()
-        //    {
-        //        new Movie("1#MovieA#100#1#2008*05*02#5"),
-        //        new Movie("2#MovieB#200#1#2009*05*02#6"),
-        //        new Movie("3#MovieC#300#1#2009*05*02#7"),
-        //        new Movie("4#MovieD#400#1#2010*05*02#8"),
-        //    }.AsQueryable());
-        //    logic = new MovieLogic(mockMovieRepo.Object);
-        //}
+        [Test]
+        public void GetOrdersBetweenDatesTest()
+        {
+            //Act
+            var actual = _customerLogic.GetOrdersBetweenDates(1, _forReadByIdFunc_OrderDate1.AddDays(-1), _forReadByIdFunc_OrderDate1.AddDays(1));
 
-        //[Test]
-        //public void AvgRatePerYearTest()
-        //{
-        //    double? avg = logic.GetAverageRatePerYear(2009);
-        //    Assert.That(avg, Is.EqualTo(6.5));
-        //}
+            //Assert
+            Assert.AreEqual(1, actual.ToList().Count);
+        }
 
-        //[Test]
+        [Test]
+        public void LinearRegressionTest()
+        {
+            // Arrange
+            List<int> x = new() { 5, 6, 5, 5, 4, 4 };
+            List<int> y = new() { 3, 2, 2, 3, 2, 4 };
+
+            // Expected coefficients for the linear regression model
+            double expectedB0 = 4.94118;
+            double expectedB1 = -0.47059;
+
+            // Act
+            (double actualB0, double actualB1) = _customerLogic.LinearRegression(x, y);
+
+            // Assert
+            Assert.AreEqual(expectedB0, actualB0, 0.00001); // Tolerance of 0.001 for double comparison
+            Assert.AreEqual(expectedB1, actualB1, 0.00001);
+        }
+
+        [Test]
+        public void TestLinearRegressionWithNoOrders()
+        {
+            // Arrange
+            int customerId = int.MinValue;
+
+            // Act
+            string result = _customerLogic.LinearRegressionFromCustomerData(customerId);
+
+            // Assert
+            Assert.IsNull(result); // Ensure that the method returns null
+        }
+
         //public void YearStatisticsTest()
         //{
         //    var actual = logic.YearStatistics().ToList();
@@ -384,36 +450,95 @@ namespace DI44UF_HFT_2023241.Test
         //    };
 
         //    Assert.AreEqual(expected, actual);
-        //}
 
-        //[Test]
-        //public void CreateMovieTestWithCorrectTitle()
-        //{
-        //    var movie = new Movie() { Title = "Vukk" };
-
-        //    //ACT
-        //    logic.Create(movie);
-
-        //    //ASSERT
-        //    mockMovieRepo.Verify(r => r.Create(movie), Times.Once);
-        //}
-
-        //[Test]
-        //public void CreateMovieTestWithInCorrectTitle()
-        //{
-        //    var movie = new Movie() { Title = "24" };
-        //    try
-        //    {
-        //        //ACT
-        //        logic.Create(movie);
-        //    }
-        //    catch
-        //    {
-
-        //    }
-
-        //    //ASSERT
-        //    mockMovieRepo.Verify(r => r.Create(movie), Times.Never);
-        //}
     }
+
+    #endregion
+
+
+
+
+    //MovieLogic logic;
+    //Mock<IRepository<Movie>> mockMovieRepo;
+
+    //[SetUp]
+    //public void Init()
+    //{
+    //    mockMovieRepo = new Mock<IRepository<Movie>>();
+    //    mockMovieRepo.Setup(m => m.ReadAll()).Returns(new List<Movie>()
+    //    {
+    //        new Movie("1#MovieA#100#1#2008*05*02#5"),
+    //        new Movie("2#MovieB#200#1#2009*05*02#6"),
+    //        new Movie("3#MovieC#300#1#2009*05*02#7"),
+    //        new Movie("4#MovieD#400#1#2010*05*02#8"),
+    //    }.AsQueryable());
+    //    logic = new MovieLogic(mockMovieRepo.Object);
+    //}
+
+    //[Test]
+    //public void AvgRatePerYearTest()
+    //{
+    //    double? avg = logic.GetAverageRatePerYear(2009);
+    //    Assert.That(avg, Is.EqualTo(6.5));
+    //}
+
+    //[Test]
+    //public void YearStatisticsTest()
+    //{
+    //    var actual = logic.YearStatistics().ToList();
+    //    var expected = new List<YearInfo>()
+    //    {
+    //        new YearInfo()
+    //        {
+    //            Year = 2008,
+    //            AvgRating = 5,
+    //            MovieNumber = 1
+    //        },
+    //        new YearInfo()
+    //        {
+    //            Year = 2009,
+    //            AvgRating = 6.5,
+    //            MovieNumber = 2
+    //        },
+    //        new YearInfo()
+    //        {
+    //            Year = 2010,
+    //            AvgRating = 8,
+    //            MovieNumber = 1
+    //        }
+    //    };
+
+    //    Assert.AreEqual(expected, actual);
+    //}
+
+    //[Test]
+    //public void CreateMovieTestWithCorrectTitle()
+    //{
+    //    var movie = new Movie() { Title = "Vukk" };
+
+    //    //ACT
+    //    logic.Create(movie);
+
+    //    //ASSERT
+    //    mockMovieRepo.Verify(r => r.Create(movie), Times.Once);
+    //}
+
+    //[Test]
+    //public void CreateMovieTestWithInCorrectTitle()
+    //{
+    //    var movie = new Movie() { Title = "24" };
+    //    try
+    //    {
+    //        //ACT
+    //        logic.Create(movie);
+    //    }
+    //    catch
+    //    {
+
+    //    }
+
+    //    //ASSERT
+    //    mockMovieRepo.Verify(r => r.Create(movie), Times.Never);
+    //}
 }
+
