@@ -20,13 +20,26 @@ namespace DI44UF_HFT_2023241.Test
         CustomerLogic _customerLogic;
         Mock<IRepository<Customer>> _mockCustomerRepo;
 
+        const int _forReadById = 1;
+        const string _forReadName = "UltimateJozsi";
+
         [SetUp]
         public void Init()
         {
-            _mockLogger = new Mock<ILogger>();
-            _mockCustomerRepo = new Mock<IRepository<Customer>>();
+            var forReadMockSingleData = new Customer
+            {
+                CustomerId = _forReadById,
+                AddressId = _forReadById,
+                UserName = _forReadName,
+                Address = new Address(1, "123 Main St", "City1", "State1", "12345", "Country1"),
+                Orders = new List<Order>
+                        {
+                            new Order(1, new DateTime(1992, 12, 1), new DateTime(1992, 12, 2), 1),
+                            new Order(2, new DateTime(1992, 12, 3), new DateTime(1992, 12, 4), 2)
+                        }
+            };
 
-            _mockCustomerRepo.Setup(m => m.ReadAll()).Returns(new List<Customer>()
+            var forReadAllMockMultipleData = new List<Customer>()
             {
                     new Customer
                     {
@@ -144,13 +157,19 @@ namespace DI44UF_HFT_2023241.Test
                             new Order(1, new DateTime(1992, 12, 1), new DateTime(1992, 12, 2), 16)
                         }
                     }
-            }.AsQueryable());
+            }.AsQueryable();
+
+            _mockLogger = new Mock<ILogger>();
+            _mockCustomerRepo = new Mock<IRepository<Customer>>();
+
+            _mockCustomerRepo.Setup(m => m.ReadById(_forReadById)).Returns(forReadMockSingleData);
+            _mockCustomerRepo.Setup(m => m.ReadAll()).Returns(forReadAllMockMultipleData);
 
             _customerLogic = new CustomerLogic(_mockLogger.Object, _mockCustomerRepo.Object);
         }
 
 
-        #region Basic Tests
+        #region CRUD Tests
 
         [Test]
         public void CreateCustomerTest()
@@ -158,20 +177,91 @@ namespace DI44UF_HFT_2023241.Test
             var customer = new Customer() 
             {
                 CustomerId = 9999999,
-                AddressId = 999999,
+                AddressId = 9999999,
                 UserName = "UltimateJozsi",
-                Address = new Address(999999, "404 Walnut St", "City7", "State7", "78901", "Country7"),
+                Address = new Address(9999999, "404 Walnut St", "City7", "State7", "78901", "Country7"),
                 Orders = new List<Order>
                         {
                             new Order(1, new DateTime(1992, 12, 1), new DateTime(1992, 12, 2), 11)
                         }
             };
 
-            //ACT
+            //Act
             _customerLogic.Create(customer);
 
-            //ASSERT
+            //Assert
             _mockCustomerRepo.Verify(r => r.Create(customer), Times.Once);
+        }
+
+        [Test]
+        public void ReadCustomerTest_CheckExistingData()
+        {
+            //Act
+            var entity = _customerLogic.Read(_forReadById);
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                _mockCustomerRepo.Verify(r => r.ReadById(_forReadById), Times.Once);
+
+                Assert.AreEqual(entity.CustomerId, _forReadById);
+                Assert.AreEqual(entity.AddressId, _forReadById);
+                Assert.AreEqual(entity.UserName, _forReadName);
+            });
+        }
+
+        [Test]
+        public void ReadCustomerTest_ReturnNullCheck_CheckNonExistingData()
+        {
+            //Arrange
+            int id = int.MinValue;
+
+            //Act
+            var entityMustPass = _customerLogic.Read(id);
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                _mockCustomerRepo.Verify(r => r.ReadById(id), Times.Once);
+
+                Assert.IsNull(entityMustPass);
+            });
+        }
+
+        [Test]
+        public void UpdateCustomerTest()
+        {
+            //Arrange
+            int id = 1;
+            
+            var entity = _customerLogic.Read(id);
+
+            int changedId = 999999;
+            string changedUserName = "changed";
+
+            entity.AddressId = changedId;
+            entity.UserName = changedUserName;
+
+            try
+            {
+                //Act
+                _customerLogic.Update(entity);
+            }
+            catch
+            {
+            }
+
+            var changedEntity = _customerLogic.Read(id);
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                _mockCustomerRepo.Verify(r => r.Update(entity), Times.Once);
+
+                Assert.AreEqual(changedEntity.CustomerId, id);
+                Assert.AreEqual(changedEntity.AddressId, changedId);
+                Assert.AreEqual(changedEntity.UserName, changedUserName);
+            });
         }
 
         [Test]
@@ -181,7 +271,7 @@ namespace DI44UF_HFT_2023241.Test
 
             try
             {
-                //ACT
+                //Act
                 _customerLogic.Delete(minVal);
             }
             catch
@@ -189,11 +279,19 @@ namespace DI44UF_HFT_2023241.Test
 
             }
 
-            //ASSERT
+            //Assert
             _mockCustomerRepo.Verify(r => r.DeleteById(minVal), Times.Never);
         }
 
         #endregion
+
+        #region NON-CRUD Tests
+
+
+
+        #endregion
+
+
 
 
         //MovieLogic logic;
