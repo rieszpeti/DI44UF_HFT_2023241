@@ -7,7 +7,15 @@ namespace DI44UF_HFT_2023241.Client
 {
     internal class Program
     {
+        /// <summary>
+        /// This section is for the setup
+        /// You can find the url with port and RestClass for the rest service also,
+        /// constants for menus, namespaces for reflection
+        /// </summary>
+        #region Init and constants
+
         private static RestService _rest;
+        public const string _hostUrl = "http://localhost:53910/";
 
         public const string _address = "Address";
         public const string _customer = "Customer";
@@ -15,6 +23,9 @@ namespace DI44UF_HFT_2023241.Client
         public const string _orderDetail = "OrderDetail";
         public const string _product = "Product";
         public const string _statistics = "Statistics";
+
+        const string nameSpace = "DI44UF_HFT_2023241.Models";
+        const string assemblyName = "DI44UF_HFT_2023241.Models";
 
         static string Check(string entity)
         {
@@ -29,9 +40,13 @@ namespace DI44UF_HFT_2023241.Client
             };
         }
 
-        const string nameSpace = "DI44UF_HFT_2023241.Models";
-        const string assemblyName = "DI44UF_HFT_2023241.Models";
+        #endregion
 
+        /// <summary>
+        /// Basic CRUD section that will be called in the menu
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         #region CRUD
 
         static Type CreateType(string entity)
@@ -454,6 +469,11 @@ namespace DI44UF_HFT_2023241.Client
         }
         #endregion
 
+        /// <summary>
+        /// You can query statistics about a customer here
+        /// it will be also in the menu section
+        /// </summary>
+        /// <param name="entity"></param>
         #region Statistics
         static void GetAvgPriceOfAllOrders(string entity)
         {
@@ -608,7 +628,12 @@ namespace DI44UF_HFT_2023241.Client
 
         static void Main(string[] args)
         {
-            _rest = new RestService("http://localhost:53910/");
+            //Init rest service for to make HTTP requests
+            _rest = new RestService(_hostUrl);
+
+            #region Menu
+
+            #region Second level of menu
 
             var addressSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<Address>(_address))
@@ -658,6 +683,10 @@ namespace DI44UF_HFT_2023241.Client
                 .Add("GetOrdersBetweenDates", () => GetOrdersBetweenDates(_product))
                 .Add("Exit", ConsoleMenu.Close);
 
+            #endregion
+
+            #region Top level menu
+
             var menu = new ConsoleMenu(args, level: 0)
                 .Add($"{_address}es", () => addressSubMenu.Show())
                 .Add($"{_customer}s", () => customerSubMenu.Show())
@@ -667,7 +696,11 @@ namespace DI44UF_HFT_2023241.Client
                 .Add($"{_statistics}", () => statisticsSubMenu.Show())
                 .Add($"Exit", ConsoleMenu.Close);
 
+            #endregion
+
             menu.Show();
+            
+            #endregion
         }
     }
 }
