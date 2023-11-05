@@ -7,7 +7,14 @@ namespace DI44UF_HFT_2023241.Client
 {
     internal class Program
     {
-        #region CRUD
+        private static RestService _rest;
+
+        public const string _address = "Address";
+        public const string _customer = "Customer";
+        public const string _order = "Order";
+        public const string _orderDetail = "OrderDetail";
+        public const string _product = "Product";
+        public const string _statistics = "Statistics";
 
         static string Check(string entity)
         {
@@ -24,6 +31,8 @@ namespace DI44UF_HFT_2023241.Client
 
         const string nameSpace = "DI44UF_HFT_2023241.Models";
         const string assemblyName = "DI44UF_HFT_2023241.Models";
+
+        #region CRUD
 
         static Type CreateType(string entity)
         {
@@ -596,15 +605,6 @@ namespace DI44UF_HFT_2023241.Client
 
 
         #endregion
-
-        private static RestService _rest;
-
-        public const string _address = "Address";
-        public const string _customer = "Customer";
-        public const string _order = "Order";
-        public const string _orderDetail = "OrderDetail";
-        public const string _product = "Product";
-        public const string _statistics = "Statistics";
 
         static void Main(string[] args)
         {
