@@ -27,17 +27,8 @@ namespace DI44UF_HFT_2023241.Endpoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DB
             services.AddTransient<OrderDbContext>();
-
-            services.AddTransient<IRepository<Movie>, MovieRepository>();
-            services.AddTransient<IRepository<Role>, RoleRepository>();
-            services.AddTransient<IRepository<Actor>, ActorRepository>();
-            services.AddTransient<IRepository<Director>, DirectorRepository>();
-
-            services.AddTransient<IMovieLogic, MovieLogic>();
-            services.AddTransient<IRoleLogic, RoleLogic>();
-            services.AddTransient<IActorLogic, ActorLogic>();
-            services.AddTransient<IDirectorLogic, DirectorLogic>();
 
             //Mapper
             services.AddTransient<IMapper<Address, AddressDto>, AddressMapper>();
