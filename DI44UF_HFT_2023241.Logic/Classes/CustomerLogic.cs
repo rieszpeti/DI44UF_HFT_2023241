@@ -40,7 +40,6 @@ namespace DI44UF_HFT_2023241.Logic
             }
         }
 
-
         /// <summary>
         /// Get the average price of a customer's orders historical data
         /// </summary>
@@ -167,7 +166,7 @@ namespace DI44UF_HFT_2023241.Logic
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private static (double, double) LinearRegression(List<int> x, List<int> y)
+        public static (double, double) LinearRegression(List<int> x, List<int> y)
         { 
             var squarex = x.Sum(e => Math.Pow(e - x.Average(), 2));
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();

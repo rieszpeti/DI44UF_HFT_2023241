@@ -20,22 +20,42 @@ namespace DI44UF_HFT_2023241.Test
         CustomerLogic _customerLogic;
         Mock<IRepository<Customer>> _mockCustomerRepo;
 
-        const int _forReadById = 1;
+        /// <summary>
+        /// This part is for the Read method to use read method
+        /// </summary>
+        //Customer Parameters
+        const int _forReadByIdFunc_CustomerId = 1;
         const string _forReadName = "UltimateJozsi";
+        //Address Parameters
+        const int _forReadByIdFunc_AddressId = 1;
+        const string _forReadByIdFunc_PostalCode = "PostalCodeTest";
+        const string _forReadByIdFunc_City = "CityTest";
+        const string _forReadByIdFunc_Region = "RegionTest";
+        const string _forReadByIdFunc_Country = "CountryTest";
+        const string _forReadByIdFunc_Street = "StreetTest";
+        //Order Parameters
+        //Order 1
+        const int _forReadByIdFunc_OrderId1 = 1;
+        static readonly DateTime _forReadByIdFunc_OrderDate1 = new DateTime(1111, 1, 1);
+        static readonly DateTime _forReadByIdFunc_ShippingDate1 = new DateTime(1111, 1, 2);
+        //Order 2
+        const int _forReadByIdFunc_OrderId2 = 2;
+        static readonly DateTime _forReadByIdFunc_OrderDate2 = new DateTime(9999, 1, 1);
+        static readonly DateTime _forReadByIdFunc_ShippingDate2 = new DateTime(9999, 1, 2);
 
         [SetUp]
         public void Init()
         {
             var forReadMockSingleData = new Customer
             {
-                CustomerId = _forReadById,
-                AddressId = _forReadById,
+                CustomerId = _forReadByIdFunc_CustomerId,
+                AddressId = _forReadByIdFunc_AddressId,
                 UserName = _forReadName,
-                Address = new Address(1, "123 Main St", "City1", "State1", "12345", "Country1"),
+                Address = new Address(_forReadByIdFunc_AddressId, _forReadByIdFunc_PostalCode, _forReadByIdFunc_City, _forReadByIdFunc_Region, _forReadByIdFunc_Country, _forReadByIdFunc_Street),
                 Orders = new List<Order>
                         {
-                            new Order(1, new DateTime(1992, 12, 1), new DateTime(1992, 12, 2), 1),
-                            new Order(2, new DateTime(1992, 12, 3), new DateTime(1992, 12, 4), 2)
+                            new Order(_forReadByIdFunc_OrderId1, _forReadByIdFunc_OrderDate1, _forReadByIdFunc_ShippingDate1, _forReadByIdFunc_CustomerId),
+                            new Order(_forReadByIdFunc_OrderId2, _forReadByIdFunc_OrderDate2, _forReadByIdFunc_ShippingDate2, _forReadByIdFunc_CustomerId)
                         }
             };
 
@@ -162,7 +182,7 @@ namespace DI44UF_HFT_2023241.Test
             _mockLogger = new Mock<ILogger>();
             _mockCustomerRepo = new Mock<IRepository<Customer>>();
 
-            _mockCustomerRepo.Setup(m => m.ReadById(_forReadById)).Returns(forReadMockSingleData);
+            _mockCustomerRepo.Setup(m => m.ReadById(_forReadByIdFunc_CustomerId)).Returns(forReadMockSingleData);
             _mockCustomerRepo.Setup(m => m.ReadAll()).Returns(forReadAllMockMultipleData);
 
             _customerLogic = new CustomerLogic(_mockLogger.Object, _mockCustomerRepo.Object);
@@ -197,15 +217,15 @@ namespace DI44UF_HFT_2023241.Test
         public void ReadCustomerTest_CheckExistingData()
         {
             //Act
-            var entity = _customerLogic.Read(_forReadById);
+            var entity = _customerLogic.Read(_forReadByIdFunc_CustomerId);
 
             //Assert
             Assert.Multiple(() =>
             {
-                _mockCustomerRepo.Verify(r => r.ReadById(_forReadById), Times.Once);
+                _mockCustomerRepo.Verify(r => r.ReadById(_forReadByIdFunc_CustomerId), Times.Once);
 
-                Assert.AreEqual(entity.CustomerId, _forReadById);
-                Assert.AreEqual(entity.AddressId, _forReadById);
+                Assert.AreEqual(entity.CustomerId, _forReadByIdFunc_CustomerId);
+                Assert.AreEqual(entity.AddressId, _forReadByIdFunc_AddressId);
                 Assert.AreEqual(entity.UserName, _forReadName);
             });
         }
@@ -217,14 +237,14 @@ namespace DI44UF_HFT_2023241.Test
             int id = int.MinValue;
 
             //Act
-            var entityMustPass = _customerLogic.Read(id);
+            var nullEntity = _customerLogic.Read(id);
 
             //Assert
             Assert.Multiple(() =>
             {
                 _mockCustomerRepo.Verify(r => r.ReadById(id), Times.Once);
 
-                Assert.IsNull(entityMustPass);
+                Assert.IsNull(nullEntity);
             });
         }
 
@@ -287,6 +307,25 @@ namespace DI44UF_HFT_2023241.Test
 
         #region NON-CRUD Tests
 
+        [Test]
+        public void ReadCustomersAddressTest()
+        {
+            //Act
+            var address = _customerLogic.GetAddress(_forReadByIdFunc_CustomerId);
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                _mockCustomerRepo.Verify(r => r.ReadById(_forReadByIdFunc_CustomerId), Times.Once);
+
+                Assert.AreEqual(address.AddressId, _forReadByIdFunc_AddressId);
+                Assert.AreEqual(address.PostalCode, _forReadByIdFunc_PostalCode);
+                Assert.AreEqual(address.City, _forReadByIdFunc_City);
+                Assert.AreEqual(address.Region, _forReadByIdFunc_Region);
+                Assert.AreEqual(address.Country, _forReadByIdFunc_Country);
+                Assert.AreEqual(address.Street, _forReadByIdFunc_Street);
+            });
+        }
 
 
         #endregion
