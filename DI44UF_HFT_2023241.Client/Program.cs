@@ -1,17 +1,7 @@
 ﻿using ConsoleTools;
 using DI44UF_HFT_2023241.Models;
-using DI44UF_HFT_2023241.Models.Dto;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Xml.Linq;
 
 namespace DI44UF_HFT_2023241.Client
 {
@@ -150,8 +140,16 @@ namespace DI44UF_HFT_2023241.Client
             {
                 var t = ReadIdHelper<T>(entity);
 
-                Console.WriteLine(t.ToString());
-                Console.ReadLine();
+                if (t is not null)
+                {
+                    Console.WriteLine(t.ToString());
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Entity does not exists");
+                    Console.WriteLine();
+                }
             }
             catch (Exception ex)
             {
