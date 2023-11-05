@@ -47,5 +47,12 @@ namespace DI44UF_HFT_2023241.Repository
         { 
             _ctx.SaveChanges();
         }
+
+        public bool Exists(int id)
+        {
+            var entity = _ctx.Set<T>().Find(id);
+
+            return entity is not null;
+        }
     }
 }

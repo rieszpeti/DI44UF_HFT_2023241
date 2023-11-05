@@ -3,6 +3,7 @@ using Serilog;
 using System.Linq;
 using System;
 using DI44UF_HFT_2023241.Models;
+using Castle.Components.DictionaryAdapter;
 
 namespace DI44UF_HFT_2023241.Logic
 {
@@ -16,6 +17,35 @@ namespace DI44UF_HFT_2023241.Logic
         {
             _logger = logger;
             _repo = repo;
+        }
+
+        /// <summary>
+        /// Checks if the if you can insert the id that given
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual bool ValidateById(int id)
+        {
+            try
+            {
+                bool isExists = _repo.Exists(id);
+
+                if (isExists)
+                {
+                    _logger.Information("{type} with {id} exists", typeof(T), id);
+                }
+                else
+                {
+                    _logger.Information("{type} with {id} does not exists", typeof(T), id);
+                }
+
+                return isExists;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("{message} Couldn't check the existence of {type}}", ex.Message, typeof(T));
+                throw;
+            }
         }
 
         public void Create(T item)
@@ -37,9 +67,16 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _repo.DeleteById(id);
+                if (ValidateById(id))
+                {
+                    _repo.DeleteById(id);
 
-                _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                    _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                }
+                else
+                {
+                    _logger.Information("Couldn't delete {type} with {id} because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                }
             }
             catch (Exception ex)
             {
@@ -54,12 +91,22 @@ namespace DI44UF_HFT_2023241.Logic
             {
                 _logger.Debug("{type} with {id} start read", typeof(T).GetGenericArguments().FirstOrDefault(), id);
 
-                return _repo.ReadById(id);
+                var entity = _repo.ReadById(id);
+
+                if (entity is not null)
+                {
+                    _logger.Information("Successful read {type} with {id}", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                }
+                else
+                {
+                    _logger.Error("Couldn't read {type} with {id}, because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                }
+                return entity;
             }
             catch (Exception ex)
             {
                 _logger.Error("{message} Couldn't read {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
-                throw new Exception("Couldn't Read");
+                throw new Exception("Couldn't read entity, because some exception occurred");
             }
         }
 
@@ -69,7 +116,17 @@ namespace DI44UF_HFT_2023241.Logic
             {
                 _logger.Information("{type} start read all", typeof(T).GetGenericArguments().FirstOrDefault());
 
-                return _repo.ReadAll();
+                var entities = _repo.ReadAll();
+
+                if (entities is not null)
+                {
+                    _logger.Information("Successful read all {type}", typeof(T).GetGenericArguments().FirstOrDefault());
+                }
+                else
+                {
+                    _logger.Error("Couldn't read all {type}, because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault());
+                }
+                return entities;
             }
             catch (Exception ex)
             {

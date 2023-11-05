@@ -13,5 +13,6 @@ namespace DI44UF_HFT_2023241.Repository
 		void Create(T item);
 		void Update(T item);
 		void DeleteById(int id);
-	}
+		bool Exists(int id);
+    }
 }
