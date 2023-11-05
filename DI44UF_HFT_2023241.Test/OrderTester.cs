@@ -174,23 +174,24 @@ namespace DI44UF_HFT_2023241.Test
             _mockCustomerRepo.Verify(r => r.Create(customer), Times.Once);
         }
 
-        //[Test]
-        //public void CreateMovieTestWithInCorrectTitle()
-        //{
-        //    var movie = new Movie() { Title = "24" };
-        //    try
-        //    {
-        //        //ACT
-        //        logic.Create(movie);
-        //    }
-        //    catch
-        //    {
+        [Test]
+        public void DeleteCustomerTest()
+        {
+            try
+            {
+                //ACT
+                _customerLogic.Delete(int.MinValue);
+            }
+            catch
+            {
 
-        //    }
+            }
 
-        //    //ASSERT
-        //    mockMovieRepo.Verify(r => r.Create(movie), Times.Never);
-        //}
+            //ASSERT
+            _mockCustomerRepo.Verify(r => r.DeleteById(int.MinValue), Times.Never);
+        }
+
+
 
         #endregion
 
