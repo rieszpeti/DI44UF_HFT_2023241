@@ -177,10 +177,12 @@ namespace DI44UF_HFT_2023241.Test
         [Test]
         public void DeleteCustomerTest()
         {
+            var minVal = int.MinValue;
+
             try
             {
                 //ACT
-                _customerLogic.Delete(int.MinValue);
+                _customerLogic.Delete(minVal);
             }
             catch
             {
@@ -188,10 +190,8 @@ namespace DI44UF_HFT_2023241.Test
             }
 
             //ASSERT
-            _mockCustomerRepo.Verify(r => r.DeleteById(int.MinValue), Times.Never);
+            _mockCustomerRepo.Verify(r => r.DeleteById(minVal), Times.Never);
         }
-
-
 
         #endregion
 
