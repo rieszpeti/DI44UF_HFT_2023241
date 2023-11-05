@@ -2,8 +2,8 @@
 using Serilog;
 using System.Linq;
 using System;
-using DI44UF_HFT_2023241.Models;
-using Castle.Components.DictionaryAdapter;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DI44UF_HFT_2023241.Logic
 {
@@ -23,7 +23,7 @@ namespace DI44UF_HFT_2023241.Logic
         /// Checks if the if you can insert the id that given
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>return true if entity exists</returns>
         public virtual bool ValidateById(int id)
         {
             try
@@ -53,46 +53,34 @@ namespace DI44UF_HFT_2023241.Logic
             try
             {
                 var name = typeof(T).Name;
-                var IdProperty = item.GetType().GetProperty($"{name}Id").GetValue(item, null);
+                var idProperty = item.GetType().GetProperty($"{name}Id").GetValue(item, null);
 
-                if (IdProperty is null)
+                bool isId = int.TryParse(idProperty.ToString(), out int id);
+
+                if (isId)
                 {
-                    _repo.Create(item);
+                    if (!ValidateById(id))
+                    {
+                        _repo.Create(item);
 
-                    _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                    }
+                    else
+                    {
+                        _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                        //throw new Exception("Couldn't create entity, because its key is existing");
+                    }
                 }
                 else
                 {
-                    _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
-                    throw new Exception("Couldn't create entity, because its key is existing");
+                    _logger.Information("Couldn't convert id to string");
                 }
+
             }
             catch (Exception ex)
             {
                 _logger.Error("{message} Couldn't create {type}}", ex.Message, typeof(T));
-                throw;
-            }
-        }
-
-        public void Delete(int id)
-        {
-            try
-            {
-                if (ValidateById(id))
-                {
-                    _repo.DeleteById(id);
-
-                    _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
-                }
-                else
-                {
-                    _logger.Information("Couldn't delete {type} with {id} because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault(), id);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("{message} Couldn't delete {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
-                throw new Exception("Couldn't delete");
+                //throw;
             }
         }
 
@@ -117,11 +105,12 @@ namespace DI44UF_HFT_2023241.Logic
             catch (Exception ex)
             {
                 _logger.Error("{message} Couldn't read {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
-                throw new Exception("Couldn't read entity, because some exception occurred");
+                //throw new Exception("Couldn't read entity, because some exception occurred");
+                return null;
             }
         }
 
-        public IQueryable<T> ReadAll()
+        public IEnumerable<T> ReadAll()
         {
             try
             {
@@ -137,12 +126,13 @@ namespace DI44UF_HFT_2023241.Logic
                 {
                     _logger.Error("Couldn't read all {type}, because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault());
                 }
-                return entities;
+                return entities.ToList();
             }
             catch (Exception ex)
             {
                 _logger.Error("{message} Couldn't read all {type}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault());
-                throw new Exception("Couldn't Read");
+                //throw new Exception("Couldn't Read");
+                return null;
             }
         }
 
@@ -151,24 +141,55 @@ namespace DI44UF_HFT_2023241.Logic
             try
             {
                 var name = typeof(T).Name;
-                var IdProperty = item.GetType().GetProperty($"{name}Id").GetValue(item, null);
+                var idProperty = item.GetType().GetProperty($"{name}Id").GetValue(item, null);
 
-                if (IdProperty is null)
+                bool isId = int.TryParse(idProperty.ToString(), out int id);
+
+                if (isId)
                 {
-                    _repo.Update(item);
+                    if (!ValidateById(id))
+                    {
+                        _repo.Update(item);
 
-                    _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                    }
+                    else
+                    {
+                        _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                        //throw new Exception("Couldn't create entity, because its key is existing");
+                    }
                 }
                 else
                 {
-                    _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
-                    throw new Exception("Couldn't create entity, because its key is existing");
+                    _logger.Information("Couldn't convert id to string");
                 }
             }
             catch (Exception ex)
             {
                 _logger.Error("{message} Couldn't update {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault());
-                throw new Exception("Couldn't Read");
+                //throw new Exception("Couldn't Read");
+            }
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                if (!ValidateById(id))
+                {
+                    _repo.DeleteById(id);
+
+                    _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                }
+                else
+                {
+                    _logger.Information("Couldn't delete {type} with {id} because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("{message} Couldn't delete {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                throw new Exception("Couldn't delete");
             }
         }
     }

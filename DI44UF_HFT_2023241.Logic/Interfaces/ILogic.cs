@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DI44UF_HFT_2023241.Logic
 {
@@ -7,7 +8,7 @@ namespace DI44UF_HFT_2023241.Logic
         void Create(T item);
         void Delete(int id);
         T Read(int id);
-        IQueryable<T> ReadAll();
+        IEnumerable<T> ReadAll();
         void Update(T item);
     }
 }

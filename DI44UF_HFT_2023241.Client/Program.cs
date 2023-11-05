@@ -149,7 +149,7 @@ namespace DI44UF_HFT_2023241.Client
                 {
                     Console.WriteLine(ex.Message);
                 }
-
+                Console.WriteLine("Press enter to continue...");
                 Console.ReadLine();
             }
             catch (Exception ex)
@@ -174,6 +174,8 @@ namespace DI44UF_HFT_2023241.Client
                     Console.WriteLine("Entity does not exists");
                     Console.WriteLine();
                 }
+                Console.WriteLine("Press enter to continue...");
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
