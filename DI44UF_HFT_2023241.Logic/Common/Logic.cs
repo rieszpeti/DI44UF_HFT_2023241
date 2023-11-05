@@ -52,9 +52,20 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _repo.Create(item);
+                var name = typeof(T).Name;
+                var IdProperty = item.GetType().GetProperty($"{name}Id").GetValue(item, null);
 
-                _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                if (IdProperty is null)
+                {
+                    _repo.Create(item);
+
+                    _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                }
+                else
+                {
+                    _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                    throw new Exception("Couldn't create entity, because its key is existing");
+                }
             }
             catch (Exception ex)
             {
@@ -139,9 +150,20 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _repo.Update(item);
+                var name = typeof(T).Name;
+                var IdProperty = item.GetType().GetProperty($"{name}Id").GetValue(item, null);
 
-                _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                if (IdProperty is null)
+                {
+                    _repo.Update(item);
+
+                    _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                }
+                else
+                {
+                    _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                    throw new Exception("Couldn't create entity, because its key is existing");
+                }
             }
             catch (Exception ex)
             {

@@ -33,7 +33,7 @@ namespace DI44UF_HFT_2023241.Logic.Mapper
             }
             return new OrderDetailDto
                 (
-                    inp.OrderItemId,
+                    inp.OrderDetailId,
                     inp.ProductId,
                     inp.OrderId,
                     inp.Quantity

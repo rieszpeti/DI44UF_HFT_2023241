@@ -19,6 +19,8 @@ namespace DI44UF_HFT_2023241.Test
         CustomerLogic _customerLogic;
         Mock<IRepository<Customer>> _mockCustomerRepo;
 
+        #region private fields
+
         /// <summary>
         /// This part is for the Read method to use read method
         /// </summary>
@@ -46,6 +48,8 @@ namespace DI44UF_HFT_2023241.Test
         const int _forReadByIdFunc_ProductPrice1 = 17359;
         //Product2
         const int _forReadByIdFunc_ProductPrice2 = 15077;
+
+        #endregion
 
         [SetUp]
         public void Init()
@@ -210,7 +214,6 @@ namespace DI44UF_HFT_2023241.Test
             //Setup Logic that need to be tested
             _customerLogic = new CustomerLogic(_mockLogger.Object, _mockCustomerRepo.Object);
         }
-
 
         #region CRUD Tests
 

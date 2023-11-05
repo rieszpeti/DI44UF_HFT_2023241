@@ -380,7 +380,7 @@ namespace DI44UF_HFT_2023241.Client
 
                     if (isOrderItemId && isOrderId && isQuantity)
                     {
-                        one.OrderItemId = orderItemId;
+                        one.OrderDetailId = orderItemId;
                         one.OrderId = orderId;
                         one.Quantity = quantity;
 
@@ -419,7 +419,7 @@ namespace DI44UF_HFT_2023241.Client
 
                 if (isItemId)
                 {
-                    one.Id = itemId;
+                    one.ProductId = itemId;
                     Console.WriteLine("AddressId:");
                     one.Size = Console.ReadLine();
                     Console.WriteLine("Quantity:");

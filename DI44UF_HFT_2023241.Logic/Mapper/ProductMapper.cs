@@ -35,7 +35,7 @@ namespace DI44UF_HFT_2023241.Logic.Mapper
             }
             return new ProductDto
                 (
-                    inp.Id,
+                    inp.ProductId,
                     inp.Name,
                     inp.Description,
                     inp.Size,

@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{35536F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DI44UF_HFT_2023241.EndPoint", "DI44UF_HFT_2023241.EndPoint\DI44UF_HFT_2023241.EndPoint.csproj", "{20EAFC75-054E-40C1-A894-0015C468334D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesterConsoleApp", "TesterConsoleApp\TesterConsoleApp.csproj", "{E1E9FD28-0340-4B87-9442-9CFE2C864046}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{1178F2BB-34A3-49CE-A290-DF6355E9E6C6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -58,10 +56,6 @@ Global
 		{20EAFC75-054E-40C1-A894-0015C468334D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20EAFC75-054E-40C1-A894-0015C468334D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20EAFC75-054E-40C1-A894-0015C468334D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1E9FD28-0340-4B87-9442-9CFE2C864046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1E9FD28-0340-4B87-9442-9CFE2C864046}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1E9FD28-0340-4B87-9442-9CFE2C864046}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1E9FD28-0340-4B87-9442-9CFE2C864046}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

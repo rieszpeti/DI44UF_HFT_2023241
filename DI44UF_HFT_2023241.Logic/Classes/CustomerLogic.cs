@@ -142,7 +142,7 @@ namespace DI44UF_HFT_2023241.Logic
 
                     foreach (var product in order.Products)
                     {
-                        productIds.Add(product.Id);
+                        productIds.Add(product.ProductId);
                     }
                 }
 

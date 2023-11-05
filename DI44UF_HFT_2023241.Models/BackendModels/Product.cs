@@ -8,7 +8,7 @@ namespace DI44UF_HFT_2023241.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
 
         [Required]
         [StringLength(240)]
@@ -36,7 +36,7 @@ namespace DI44UF_HFT_2023241.Models
 
         public Product(int id, string name, string description, string size, int orderItemId, int price)
         {
-            Id = id;
+            ProductId = id;
             Name = name;
             Description = description;
             Size = size;
@@ -46,7 +46,7 @@ namespace DI44UF_HFT_2023241.Models
 
         public override string ToString()
         {
-            return "ProductId: " + Id + " " +
+            return "ProductId: " + ProductId + " " +
                     "Name: " + Name + " " +
                     "Description: " + Description + " " +
                     "Size: " + Size + " " +

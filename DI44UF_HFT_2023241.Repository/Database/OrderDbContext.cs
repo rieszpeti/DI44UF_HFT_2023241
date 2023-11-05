@@ -88,7 +88,7 @@ namespace DI44UF_HFT_2023241.Repository
                 {
                     OrderItemId = 1,
                     Description = "Test",
-                    Id = 1,
+                    ProductId = 1,
                     Name = "Test",
                     Size = "Test"
                 }
@@ -110,7 +110,7 @@ namespace DI44UF_HFT_2023241.Repository
             {
                 new OrderDetail
                 {
-                    OrderItemId = 1,
+                    OrderDetailId = 1,
                     OrderId = 1,
                     ProductId = 1,
                     Quantity = 1
