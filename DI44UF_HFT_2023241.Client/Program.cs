@@ -2,6 +2,7 @@
 using DI44UF_HFT_2023241.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace DI44UF_HFT_2023241.Client
 {
@@ -93,6 +94,97 @@ namespace DI44UF_HFT_2023241.Client
             }
         }
 
+        static void Create<T>(string entity)
+        {
+            try
+            {
+                var _entity = Check(entity);
+
+                var type = CreateType(_entity);
+
+                var ctorParams = GetCtorParams(type);
+
+                var parameters = new object[ctorParams.Count];
+
+                int i = 0;
+                int id = 0;
+
+                foreach (var param in ctorParams)
+                {
+                    Console.Write($"Enter {_entity} {param.Key} {param.Value} : ");
+                    object value = Console.ReadLine();
+
+                    var t = Type.GetType(param.Value);
+
+                    if (param.Key.ToLower() == $"{type.Name}Id".ToLower())
+                    {
+                        bool isId = int.TryParse(value.ToString(), out id);
+                    }
+
+                    value = Convert.ChangeType(value, t);
+
+                    parameters[i] = value;
+                    i++;
+                }
+
+                if (CheckIfExists<T>(entity, id))
+                {
+                    object[] list = parameters;
+                    var obj = Activator.CreateInstance(type, list);
+
+                    _rest.Post(Convert.ChangeType(obj, type), _entity);
+                    //Check
+                    CheckIfCreated<T>(entity, id);
+                }
+                else
+                {
+                    Console.WriteLine("Entity with this id already exists");
+                }
+                Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        static bool CheckIfExists<T>(string entity, int id)
+        {
+            try
+            {
+                var get = _rest.Get<T>(id, entity.ToLower());
+
+                return get is null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        static void CheckIfCreated<T>(string entity, int id)
+        {
+            try
+            {
+                var get = _rest.Get<T>(id, entity.ToLower());
+
+                if (get is not null) 
+                {
+                    Console.WriteLine("Entity successfully created");
+                }
+                else
+                {
+                    Console.WriteLine("Couldn't create entity, check id");
+                }
+                Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         static void Create(string entity)
         {
             try
@@ -106,6 +198,7 @@ namespace DI44UF_HFT_2023241.Client
                 var parameters = new object[ctorParams.Count];
 
                 int i = 0;
+
                 foreach (var param in ctorParams)
                 {
                     Console.Write($"Enter {_entity} {param.Key} {param.Value} : ");
@@ -199,12 +292,15 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
+
                     return default;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.ReadLine();
                 return default;
             }
         }
@@ -248,16 +344,19 @@ namespace DI44UF_HFT_2023241.Client
                     else
                     {
                         Console.WriteLine("Entity is null");
+                        Console.ReadLine();
                     }
                 }
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.ReadLine();
             }
         }
 
@@ -292,16 +391,19 @@ namespace DI44UF_HFT_2023241.Client
                         else
                         {
                             Console.WriteLine("Wrong input format");
+                            Console.ReadLine();
                         }
                     }
                     else
                     {
                         Console.WriteLine("Entity is null");
+                        Console.ReadLine();
                     }
                 }
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             catch (Exception ex)
@@ -345,16 +447,19 @@ namespace DI44UF_HFT_2023241.Client
                     else
                     {
                         Console.WriteLine("Wrong input format");
+                        Console.ReadLine();
                     }
                 }
                 else
                 {
                     Console.WriteLine("Entity is null");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine("Wrong input format");
+                Console.ReadLine();
             }
         }
 
@@ -391,16 +496,19 @@ namespace DI44UF_HFT_2023241.Client
                     else
                     {
                         Console.WriteLine("Wrong input format");
+                        Console.ReadLine();
                     }
                 }
                 else
                 {
                     Console.WriteLine("Entity is null");
+                    Console.ReadLine();
                 }
             }
             else 
             { 
-                Console.WriteLine("Wrong input format"); 
+                Console.WriteLine("Wrong input format");
+                Console.ReadLine();
             }
         }
 
@@ -436,11 +544,13 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine("Wrong input format");
+                Console.ReadLine();
             }
         }
 
@@ -462,11 +572,13 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine($"You cannot delete {entity}, because it does not exists");
+                Console.ReadLine();
             }
         }
         #endregion
@@ -497,12 +609,14 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
 
             }
             else
             {
                 Console.WriteLine($"You cannot get average price of {entity}'s orders, because it does not exists");
+                Console.ReadLine();
             }
         }
 
@@ -527,11 +641,13 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine($"You cannot do linear regression for {entity}, because it does not exists");
+                Console.ReadLine();
             }
         }
 
@@ -555,11 +671,13 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine($"You cannot do linear regression for {entity}, because it does not exists");
+                Console.ReadLine();
             }
         }
 
@@ -583,11 +701,13 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine($"Cannot get {entity} address, because it does not exists");
+                Console.ReadLine();
             }
         }
         
@@ -617,11 +737,13 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format!");
+                    Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine($"Cannot get {entity} address, because it does not exists");
+                Console.ReadLine();
             }
         }
 
@@ -639,7 +761,7 @@ namespace DI44UF_HFT_2023241.Client
 
             var addressSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List<Address>(_address))
-                .Add("Create", () => Create(_address))
+                .Add("Create", () => Create<Address>(_address))
                 .Add("ReadById", () => ReadById<Address>(_address))
                 .Add("Delete", () => Delete<Address>(_address))
                 .Add("Update", () => UpdateAddress(_address))
