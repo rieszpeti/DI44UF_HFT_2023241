@@ -210,6 +210,7 @@ namespace DI44UF_HFT_2023241.Test
             //Setup methods to fake data
             _mockCustomerRepo.Setup(m => m.ReadById(_forReadByIdFunc_CustomerId)).Returns(forReadMockSingleData);
             _mockCustomerRepo.Setup(m => m.ReadAll()).Returns(forReadAllMockMultipleData);
+            _mockCustomerRepo.Setup(m => m.Exists(1)).Returns(true);
 
             //Setup Logic that need to be tested
             _customerLogic = new CustomerLogic(_mockLogger.Object, _mockCustomerRepo.Object);

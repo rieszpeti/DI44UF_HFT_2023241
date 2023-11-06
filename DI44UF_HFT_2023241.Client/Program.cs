@@ -61,7 +61,7 @@ namespace DI44UF_HFT_2023241.Client
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            
+
         }
 
         static Dictionary<string, string> GetCtorParams(Type type)
@@ -140,6 +140,7 @@ namespace DI44UF_HFT_2023241.Client
                 {
                     Console.WriteLine("Entity with this id already exists");
                 }
+                Console.WriteLine("Press enter to continue...");
                 Console.ReadLine();
             }
             catch (Exception ex)
@@ -169,7 +170,7 @@ namespace DI44UF_HFT_2023241.Client
             {
                 var get = _rest.Get<T>(id, entity.ToLower());
 
-                if (get is not null) 
+                if (get is not null)
                 {
                     Console.WriteLine("Entity successfully created");
                 }
@@ -260,12 +261,10 @@ namespace DI44UF_HFT_2023241.Client
                 if (t is not null)
                 {
                     Console.WriteLine(t.ToString());
-                    Console.ReadLine();
                 }
                 else
                 {
                     Console.WriteLine("Entity does not exists");
-                    Console.WriteLine();
                 }
                 Console.WriteLine("Press enter to continue...");
                 Console.ReadLine();
@@ -505,8 +504,8 @@ namespace DI44UF_HFT_2023241.Client
                     Console.ReadLine();
                 }
             }
-            else 
-            { 
+            else
+            {
                 Console.WriteLine("Wrong input format");
                 Console.ReadLine();
             }
@@ -572,12 +571,14 @@ namespace DI44UF_HFT_2023241.Client
                 else
                 {
                     Console.WriteLine("Wrong input format");
+                    Console.WriteLine("Press enter to continue...");
                     Console.ReadLine();
                 }
             }
             else
             {
                 Console.WriteLine($"You cannot delete {entity}, because it does not exists");
+                Console.WriteLine("Press enter to continue...");
                 Console.ReadLine();
             }
         }
@@ -593,31 +594,20 @@ namespace DI44UF_HFT_2023241.Client
         {
             var _entity = Check(entity);
 
+            Console.WriteLine($"Check existence of {entity}");
             var customer = ReadIdHelper<Customer>(_entity);
 
             if (customer is not null)
             {
-                Console.Write($"Enter {entity}'s id to get avg price of all orders: ");
-                bool isId = int.TryParse(Console.ReadLine(), out int id);
+                var avg = _rest.Get<double>(customer.CustomerId, "/statistics/avg");
 
-                if (isId)
-                {
-                    var avg = _rest.Get<double>(id, $"{entity.ToLower()}/statistics/Avg/{id}");
-
-                    Console.WriteLine($"Average price of all order of customer is {avg}");
-                }
-                else
-                {
-                    Console.WriteLine("Wrong input format");
-                    Console.ReadLine();
-                }
-
+                Console.WriteLine($"Average price of all order of customer is {avg}");
             }
             else
             {
                 Console.WriteLine($"You cannot get average price of {entity}'s orders, because it does not exists");
-                Console.ReadLine();
             }
+            Console.ReadLine();
         }
 
 
@@ -629,20 +619,9 @@ namespace DI44UF_HFT_2023241.Client
 
             if (customer is not null)
             {
-                Console.Write($"Enter {entity}'s id to get linear regression ");
-                bool isId = int.TryParse(Console.ReadLine(), out int id);
+                var linReg = _rest.Get<string>(customer.CustomerId, "statistics/linreg");
 
-                if (isId)
-                {
-                    var linReg = _rest.Get<string>(id, $"{entity.ToLower()}/statistics/LinReg/{id}");
-
-                    Console.WriteLine($"Average price of all order of customer is {linReg}");
-                }
-                else
-                {
-                    Console.WriteLine("Wrong input format");
-                    Console.ReadLine();
-                }
+                Console.WriteLine($"Average price of all order of customer is {linReg}");
             }
             else
             {
@@ -659,20 +638,9 @@ namespace DI44UF_HFT_2023241.Client
 
             if (customer is not null)
             {
-                Console.Write($"Enter {entity}'s id to get order history: ");
-                bool isId = int.TryParse(Console.ReadLine(), out int id);
+                var linReg = _rest.Get<string>(customer.CustomerId, "statistics/orderhistory");
 
-                if (isId)
-                {
-                    var linReg = _rest.Get<string>(id, $"{entity.ToLower()}/statistics/orderHistory/{id}");
-
-                    Console.WriteLine($"Average price of all order of customer is {linReg}");
-                }
-                else
-                {
-                    Console.WriteLine("Wrong input format");
-                    Console.ReadLine();
-                }
+                Console.WriteLine($"Average price of all order of customer is {linReg}");
             }
             else
             {
@@ -689,20 +657,9 @@ namespace DI44UF_HFT_2023241.Client
 
             if (customer is not null)
             {
-                Console.Write($"Enter {entity}'s id to get address: ");
-                bool isId = int.TryParse(Console.ReadLine(), out int id);
+                var address = _rest.Get<string>(customer.CustomerId, "statistics/address");
 
-                if (isId)
-                {
-                    var address = _rest.Get<string>(id, $"{entity.ToLower()}/statistics/address/{id}");
-
-                    Console.WriteLine($"Average price of all order of customer is {address}");
-                }
-                else
-                {
-                    Console.WriteLine("Wrong input format");
-                    Console.ReadLine();
-                }
+                Console.WriteLine($"Average price of all order of customer is {address}");
             }
             else
             {
@@ -710,7 +667,7 @@ namespace DI44UF_HFT_2023241.Client
                 Console.ReadLine();
             }
         }
-        
+
         static void GetOrdersBetweenDates(string entity)//int customerId, DateTime dateStart, DateTime dateEnd)
         {
             var _entity = Check(entity);
@@ -719,26 +676,23 @@ namespace DI44UF_HFT_2023241.Client
 
             if (customer is not null)
             {
-                Console.Write($"Enter {entity}'s id to get orders between date: ");
-                bool isId = int.TryParse(Console.ReadLine(), out int id);
-
                 Console.Write($"Enter start date: ");
                 bool isDateStart = DateTime.TryParse(Console.ReadLine(), out DateTime dateStart);
 
                 Console.Write($"Enter end date: ");
                 bool isDateEnd = DateTime.TryParse(Console.ReadLine(), out DateTime dateEnd);
 
-                if (isId && isDateStart && isDateEnd)
+                if (isDateStart && isDateEnd)
                 {
-                    var address = _rest.Get<string>(id, $"{entity.ToLower()}/statistics/address/{id}/{dateStart}/{dateEnd}");
+                    var address = _rest.Get<string>(customer.CustomerId, $"statistics/address/{dateStart}/{dateEnd}");
 
                     Console.WriteLine($"Average price of all order of customer is {address}");
                 }
                 else
                 {
                     Console.WriteLine("Wrong input format!");
-                    Console.ReadLine();
                 }
+                Console.ReadLine();
             }
             else
             {
@@ -823,7 +777,7 @@ namespace DI44UF_HFT_2023241.Client
             #endregion
 
             menu.Show();
-            
+
             #endregion
         }
     }

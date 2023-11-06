@@ -22,19 +22,19 @@ namespace DI44UF_HFT_2023241.EndPoint
             _orderMapper = orderMapper;
         }
 
-        [HttpGet("statistics/Avg/{customerId}")]
+        [HttpGet("statistics/avg/{customerId}")]
         public double GetAvgPriceOfAllOrders(int customerId)
         {
             return _logic.GetAvgPriceOfAllOrders(customerId);
         }
 
-        [HttpGet("statistics/LinReg/{customerId}")]
+        [HttpGet("statistics/linreg/{customerId}")]
         public string LinearRegressionFromCustomerData(int customerId)
         {
             return _logic.LinearRegressionFromCustomerData(customerId);
         }
 
-        [HttpGet("statistics/orderHistory/{customerId}")]
+        [HttpGet("statistics/orderhistory/{customerId}")]
         public IEnumerable<OrderDto> GetOrderHistory(int customerId)
         {
             var models = _logic.GetOrderHistory(customerId);
@@ -50,7 +50,7 @@ namespace DI44UF_HFT_2023241.EndPoint
             return _addressMapper.ConvertModelToDto(model);
         }
 
-        [HttpGet("statistics/ordersBetweenDate/{customerId}/{dateStart}/{dateEnd}")]
+        [HttpGet("statistics/ordersbetweendate/{datestart}/{dateend}/{customerId}")]
         public IEnumerable<OrderDto> GetOrdersBetweenDates(int customerId, DateTime dateStart, DateTime dateEnd)
         {
             var models = _logic.GetOrdersBetweenDates(customerId, dateStart, dateEnd);

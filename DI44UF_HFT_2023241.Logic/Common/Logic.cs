@@ -4,6 +4,8 @@ using System.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace DI44UF_HFT_2023241.Logic
 {
@@ -136,6 +138,21 @@ namespace DI44UF_HFT_2023241.Logic
             }
         }
 
+        public static void MergeNonNullProperties(T target, T source)
+        {
+            Type type = typeof(T);
+            PropertyInfo[] properties = type.GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                object sourceValue = property.GetValue(source);
+                if (sourceValue != null)
+                {
+                    property.SetValue(target, sourceValue);
+                }
+            }
+        }
+
         public void Update(T item)
         {
             try
@@ -147,15 +164,19 @@ namespace DI44UF_HFT_2023241.Logic
 
                 if (isId)
                 {
-                    if (!ValidateById(id))
+                    if (ValidateById(id))
                     {
-                        _repo.Update(item);
+                        var old = _repo.ReadById(id);
+
+                        MergeNonNullProperties(old, item);
+
+                        _repo.Update(old);
 
                         _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
                     }
                     else
                     {
-                        _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("Couldn't update {type}, because it is not existing", typeof(T).GetGenericArguments().FirstOrDefault());
                         //throw new Exception("Couldn't create entity, because its key is existing");
                     }
                 }
@@ -175,7 +196,7 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                if (!ValidateById(id))
+                if (ValidateById(id))
                 {
                     _repo.DeleteById(id);
 

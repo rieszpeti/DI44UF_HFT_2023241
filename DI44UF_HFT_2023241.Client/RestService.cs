@@ -90,23 +90,10 @@ namespace DI44UF_HFT_2023241.Client
         public T Get<T>(int id, string endpoint)
         {
             T item = default(T);
-            HttpResponseMessage response = client.GetAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
-            if (response.IsSuccessStatusCode)
-            {
-                item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
-            }
-            else
-            {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
-            }
-            return item;
-        }
 
-        public T Get<T>(string name, string endpoint)
-        {
-            T item = default(T);
-            HttpResponseMessage response = client.GetAsync(endpoint + "/name/" + name).GetAwaiter().GetResult();
+            var text = endpoint + "/" + id.ToString();
+
+            HttpResponseMessage response = client.GetAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {
                 item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();

@@ -64,7 +64,7 @@ namespace DI44UF_HFT_2023241.Repository
                 new Customer
                 {
                     CustomerId = 2,
-                    AddressId = 1,
+                    AddressId = 2,
                     UserName = "Bela",
                 }
             });
@@ -80,6 +80,16 @@ namespace DI44UF_HFT_2023241.Repository
                     Region = "Bp",
                     Street = "Nap"
                 }
+                //},
+                //new Address
+                //{
+                //    AddressId = 2,
+                //    PostalCode = "2023",
+                //    Country = "HU",
+                //    City = "Bp",
+                //    Region = "Bp",
+                //    Street = "Nap"
+                //}
             });
 
             List<Product> products = new List<Product>()
