@@ -100,7 +100,26 @@ namespace DI44UF_HFT_2023241.Repository
                     Description = "Test",
                     ProductId = 1,
                     Name = "Test",
-                    Size = "Test"
+                    Size = "Test",
+                    Price = 1
+                },
+                new Product
+                {
+                    OrderItemId = 1,
+                    Description = "Test",
+                    ProductId = 2,
+                    Name = "Test",
+                    Size = "Test",
+                    Price = 1000
+                },
+                new Product
+                {
+                    OrderItemId = 1,
+                    Description = "Test",
+                    ProductId = 3,
+                    Name = "Test",
+                    Size = "Test",
+                    Price = 99
                 }
             };
 
@@ -112,7 +131,8 @@ namespace DI44UF_HFT_2023241.Repository
                 {
                     CustomerId = 1,
                     OrderId = 1,
-                    OrderDate = DateTime.Now,
+                    OrderDate = new DateTime(2000, 1, 1),
+                    ShippingDate = new DateTime(200, 1, 3)
                 }
             });
 
@@ -122,7 +142,21 @@ namespace DI44UF_HFT_2023241.Repository
                 {
                     OrderDetailId = 1,
                     OrderId = 1,
+                    ProductId = 3,
+                    Quantity = 1
+                },
+                new OrderDetail
+                {
+                    OrderDetailId = 2,
+                    OrderId = 1,
                     ProductId = 1,
+                    Quantity = 1
+                },
+                new OrderDetail
+                {
+                    OrderDetailId = 3,
+                    OrderId = 1,
+                    ProductId = 2,
                     Quantity = 1
                 }
             });

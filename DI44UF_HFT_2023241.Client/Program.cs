@@ -1,8 +1,10 @@
 ﻿using ConsoleTools;
 using DI44UF_HFT_2023241.Models;
+using DI44UF_HFT_2023241.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.Loader;
 
 namespace DI44UF_HFT_2023241.Client
 {
@@ -626,8 +628,9 @@ namespace DI44UF_HFT_2023241.Client
             else
             {
                 Console.WriteLine($"You cannot do linear regression for {entity}, because it does not exists");
-                Console.ReadLine();
             }
+            Console.WriteLine("Please press enter to continue...");
+            Console.ReadLine();
         }
 
         static void GetOrderHistory(string entity)
@@ -638,15 +641,28 @@ namespace DI44UF_HFT_2023241.Client
 
             if (customer is not null)
             {
-                var linReg = _rest.Get<string>(customer.CustomerId, "statistics/orderhistory");
+                var orders = _rest.Get<List<OrderDto>>(customer.CustomerId, "statistics/orderhistory");
 
-                Console.WriteLine($"Average price of all order of customer is {linReg}");
+                Console.WriteLine("History:");
+                if (orders is not null && orders.Count > 0)
+                {
+                    Console.WriteLine();
+                    foreach (var order in orders)
+                    {
+                        Console.WriteLine(order);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Empty list.");
+                }
             }
             else
             {
-                Console.WriteLine($"You cannot do linear regression for {entity}, because it does not exists");
-                Console.ReadLine();
+                Console.WriteLine($"Cannot get {entity}, because it does not exists");
             }
+            Console.WriteLine("Please press enter to continue...");
+            Console.ReadLine();
         }
 
         static void GetAddressOfCustomer(string entity)
@@ -657,15 +673,24 @@ namespace DI44UF_HFT_2023241.Client
 
             if (customer is not null)
             {
-                var address = _rest.Get<string>(customer.CustomerId, "statistics/address");
+                var address = _rest.Get<AddressDto>(customer.CustomerId, "statistics/address");
 
-                Console.WriteLine($"Average price of all order of customer is {address}");
+                if (address is not null)
+                {
+                    Console.WriteLine("Address:");
+                    Console.WriteLine(address);
+                }
+                else
+                {
+                    Console.WriteLine("Couldn't find address");
+                }
             }
             else
             {
                 Console.WriteLine($"Cannot get {entity} address, because it does not exists");
-                Console.ReadLine();
             }
+            Console.WriteLine("Please press enter to continue...");
+            Console.ReadLine();
         }
 
         static void GetOrdersBetweenDates(string entity)//int customerId, DateTime dateStart, DateTime dateEnd)
@@ -684,9 +709,21 @@ namespace DI44UF_HFT_2023241.Client
 
                 if (isDateStart && isDateEnd)
                 {
-                    var address = _rest.Get<string>(customer.CustomerId, $"statistics/address/{dateStart}/{dateEnd}");
+                    var orders = _rest.Get<List<OrderDto>>(customer.CustomerId, $"statistics/ordersbetweendate/{dateStart}/{dateEnd}");
 
-                    Console.WriteLine($"Average price of all order of customer is {address}");
+                    if (orders is not null && orders.Count > 0)
+                    {
+                        Console.WriteLine("Orders:");
+                        Console.WriteLine();
+                        foreach (var order in orders)
+                        {
+                            Console.WriteLine(order);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no orders");
+                    }
                 }
                 else
                 {
@@ -700,7 +737,6 @@ namespace DI44UF_HFT_2023241.Client
                 Console.ReadLine();
             }
         }
-
 
         #endregion
 
@@ -757,8 +793,8 @@ namespace DI44UF_HFT_2023241.Client
                 .Add("GetAvgPriceOfAllOrders", () => GetAvgPriceOfAllOrders(_customer))
                 .Add("LinearRegressionFromCustomerData", () => LinearRegressionFromCustomerData(_customer))
                 .Add("GetOrderHistory", () => GetOrderHistory(_customer))
-                .Add("GetAddress", () => GetAddressOfCustomer(_product))
-                .Add("GetOrdersBetweenDates", () => GetOrdersBetweenDates(_product))
+                .Add("GetAddress", () => GetAddressOfCustomer(_customer))
+                .Add("GetOrdersBetweenDates", () => GetOrdersBetweenDates(_customer))
                 .Add("Exit", ConsoleMenu.Close);
 
             #endregion

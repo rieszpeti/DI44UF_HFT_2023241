@@ -22,7 +22,17 @@ namespace DI44UF_HFT_2023241.Logic
 
             try
             {
-                return _repo.ReadById(customerId).Address;
+                var customer = _repo.ReadById(customerId);
+                if (customer is not null)
+                {
+                    _logger.Information("Send back address to endpoint");
+                    return customer.Address;
+                }
+                else
+                {
+                    _logger.Information("Couldn't find customer, so cannot process address");
+                    return null;
+                }
             }
             catch (Exception ex)
             {

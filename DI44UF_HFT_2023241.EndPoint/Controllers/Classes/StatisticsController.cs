@@ -16,10 +16,11 @@ namespace DI44UF_HFT_2023241.EndPoint
         private readonly IMapper<Order, OrderDto> _orderMapper;
         private readonly IMapper<Address, AddressDto> _addressMapper;
 
-        public StatisticsController(ICustomerLogic logic, IMapper<Order, OrderDto> orderMapper)
+        public StatisticsController(ICustomerLogic logic, IMapper<Order, OrderDto> orderMapper, IMapper<Address, AddressDto> addressMapper)
         {
             _logic = logic;
             _orderMapper = orderMapper;
+            _addressMapper = addressMapper;
         }
 
         [HttpGet("statistics/avg/{customerId}")]
