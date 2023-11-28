@@ -9,8 +9,8 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
+    [Route("api/[controller]")]
+    [ApiController]
     public class StatisticsController : ControllerBase
     {
         private readonly ICustomerLogic _logic;

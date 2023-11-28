@@ -7,8 +7,8 @@ using System.Linq;
 
 namespace DI44UF_HFT_2023241.EndPoint.Controllers
 {
-    //[Route("[controller]")]
-    //[ApiController]
+    [Route("[controller]")]
+    [ApiController]
     public abstract class GenericController<Entity, Dto> : ControllerBase, IGenericController<Entity, Dto> where Entity : class where Dto : class
     {
         protected readonly ILogger _logger;
