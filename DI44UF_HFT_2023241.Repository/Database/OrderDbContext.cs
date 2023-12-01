@@ -48,9 +48,11 @@ namespace DI44UF_HFT_2023241.Repository
                 .WithMany(x => x.Orders)
                 .UsingEntity<OrderDetail>(
                     x => x.HasOne(x => x.Product)
-                        .WithMany().HasForeignKey(x => x.ProductId),
+                        .WithMany()
+                        .HasForeignKey(x => x.ProductId),
                     x => x.HasOne(x => x.Order)
-                    .WithMany().HasForeignKey(x => x.OrderId));
+                        .WithMany()
+                        .HasForeignKey(x => x.OrderId));
 
             modelBuilder.Entity<Customer>().HasData(new Customer[]
             {
@@ -79,17 +81,16 @@ namespace DI44UF_HFT_2023241.Repository
                     City = "Bp",
                     Region = "Bp",
                     Street = "Nap"
+                },
+                new Address
+                {
+                    AddressId = 2,
+                    PostalCode = "2023",
+                    Country = "HU",
+                    City = "Bp",
+                    Region = "Bp",
+                    Street = "Nap"
                 }
-                //},
-                //new Address
-                //{
-                //    AddressId = 2,
-                //    PostalCode = "2023",
-                //    Country = "HU",
-                //    City = "Bp",
-                //    Region = "Bp",
-                //    Street = "Nap"
-                //}
             });
 
             List<Product> products = new List<Product>()
