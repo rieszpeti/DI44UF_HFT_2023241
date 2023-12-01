@@ -66,8 +66,15 @@ namespace DI44UF_HFT_2023241.Repository
                 new Customer
                 {
                     CustomerId = 2,
-                    AddressId = 2,
+                    AddressId = 1,
                     UserName = "Bela",
+                },
+
+                new Customer
+                {
+                    CustomerId = 3,
+                    AddressId = 2,
+                    UserName = "UltimateBela",
                 }
             });
 
