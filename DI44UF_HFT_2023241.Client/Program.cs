@@ -58,7 +58,7 @@ namespace DI44UF_HFT_2023241.Client
             {
                 if (entity.Contains("Dto"))
                 {
-                    return Type.GetType($"{nameSpace}.Dto.{entity}, {assemblyName}.Dto");
+                    return Type.GetType($"{nameSpace}.Dto.{entity}, {assemblyName}");
                 }
                 return Type.GetType($"{nameSpace}.{entity}, {assemblyName}");
             }
@@ -106,7 +106,7 @@ namespace DI44UF_HFT_2023241.Client
             {
                 var _entity = Check(entity);
 
-                var type = CreateType(_entity);
+                var type = CreateType(_entity+"Dto");
 
                 var ctorParams = GetCtorParams(type);
 
@@ -132,20 +132,26 @@ namespace DI44UF_HFT_2023241.Client
                     parameters[i] = value;
                     i++;
                 }
+                object[] list = parameters;
+                var obj = Activator.CreateInstance(type, list);
 
-                if (CheckIfExists<T>(entity, id))
-                {
-                    object[] list = parameters;
-                    var obj = Activator.CreateInstance(type, list);
+                _rest.Post(Convert.ChangeType(obj, type), _entity);
+                //Check
+                CheckIfCreated<T>(entity, id);
 
-                    _rest.Post(Convert.ChangeType(obj, type), _entity);
-                    //Check
-                    CheckIfCreated<T>(entity, id);
-                }
-                else
-                {
-                    Console.WriteLine("Entity with this id already exists");
-                }
+                //if (CheckIfExists<T>(entity, id))
+                //{
+                //    object[] list = parameters;
+                //    var obj = Activator.CreateInstance(type, list);
+
+                //    _rest.Post(Convert.ChangeType(obj, type), _entity);
+                //    //Check
+                //    CheckIfCreated<T>(entity, id);
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Entity with this id already exists");
+                //}
                 Console.WriteLine("Press enter to continue...");
                 Console.ReadLine();
             }
@@ -601,7 +607,7 @@ namespace DI44UF_HFT_2023241.Client
             var _entity = Check(entity);
 
             Console.WriteLine($"Check existence of {entity}");
-            var customer = ReadIdHelper<Customer>(_entity);
+            var customer = ReadIdHelper<CustomerDto>(_entity);
 
             if (customer is not null)
             {
@@ -621,7 +627,7 @@ namespace DI44UF_HFT_2023241.Client
         {
             var _entity = Check(entity);
 
-            var customer = ReadIdHelper<Customer>(_entity);
+            var customer = ReadIdHelper<CustomerDto>(_entity);
 
             if (customer is not null)
             {
@@ -641,7 +647,7 @@ namespace DI44UF_HFT_2023241.Client
         {
             var _entity = Check(entity);
 
-            var customer = ReadIdHelper<Customer>(_entity);
+            var customer = ReadIdHelper<CustomerDto>(_entity);
 
             if (customer is not null)
             {
@@ -673,7 +679,7 @@ namespace DI44UF_HFT_2023241.Client
         {
             var _entity = Check(entity);
 
-            var customer = ReadIdHelper<Customer>(_entity);
+            var customer = ReadIdHelper<CustomerDto>(_entity);
 
             if (customer is not null)
             {
@@ -701,7 +707,7 @@ namespace DI44UF_HFT_2023241.Client
         {
             var _entity = Check(entity);
 
-            var customer = ReadIdHelper<Customer>(_entity);
+            var customer = ReadIdHelper<CustomerDto>(_entity);
 
             if (customer is not null)
             {

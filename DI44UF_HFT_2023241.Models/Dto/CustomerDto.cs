@@ -20,9 +20,6 @@ namespace DI44UF_HFT_2023241.Models.Dto
         /// </summary>
         [Required]
         public int AddressId { get; set; }
-        public AddressDto Address { get; set; }
-
-        public List<OrderDto> Orders { get; set; }
 
         public CustomerDto(int customerId, string name, int addressId)
         {
