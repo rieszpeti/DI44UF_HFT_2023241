@@ -56,6 +56,10 @@ namespace DI44UF_HFT_2023241.Client
         {
             try
             {
+                if (entity.Contains("Dto"))
+                {
+                    return Type.GetType($"{nameSpace}.Dto.{entity}, {assemblyName}.Dto");
+                }
                 return Type.GetType($"{nameSpace}.{entity}, {assemblyName}");
             }
             catch (Exception ex)
@@ -750,42 +754,42 @@ namespace DI44UF_HFT_2023241.Client
             #region Second level of menu
 
             var addressSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List<Address>(_address))
-                .Add("Create", () => Create<Address>(_address))
-                .Add("ReadById", () => ReadById<Address>(_address))
-                .Add("Delete", () => Delete<Address>(_address))
+                .Add("List", () => List<AddressDto>(_address))
+                .Add("Create", () => Create<AddressDto>(_address))
+                .Add("ReadById", () => ReadById<AddressDto>(_address))
+                .Add("Delete", () => Delete<AddressDto>(_address))
                 .Add("Update", () => UpdateAddress(_address))
                 .Add("Exit", ConsoleMenu.Close);
 
             var customerSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List<Customer>(_customer))
+                .Add("List", () => List<CustomerDto>(_customer))
                 .Add("Create", () => Create(_customer))
-                .Add("ReadById", () => ReadById<Customer>(_customer))
-                .Add("Delete", () => Delete<Customer>(_customer))
+                .Add("ReadById", () => ReadById<CustomerDto>(_customer))
+                .Add("Delete", () => Delete<CustomerDto>(_customer))
                 .Add("Update", () => UpdateCustomer(_customer))
                 .Add("Exit", ConsoleMenu.Close);
 
             var orderSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List<Order>(_order))
+                .Add("List", () => List<OrderDto>(_order))
                 .Add("Create", () => Create(_order))
-                .Add("ReadById", () => ReadById<Order>(_order))
-                .Add("Delete", () => Delete<Order>(_order))
+                .Add("ReadById", () => ReadById<OrderDto>(_order))
+                .Add("Delete", () => Delete<OrderDto>(_order))
                 .Add("Update", () => UpdateOrder(_order))
                 .Add("Exit", ConsoleMenu.Close);
 
             var orderDetailSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List<OrderDetail>(_orderDetail))
+                .Add("List", () => List<OrderDetailDto>(_orderDetail))
                 .Add("Create", () => Create(_orderDetail))
-                .Add("ReadById", () => ReadById<OrderDetail>(_orderDetail))
-                .Add("Delete", () => Delete<OrderDetail>(_orderDetail))
+                .Add("ReadById", () => ReadById<OrderDetailDto>(_orderDetail))
+                .Add("Delete", () => Delete<OrderDetailDto>(_orderDetail))
                 .Add("Update", () => UpdateOrderDetail(_orderDetail))
                 .Add("Exit", ConsoleMenu.Close);
 
             var productSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List<Product>(_product))
+                .Add("List", () => List<ProductDto>(_product))
                 .Add("Create", () => Create(_product))
-                .Add("ReadById", () => ReadById<Product>(_product))
-                .Add("Delete", () => Delete<Product>(_product))
+                .Add("ReadById", () => ReadById<ProductDto>(_product))
+                .Add("Delete", () => Delete<ProductDto>(_product))
                 .Add("Update", () => UpdateProduct(_product))
                 .Add("Exit", ConsoleMenu.Close);
 
