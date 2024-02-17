@@ -1,23 +1,23 @@
-# DI44UF_HFT_2023241
+Project Overview:
 
-This project is stands for a basic order query system.
+This project represents a basic order query system.
 
-There are 5 models:
+Models:
 
-Address
-Customer
-Order
-OrderDetail
-Product
+-Address
+-Customer
+-Order
+-OrderDetail
+-Product
+These models define the database-object relationships.
 
-These are represents the database - object relation.
+Relations:
 
-The relations are:
-  Address - Customer one to many
-  Customer - Order one to many
-  Order - Product many to many
-  OrderDetail is a connection table
+-Address - Customer: One-to-many
+-Customer - Order: One-to-many
+-Order - Product: Many-to-many
+-OrderDetail: Serves as a connection table
 
-All of these entities has basic CRUD operations.
-There is a class that don't represent CRUD funcionality (it is just querying) it is for statistical purpuses.
-It uses the Customers and it's relations to create statistics about a customer orders, etc.
+Functionality:
+
+All of these entities support basic CRUD operations. Additionally, the system includes endpoints for statistical analysis. These endpoints allow not only querying but also performing CRUD functions and generating statistics based on the relationships between customers and their associated entities. These statistics can include information about customer orders and more.
