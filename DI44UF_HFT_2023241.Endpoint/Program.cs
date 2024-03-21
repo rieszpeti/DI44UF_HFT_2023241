@@ -18,13 +18,7 @@ namespace DI44UF_HFT_2023241.Endpoint
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog((context, configuration) =>
-                {
-                    configuration
-                        .Enrich.FromLogContext()
-                        .Enrich.WithMachineName()
-                        .WriteTo.Console()
-                        .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day);
-                })
+                configuration.ReadFrom.Configuration(context.Configuration))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
