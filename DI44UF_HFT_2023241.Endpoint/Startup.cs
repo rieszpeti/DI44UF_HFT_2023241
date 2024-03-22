@@ -12,6 +12,7 @@ using DI44UF_HFT_2023241.Repository;
 using DI44UF_HFT_2023241.Repository.ModelRepositories;
 using DI44UF_HFT_2023241.Logic.Mapper;
 using DI44UF_HFT_2023241.Models.Dto;
+using DI44UF_HFT_2023241.EndPoint.Services;
 
 namespace DI44UF_HFT_2023241.Endpoint
 {
@@ -51,6 +52,8 @@ namespace DI44UF_HFT_2023241.Endpoint
             services.AddTransient<ILogic<OrderDetail>, OrderDetailLogic>();
             services.AddTransient<ILogic<Product>, ProductLogic>();
 
+            services.AddSignalR();
+
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -79,6 +82,11 @@ namespace DI44UF_HFT_2023241.Endpoint
                 await context.Response.WriteAsJsonAsync(response);
             }));
 
+            app.UseCors(x => x
+            .AllowCredentials()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:5239"));
 
             app.UseRouting();
 
@@ -87,6 +95,7 @@ namespace DI44UF_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

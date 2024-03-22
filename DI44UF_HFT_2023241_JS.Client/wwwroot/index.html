@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Customers</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Customer Catalog</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>AddressId</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <div id="formdiv">
+        <label>Create Customer</label>
+        <input type="number" id="customerId" />
+        <input type="text" id="customerName" />
+        <input type="number" id="addressId" />
+        <button type="button" onclick="create()">Add Customer</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

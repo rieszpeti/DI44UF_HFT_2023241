@@ -1,0 +1,13 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    background-color: #1f1f1f;
+}
+
+#formdiv label,
+#formdiv input,
+#formdiv button {
+    display: block;
+    margin: 10px;
+    padding: 5px;
+}

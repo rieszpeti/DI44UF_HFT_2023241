@@ -65,11 +65,11 @@ namespace DI44UF_HFT_2023241.Logic
                     {
                         _repo.Create(item);
 
-                        _logger.Information("{type} entity successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("{type} entity successfully created", typeof(T).Name);
                     }
                     else
                     {
-                        _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("Couldn't create {type}, because its key is existing", typeof(T).Name);
                         //throw new Exception("Couldn't create entity, because its key is existing");
                     }
                 }
@@ -90,23 +90,23 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _logger.Debug("{type} with {id} start read", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                _logger.Debug("{type} with {id} start read", typeof(T).Name, id);
 
                 var entity = _repo.ReadById(id);
 
                 if (entity is not null)
                 {
-                    _logger.Information("Successful read {type} with {id}", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                    _logger.Information("Successful read {type} with {id}", typeof(T).Name, id);
                 }
                 else
                 {
-                    _logger.Error("Couldn't read {type} with {id}, because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                    _logger.Error("Couldn't read {type} with {id}, because it does not exists", typeof(T).Name, id);
                 }
                 return entity;
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't read {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                _logger.Error("{message} Couldn't read {type} with {id}", ex.Message, typeof(T).Name, id);
                 //throw new Exception("Couldn't read entity, because some exception occurred");
                 return null;
             }
@@ -116,23 +116,23 @@ namespace DI44UF_HFT_2023241.Logic
         {
             try
             {
-                _logger.Information("{type} start read all", typeof(T).GetGenericArguments().FirstOrDefault());
+                _logger.Information("{type} start read all", typeof(T).Name);
 
                 var entities = _repo.ReadAll();
 
                 if (entities is not null)
                 {
-                    _logger.Information("Successful read all {type}", typeof(T).GetGenericArguments().FirstOrDefault());
+                    _logger.Information("Successful read all {type}", typeof(T).Name);
                 }
                 else
                 {
-                    _logger.Error("Couldn't read all {type}, because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault());
+                    _logger.Error("Couldn't read all {type}, because it does not exists", typeof(T).Name);
                 }
                 return entities.ToList();
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't read all {type}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault());
+                _logger.Error("{message} Couldn't read all {type}", ex.Message, typeof(T).Name);
                 //throw new Exception("Couldn't Read");
                 return null;
             }
@@ -172,11 +172,11 @@ namespace DI44UF_HFT_2023241.Logic
 
                         _repo.Update(old);
 
-                        _logger.Information("{type} with successfully created", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("{type} with successfully created", typeof(T).Name);
                     }
                     else
                     {
-                        _logger.Information("Couldn't update {type}, because it is not existing", typeof(T).GetGenericArguments().FirstOrDefault());
+                        _logger.Information("Couldn't update {type}, because it is not existing", typeof(T).Name);
                         //throw new Exception("Couldn't create entity, because its key is existing");
                     }
                 }
@@ -187,7 +187,7 @@ namespace DI44UF_HFT_2023241.Logic
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't update {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault());
+                _logger.Error("{message} Couldn't update {type} with {id}", ex.Message, typeof(T).Name);
                 //throw new Exception("Couldn't Read");
             }
         }
@@ -200,16 +200,16 @@ namespace DI44UF_HFT_2023241.Logic
                 {
                     _repo.DeleteById(id);
 
-                    _logger.Information("{type} with {id} successfully deleted", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                    _logger.Information("{type} with {id} successfully deleted", typeof(T).Name, id);
                 }
                 else
                 {
-                    _logger.Information("Couldn't delete {type} with {id} because it does not exists", typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                    _logger.Information("Couldn't delete {type} with {id} because it does not exists", typeof(T).Name, id);
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error("{message} Couldn't delete {type} with {id}", ex.Message, typeof(T).GetGenericArguments().FirstOrDefault(), id);
+                _logger.Error("{message} Couldn't delete {type} with {id}", ex.Message, typeof(T).Name, id);
                 throw new Exception("Couldn't delete");
             }
         }

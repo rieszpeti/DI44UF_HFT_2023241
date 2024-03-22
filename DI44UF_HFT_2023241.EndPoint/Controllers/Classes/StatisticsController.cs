@@ -1,8 +1,10 @@
-﻿using DI44UF_HFT_2023241.Logic;
+﻿using DI44UF_HFT_2023241.EndPoint.Services;
+using DI44UF_HFT_2023241.Logic;
 using DI44UF_HFT_2023241.Logic.Mapper;
 using DI44UF_HFT_2023241.Models;
 using DI44UF_HFT_2023241.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace DI44UF_HFT_2023241.EndPoint
         private readonly IMapper<Order, OrderDto> _orderMapper;
         private readonly IMapper<Address, AddressDto> _addressMapper;
 
-        public StatisticsController(ICustomerLogic logic, IMapper<Order, OrderDto> orderMapper, IMapper<Address, AddressDto> addressMapper)
+        public StatisticsController(ICustomerLogic logic, IMapper<Order, OrderDto> orderMapper, IMapper<Address, AddressDto> addressMapper, IHubContext<SignalRHub> hub)
         {
             _logic = logic;
             _orderMapper = orderMapper;
