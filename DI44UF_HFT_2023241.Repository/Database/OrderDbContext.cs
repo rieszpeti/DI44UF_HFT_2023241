@@ -54,13 +54,6 @@ namespace DI44UF_HFT_2023241.Repository
                         .WithMany()
                         .HasForeignKey(x => x.OrderId));
 
-            modelBuilder.Entity<Customer>().Property(c => c.CustomerId).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Order>().Property(o => o.OrderId).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Product>().Property(p => p.ProductId).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Address>().Property(a => a.AddressId).ValueGeneratedOnAdd();
-            modelBuilder.Entity<OrderDetail>().Property(a => a.OrderDetailId).ValueGeneratedOnAdd();
-
-
             modelBuilder.Entity<Customer>().HasData(new Customer[]
             {
                 new Customer

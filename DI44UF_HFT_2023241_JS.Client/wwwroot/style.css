@@ -4,10 +4,57 @@
     background-color: #1f1f1f;
 }
 
-#formdiv label,
-#formdiv input,
-#formdiv button {
+#customerForm label,
+#customerForm input,
+#customerForm button,
+#addressForm label,
+#addressForm input,
+#addressForm button,
+#orderDetailForm label,
+#orderDetailForm input,
+#orderDetailForm button {
     display: block;
     margin: 10px;
     padding: 5px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 90%;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+}
+
+
+@media (max-width: 530px) {
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 95%;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
 }

@@ -44,7 +44,7 @@ namespace DI44UF_HFT_2023241.Models
             Street = street;
         }
 
-        public override string ToString()
+        public override string ToString()   
         {
             return "Address: " + AddressId + " " +
                     "PostalCode: " + PostalCode + " " +

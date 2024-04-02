@@ -67,8 +67,7 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 
             _hub.Clients.All.SendAsync($"{typeof(Entity).Name}Created", value);
 
-            return CreatedAtAction(nameof(Read), model);
-            //return CreatedAtAction(nameof(Read), new { id = model.Id }, model);
+            return Ok();
         }
 
         [HttpPut]
@@ -80,9 +79,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 
             _logic.Update(model);
 
-            _hub.Clients.All.SendAsync($"{typeof(Entity).Name}Updated", value);
+            _hub.Clients.All.SendAsync($"{typeof(Entity).Name}Updated".ToLower(), value);
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -99,9 +98,9 @@ namespace DI44UF_HFT_2023241.EndPoint.Controllers
 
             _logger.Information("{type} with {id} successfully deleted", typeof(Entity).Name, id);
 
-            _hub.Clients.All.SendAsync($"{typeof(Entity).Name}Deleted", id);
+            _hub.Clients.All.SendAsync($"{typeof(Entity).Name}Deleted".ToLower(), id);
 
-            return NoContent();
+            return Ok();
         }
     }
 
