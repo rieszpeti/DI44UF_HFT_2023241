@@ -12,7 +12,13 @@
 #addressForm button,
 #orderDetailForm label,
 #orderDetailForm input,
-#orderDetailForm button {
+#orderDetailForm button,
+#orderForm label,
+#orderForm input,
+#orderForm button,
+#productForm label,
+#productForm input,
+#productForm button {
     display: block;
     margin: 10px;
     padding: 5px;

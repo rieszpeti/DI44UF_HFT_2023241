@@ -1,175 +1,8 @@
-class EntityManager {
-    constructor(addressBase, entityName, connection, resultTag, entityProperties) {
-        this.entities = [];
-        this.connection = connection;
-        this.addressBase = addressBase;
-        this.entityName = entityName;
-        this.resultTag = resultTag;
-        this.entityProperties = entityProperties;
-    }
-
-    async init() {
-        await this.getData();
-        this.setupSignalR();
-    }
-
-    async getData() {
-        await fetch(this.addressBase + this.entityName)
-            .then(x => x.json())
-            .then(response => {
-                this.entities = response;
-                this.display();
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }
-
-    display() {
-        const resultArea = document.getElementById(this.resultTag);
-        resultArea.innerHTML = "";
-
-        this.entities.forEach(entity => {
-            const firstPropertyValue = parseInt(Object.values(entity)[0]);
-            resultArea.innerHTML +=
-                `<tr>
-                    ${this.createTd(entity)}
-                    <td>
-                        <button type="button" onclick="remove${this.entityName}(${firstPropertyValue})"> Delete </button> 
-                    </td>
-                </tr>`;
-        });
-    }
-
-    createTd(entity) {
-        return this.entityProperties
-            .map(property => `<th>${entity[property]}</th>`)
-            .join('');
-    }
-
-    async create() {
-        try {
-            const response = await fetch(this.addressBase + this.entityName, {
-                method: 'POST',
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.createRequestBody())
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to create ${this.entityName}`);
-            }
-
-            console.log(`${this.entityName} created successfully`);
-            this.getData();
-        }
-        catch (error) {
-            console.error(`Error creating ${this.entityName}:`, error);
-        }
-    }
-
-    createRequestBody() {
-        return {};
-    }
-
-    async remove(id) {
-        try {
-            const response = await fetch(
-                `${this.addressBase}${this.entityName}/${id}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: null
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to delete customer');
-            }
-
-            console.log('Customer deleted successfully');
-            this.getData();
-        }
-        catch (error) {
-            console.error('Error deleting customer:', error);
-        }
-    }
-
-    setupSignalR() {
-        this.connection.on(`${this.entityName}created`, (user, message) => {
-            this.getData();
-        });
-
-        this.connection.on(`${this.entityName}updated`, (user, message) => {
-            this.getData();
-        });
-
-        this.connection.on(`${this.entityName}deleted`, (user, message) => {
-            this.getData();
-        });
-    }
-}
-
-class CustomerManager extends EntityManager {
-    constructor(addressBase, entityName, connection, resultTag, entityProperties) {
-        super(addressBase, entityName, connection, resultTag, entityProperties);
-    }
-
-    createRequestBody() {
-        // Implement the creation of request body specific to customer creation
-        let customerId = document.getElementById('customerId').value;
-        let customerName = document.getElementById('customerName').value;
-        let addressId = document.getElementById('addressId').value;
-
-        return {
-            customerId: parseInt(customerId),
-            userName: customerName,
-            addressId: parseInt(addressId)
-        };
-    }
-}
-
-class AddressManager extends EntityManager {
-    constructor(addressBase, entityName, connection, resultTag, entityProperties) {
-        super(addressBase, entityName, connection, resultTag, entityProperties);
-    }
-
-    createRequestBody() {
-        let addressId = document.getElementById('addressId').value;
-        let postalCode = document.getElementById('postalCode').value;
-        let city = document.getElementById('city').value;
-        let region = document.getElementById('region').value;
-        let country = document.getElementById('country').value;
-        let street = document.getElementById('street').value;
-
-        return {
-            addressId: parseInt(addressId),
-            postalCode: postalCode,
-            city: city,
-            region: region,
-            country: country,
-            street: street
-        };
-    }
-}
-
-class OrderDetailManager extends EntityManager {
-    constructor(addressBase, entityName, connection, resultTag, entityProperties) {
-        super(addressBase, entityName, connection, resultTag, entityProperties);
-    }
-
-    createRequestBody() {
-        let orderDetailId = document.getElementById('orderDetailId').value;
-        let productId = document.getElementById('productId').value;
-        let orderId = document.getElementById('orderId').value;
-        let quantity = document.getElementById('quantity').value; 
-
-        return {
-            orderDetailId: parseInt(orderDetailId),
-            productId: parseInt(productId),
-            orderId: parseInt(orderId),
-            quantity: parseInt(quantity)
-        };
-    }
-}
+import AddressManager from './js/AddressManager.js';
+import CustomerManager from './js/CustomerManager.js';
+import OrderDetailManager from './js/OrderDetailManager.js';
+import OrderManager from './js/OrderManager.js';
+import ProductManager from './js/ProductManager.js';
 
 const addressBase = 'http://localhost:5000/';
 const connection = new signalR.HubConnectionBuilder()
@@ -206,9 +39,13 @@ async function createCustomer() {
     await customerManager.create();
 }
 
+window.createCustomer = createCustomer;
+
 function removecustomer(id) {
     customerManager.remove(id);
 }
+
+window.removecustomer = removecustomer;
 
 const addressName = 'address';
 const addressTag = 'addressResult';
@@ -227,9 +64,13 @@ async function createAddress() {
     await addressManager.create();
 }
 
+window.createAddress = createAddress;
+
 function removeaddress(id) {
     addressManager.remove(id);
 }
+
+window.removeaddress = removeaddress;
 
 const orderDetailName = 'orderDetail';
 const orderDetailTag = 'orderDetailResult';
@@ -246,12 +87,58 @@ async function createorderDetail() {
     await orderDetailManager.create();
 }
 
+window.createorderDetail = createorderDetail;
+
 function removeorderDetail(id) {
     orderDetailManager.remove(id);
 }
 
+window.removeorderDetail = removeorderDetail;
+
+const orderName = 'order';
+const orderTag = 'orderResult';
+const orderProperties = ['orderId', 'orderDate', 'shippingDate', 'customerId'];
+
+const orderManager = new OrderManager(
+    addressBase,
+    orderName,
+    connection,
+    orderTag,
+    orderProperties);
+
+async function createorder() {
+    await orderManager.create();
+}
+
+window.createorder = createorder;
+
+const productName = 'product';
+const productTag = 'productResult';
+const productProperties = ['id', 'name', 'description', 'size', 'orderItemId', 'price'];
+
+const productManager = new ProductManager(
+    addressBase,
+    productName,
+    connection,
+    productTag,
+    productProperties);
+
+async function createproduct() {
+    await productManager.create();
+}
+
+window.createproduct = createproduct;
+
+function removeproduct(id) {
+    productManager.remove(id);
+}
+
+window.removeproduct = removeproduct;
+
 customerManager.init();
 addressManager.init();
 orderDetailManager.init();
+orderManager.init();
+productManager.init();
 
 start();

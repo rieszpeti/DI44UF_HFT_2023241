@@ -2,10 +2,40 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+    <div id="chartContainer" style="width: 800px; height: 400px;">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>-->
 
     <div class="container">
         <h1>Customer Catalog</h1>
@@ -26,7 +56,7 @@
             <label>Create Customer</label>
             <input type="number" id="customerId" placeholder="customerId" />
             <input type="text" id="customerName" placeholder="customerName" />
-            <input type="number" id="addressId" placeholder="addressId" />
+            <input type="number" id="customerAddressId" placeholder="addressId" />
             <button type="button" onclick="createCustomer()">Add Customer</button>
         </div>
     </div>
@@ -78,16 +108,75 @@
         </table>
 
         <div id="orderDetailForm">
-            <label>Create Address</label>
-            <input type="number" id="orderItemId" placeholder="orderItemId" />
-            <input type="number" id="ProductId" placeholder="productId" />
-            <input type="number" id="OrderId" placeholder="orderId" />
+            <label>Create Order Detail</label>
+            <input type="number" id="orderDetailId" placeholder="orderItemId" />
+            <input type="number" id="orderDetailProductId" placeholder="productId" />
+            <input type="number" id="orderDetailOrderId" placeholder="orderId" />
             <input type="number" id="Quantity" placeholder="quantity" />
-            <button type="button" onclick="createOrderItem()">Add Order Item</button>
+            <button type="button" onclick="createorderDetail()">Add Order Item</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Order Catalog</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>OrderId</th>
+                    <th>OrderDate</th>
+                    <th>ShippingDate</th>
+                    <th>CustomerId</th>
+                </tr>
+            </thead>
+            <tbody id="orderResult">
+            </tbody>
+        </table>
+
+        <div id="orderForm">
+            <label>Create Order</label>
+            <input type="number" id="orderId" placeholder="orderId" />
+            <input type="datetime" id="orderDate" placeholder="orderDate" />
+            <input type="datetime" id="shippingDate" placeholder="shippingDate" />
+            <input type="number" id="orderCustomerId" placeholder="customerId" />
+            <button type="button" onclick="createorder()">Add Order Item</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Product Catalog</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ProductId</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Size</th>
+                    <th>OrderItemId</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="productResult">
+            </tbody>
+        </table>
+
+        <div id="productForm">
+            <label>Create Product</label>
+            <input type="number" id="productId" placeholder="productId" />
+            <input type="text" id="productName" placeholder="name" />
+            <input type="text" id="productDescription" placeholder="description" />
+            <input type="text" id="productSize" placeholder="size" />
+            <input type="number" id="productOrderItemId" placeholder="orderItemId" />
+            <input type="number" id="productPrice" placeholder="price" />
+            <button type="button" onclick="createproduct()">Add Order Item</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/statistics.js"></script>
 </body>
 </html>
