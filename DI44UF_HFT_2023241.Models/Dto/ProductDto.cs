@@ -36,6 +36,16 @@ namespace DI44UF_HFT_2023241.Models.Dto
             Size = size;
         }
 
+        public ProductDto(int id, string name, string description, string size, int orderItemId, int price)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Size = size;
+            OrderItemId = orderItemId;
+            Price = price;
+        }
+
         public override string ToString()
         {
             return  "ProductId: " + Id + " " +

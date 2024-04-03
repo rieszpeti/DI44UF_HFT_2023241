@@ -38,7 +38,9 @@ namespace DI44UF_HFT_2023241.Logic.Mapper
                     inp.ProductId,
                     inp.Name,
                     inp.Description,
-                    inp.Size
+                    inp.Size,
+                    inp.OrderItemId,
+                    inp.Price
                 );
         }
     }
