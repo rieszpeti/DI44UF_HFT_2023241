@@ -8,35 +8,6 @@
 </head>
 <body>
 
-    <div id="chartContainer" style="width: 800px; height: 400px;">
-        <canvas id="myChart"></canvas>
-    </div>
-
-    <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        const ctx = document.getElementById('myChart');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>-->
-
     <div class="container">
         <h1>Customer Catalog</h1>
 
@@ -171,6 +142,43 @@
             <input type="number" id="productPrice" placeholder="price" />
             <button type="button" onclick="createproduct()">Add Order Item</button>
         </div>
+    </div>
+
+    <div class="container">
+        <h1>Analytics</h1>
+
+        <canvas id="myChart"></canvas>
+
+        <div id="analyticsResult">
+            <label id="analyticsCustomerId"></label>
+            <label id="avgCustomer"></label>
+            <label id="analyticsCustomerAddress"></label>
+        </div>
+
+        <div id="linearRegForm">
+            <fieldset>
+                <input type="number" id="linregCustomerId" placeholder="1" min="1" value="1" />
+                <input type="date" id="historyStartDate" value="1980-01-01" />
+                <input type="date" id="historyEndDate" value="2050-01-01" />
+                <button type="button" onclick="getAnalytics()">Get Analytics</button>
+            </fieldset>
+        </div>
+
+        <h2>Order History</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>OrderId</th>
+                    <th>OrderDate</th>
+                    <th>ShippingDate</th>
+                    <th>CustomerId</th>
+                </tr>
+            </thead>
+            <tbody id="orderHistoryResult">
+            </tbody>
+        </table>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>

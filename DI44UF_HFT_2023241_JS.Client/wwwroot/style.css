@@ -36,6 +36,41 @@
     margin-bottom: 20px;
 }
 
+
+#analyticsResult {
+    display: flex;
+    justify-content: left;
+    align-items: start;
+    flex-direction: column;
+    margin: 8px;
+}
+
+fieldset {
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+#linearRegForm label,
+#linearRegForm input,
+#linearRegForm button {
+    font-size: inherit;
+    padding: 0.2em;
+    margin: 0.1em 0.2em;
+    -moz-box-sizing: content-box; /* or `border-box` */
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+#analyticsResult label {
+    display: block;
+    margin-bottom: 3px;
+}
+
+#linearRegForm {
+    margin-bottom: 10px;
+}
+
 @media (max-width: 1000px) {
     .container {
         display: flex;

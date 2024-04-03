@@ -176,8 +176,17 @@ namespace DI44UF_HFT_2023241.Logic
         /// <param name="y"></param>
         /// <returns></returns>
         public (double, double) LinearRegression(List<int> x, List<int> y)
-        { 
+        {
+            if (x.Count == 0 || y.Count == 0)
+            {
+                return (double.NaN, double.NaN);
+            }
             var squarex = x.Sum(e => Math.Pow(e - x.Average(), 2));
+
+            if (squarex == 0)
+            {
+                return (double.NaN, double.NaN);
+            }
             var xy = x.Zip(y, (first, second) => (first - x.Average()) * (second - y.Average())).Sum();
             double b1 = xy / squarex;
             double b0 = y.Average() - (x.Average() * b1);
