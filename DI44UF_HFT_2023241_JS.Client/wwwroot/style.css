@@ -24,6 +24,34 @@
     padding: 5px;
 }
 
+#updateCustomerForm,
+#updateAddressForm,
+#updateOrderDetailForm,
+#updateOrderForm,
+#updateProductForm {
+    display: none;
+}
+
+#updateCustomerForm label,
+#updateCustomerForm input,
+#updateCustomerForm button,
+#updateAddressForm label,
+#updateAddressForm input,
+#updateAddressForm button,
+#updateOrderDetailForm label,
+#updateOrderDetailForm input,
+#updateOrderDetailForm button,
+#updateOrderForm label,
+#updateOrderForm input,
+#updateOrderForm button,
+#updateProductForm label,
+#updateProductForm input,
+#updateProductForm button {
+    display: block;
+    margin: 10px;
+    padding: 5px;
+}
+
 .container {
     display: flex;
     justify-content: center;

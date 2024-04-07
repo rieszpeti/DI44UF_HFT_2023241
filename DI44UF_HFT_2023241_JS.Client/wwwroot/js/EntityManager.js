@@ -8,6 +8,10 @@ export default class EntityManager {
         this.entityProperties = entityProperties;
     }
 
+    getEntities() {
+        return this.entities;
+    }
+
     async init() {
         await this.getData();
         this.setupSignalR();
@@ -34,6 +38,7 @@ export default class EntityManager {
                     ${this.createTd(entity)}
                     <td>
                         <button type="button" onclick="remove${this.entityName}(${firstPropertyValue})"> Delete </button> 
+                        <button type="button" onclick="showupdate${this.entityName}(${firstPropertyValue})"> Update </button> 
                     </td>
                 </tr>`;
         });
@@ -70,6 +75,29 @@ export default class EntityManager {
 
     createRequestBody() {
         return {};
+    }
+
+    async put(entity) {
+        try {
+            const response = await fetch(this.addressBase + this.entityName, {
+                method: 'PUT',
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(entity)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to update ${this.entityName}`);
+            }
+
+            console.log(`${this.entityName} updated successfully`);
+            this.getData();
+        }
+        catch (error) {
+            console.error(`Error creating ${this.entityName}:`, error);
+        }
     }
 
     async remove(id) {

@@ -30,6 +30,15 @@
             <input type="number" id="customerAddressId" placeholder="addressId" />
             <button type="button" onclick="createCustomer()">Add Customer</button>
         </div>
+
+        <div id="updateCustomerForm">
+            <label>Update Customer</label>
+            <input type="number" id="updateCustomerId" placeholder="customerId" />
+            <input type="text" id="updateCustomerName" placeholder="customerName" />
+            <input type="number" id="updateCustomerAddressId" placeholder="addressId" />
+            <button type="button" onclick="updatecustomer()">Update Customer</button>
+        </div>
+
     </div>
 
     <div class="container">
@@ -60,6 +69,17 @@
             <input type="text" id="street" placeholder="street" />
             <button type="button" onclick="createAddress()">Add Address</button>
         </div>
+
+        <div id="updateAddressForm">
+            <label>Update Address</label>
+            <input type="number" id="updateAddressId" placeholder="addressId" />
+            <input type="text" id="updatePostalCode" placeholder="postalCode" />
+            <input type="text" id="updateCity" placeholder="city" />
+            <input type="text" id="updateRegion" placeholder="region" />
+            <input type="text" id="updateCountry" placeholder="country" />
+            <input type="text" id="updateStreet" placeholder="street" />
+            <button type="button" onclick="updateAddress()">Update Address</button>
+        </div>
     </div>
 
     <div class="container">
@@ -86,6 +106,16 @@
             <input type="number" id="Quantity" placeholder="quantity" />
             <button type="button" onclick="createorderDetail()">Add Order Item</button>
         </div>
+
+        <div id="updateOrderDetailForm">
+            <label>Update Order Detail</label>
+            <input type="number" id="updateOrderDetailId" placeholder="orderItemId" />
+            <input type="number" id="updateOrderDetailProductId" placeholder="productId" />
+            <input type="number" id="updateOrderDetailOrderId" placeholder="orderId" />
+            <input type="number" id="updateQuantity" placeholder="quantity" />
+            <button type="button" onclick="updateorderDetail()">Update Order Detail</button>
+        </div>
+
     </div>
 
     <div class="container">
@@ -112,6 +142,16 @@
             <input type="number" id="orderCustomerId" placeholder="customerId" />
             <button type="button" onclick="createorder()">Add Order Item</button>
         </div>
+
+        <div id="updateOrderForm">
+            <label>Update Order</label>
+            <input type="number" id="updateOrderId" placeholder="orderId" />
+            <input type="datetime" id="updateOrderDate" placeholder="orderDate" />
+            <input type="datetime" id="updateShippingDate" placeholder="shippingDate" />
+            <input type="number" id="updateOrderCustomerId" placeholder="customerId" />
+            <button type="button" onclick="updateOrder()">Update Order Item</button>
+        </div>
+
     </div>
 
     <div class="container">
@@ -142,6 +182,19 @@
             <input type="number" id="productPrice" placeholder="price" />
             <button type="button" onclick="createproduct()">Add Order Item</button>
         </div>
+
+
+        <div id="updateProductForm">
+            <label>Update Product</label>
+            <input type="number" id="updateProductId" placeholder="productId" />
+            <input type="text" id="updateProductName" placeholder="name" />
+            <input type="text" id="updateProductDescription" placeholder="description" />
+            <input type="text" id="updateProductSize" placeholder="size" />
+            <input type="number" id="updateProductOrderItemId" placeholder="orderItemId" />
+            <input type="number" id="updateProductPrice" placeholder="price" />
+            <button type="button" onclick="updateProduct()">Update Order Item</button>
+        </div>
+
     </div>
 
     <div class="container">
